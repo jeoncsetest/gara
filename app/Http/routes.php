@@ -294,6 +294,27 @@ Route::group(
             ]);
         });
 
+            /*
+         * Events dashboard
+         */
+        Route::group(['prefix' => 'competitions'], function () {
+
+            /*
+             * ----------
+             * Create Event
+             * ----------
+             */
+            Route::get('/create', [
+                'as'   => 'showCreateCompetition',
+                'uses' => 'CompetitionController@showCreateCompetition',
+            ]);
+
+            Route::post('/create', [
+                'as'   => 'postCreateEvent',
+                'uses' => 'EventController@postCreateEvent',
+            ]);
+        });
+
         /*
          * Upload event images
          */
@@ -367,6 +388,45 @@ Route::group(
                 'uses' => 'EventTicketsController@postUpdateTicketsOrder',
             ]);
 
+			/*
+             * -------
+             * Competitions
+             * -------
+             */
+            Route::get('{event_id}/competitions/', [
+                'as'   => 'showEventCompetitions',
+                'uses' => 'EventCompetitionsController@showCompetitions',
+            ]);
+            Route::get('{event_id}/competitions/edit/{competition_id}', [
+                'as'   => 'showEditCompetition',
+                'uses' => 'EventCompetitionsController@showEditCompetition',
+            ]);
+            Route::post('{event_id}/competitions/edit/{competition_id}', [
+                'as'   => 'postEditCompetition',
+                'uses' => 'EventCompetitionsController@postEditCompetition',
+            ]);
+            Route::get('{event_id}/competitions/create', [
+                'as'   => 'showCreateCompetition',
+                'uses' => 'EventCompetitionsController@showCreateCompetition',
+            ]);
+            Route::post('{event_id}/competitions/create', [
+                'as'   => 'postCreateCompetition',
+                'uses' => 'EventCompetitionsController@postCreateCompetition',
+            ]);
+            Route::post('{event_id}/competitions/delete', [
+                'as'   => 'postDeleteCompetition',
+                'uses' => 'EventCompetitionsController@postDeleteCompetition',
+            ]);
+            Route::post('{event_id}/competitions/pause', [
+                'as'   => 'postPauseCompetition',
+                'uses' => 'EventCompetitionsController@postPauseCompetition',
+            ]);
+            Route::post('{event_id}/competitions/order', [
+                'as'   => 'postUpdateCompetitionsOrder',
+                'uses' => 'EventCompetitionsController@postUpdateCompetitionsOrder',
+            ]);
+			
+			
             /*
              * -------
              * Attendees

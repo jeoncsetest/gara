@@ -9,6 +9,7 @@ return array (
   'action' => 'Action',
   'affiliates' => 'Affiliates',
   'attendees' => 'Attendees',
+  'competitions' => 'Competitions',
   'back_to_login' => 'Back to login',
   'back_to_page' => 'Back To :page',
   'cancel' => 'Cancel',
