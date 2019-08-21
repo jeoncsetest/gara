@@ -107,6 +107,16 @@ class Event extends MyBaseModel
         return $this->hasMany(\App\Models\Ticket::class);
     }
 
+      /**
+     * The Competitions associated with the event.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function competitions()
+    {
+        return $this->hasMany(\App\Models\Competition::class);
+    }
+
     /**
      * The stats associated with the event.
      *
