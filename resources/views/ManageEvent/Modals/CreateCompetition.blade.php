@@ -1,3 +1,67 @@
+<script>
+var count_dyn_field_cat = 1;
+
+dynamic_field_cat(count_dyn_field_cat);
+
+function dynamic_field_cat(number)
+{
+ html = '<tr>';
+        console.info(number);
+       html += '<td><input type="text" name="category[]" class="form-control" /></td>';
+       if(number > 1)
+       {
+           html += '<td><button type="button" name="remove_cat" id="remove_cat" class="btn btn-danger remove">Remove</button></td></tr>';
+           $('#dyn_field_category').append(html);
+       }
+       else
+       {   
+           html += '<td><button type="button" name="add_cat" id="add_cat" class="btn btn-success">Add</button></td></tr>';
+           $('#dyn_field_category').html(html);
+       }
+}
+
+$(document).on('click', '#add_cat', function(){
+ count_dyn_field_cat++;
+ dynamic_field_cat(count_dyn_field_cat);
+});
+
+$(document).on('click', '#remove_cat', function(){
+ count_dyn_field_cat--;
+ $(this).closest("tr").remove();
+});
+
+/* start levels */
+var count_dyn_field_level = 1;
+
+dynamic_field_level(count_dyn_field_level);
+
+function dynamic_field_level(number)
+{
+ html = '<tr>';
+       html += '<td><input type="text" name="level[]" class="form-control" /></td>';
+       if(number > 1)
+       {
+           html += '<td><button type="button" name="remove_level" id="remove_level" class="btn btn-danger remove">Remove</button></td></tr>';
+           $('#dyn_field_level').append(html);
+       }
+       else
+       {   
+           html += '<td><button type="button" name="add_level" id="add_level" class="btn btn-success">Add</button></td></tr>';
+           $('#dyn_field_level').html(html);
+       }
+}
+
+$(document).on('click', '#add_level', function(){
+    count_dyn_field_level++;
+dynamic_field_level(count_dyn_field_level);
+});
+
+$(document).on('click', '#remove_level', function(){
+    count_dyn_field_level--;
+ $(this).closest("tr").remove();
+});
+/* end levels */
+</script>
 <div role="dialog"  class="modal fade" style="display: none;">
    {!! Form::open(array('url' => route('postCreateCompetition', array('event_id' => $event->id)), 'class' => 'ajax')) !!}
     <div class="modal-dialog">
@@ -32,13 +96,19 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('level', trans("Competition.competition_level"), array('class'=>'control-label required')) !!}
-                            {!!  Form::text('level', Input::old('level'),
+                           
+                           <!-- {!!  Form::text('level', Input::old('level'),
                                         array(
                                         'class'=>'form-control',
                                         'required' => 'required',
                                         'placeholder'=>trans("Competition.competition_level_placeholder")
-                                        ))  !!}
+                                        ))  !!}-->
+                            <table class="table table-bordered table-striped" id="user_table">
+                            <tbody id='dyn_field_level'>
+                            </tbody>
+                            </table>
                         </div>
+                        <!--
                         <div class="form-group">
                             {!! Form::label('category', trans("Competition.competition_category"), array('class'=>'control-label required')) !!}
                             {!!  Form::text('category', Input::old('category'),
@@ -48,6 +118,13 @@
                                         'placeholder'=>trans("Competition.competition_category_
                                         placeholder")
                                         ))  !!}
+                        </div>-->
+                        <div class="form-group">
+                            {!! Form::label('category', trans("Competition.competition_category"), array('class'=>'control-label required')) !!}
+                            <table class="table table-bordered table-striped" id="user_table">
+                            <tbody id='dyn_field_category'>
+                            </tbody>
+                            </table>
                         </div>
                         <div class="row more-options">
                             <div class="col-md-12">
@@ -111,3 +188,4 @@
        {!! Form::close() !!}
     </div>
 </div>
+

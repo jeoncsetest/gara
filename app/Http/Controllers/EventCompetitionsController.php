@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Competition;
+use App\Models\Category;
+use App\Models\Level;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Log;
 
 
@@ -88,54 +91,25 @@ class EventCompetitionsController extends MyBaseController
      */
     public function postCreateCompetition(Request $request, $event_id)
     {
-        $request->validate([
+       $request->validate([
             'title' => 'required',
-            'level' => 'required',
-            'category' => 'required',
+            'level.*' => 'required',
+            'category.*' => 'required',
             'type' => 'required',
             'price' => 'numeric|min:1',
             'max_competitors' => 'numeric|min:1'
         ]);
+
         Log::debug('creating competition');
-        $competition = competition::createNew();
+        $competition = Competition::createNew();
 		Log::debug('competition created');
-/*
-        if (!$competition->validate($request->all())) {
-            return response()->json([
-                'status'   => 'error',
-                'messages' => $competition->errors(),
-            ]);
-        }
-*/
-		/*
-		Log::debug('$event_id:' + $event_id);
-		Log::debug('$event_id:' + (int)$event_id);
-		*/
 		Log::debug($event_id);
         $competition->event_id = $event_id;
         
         
         $competition->title = strip_tags($request->get('title'));
-        		
-        /*
-Log::debug('title' + strip_tags($request->get('title')));
-
-		Log::debug(strip_tags($request->get('title')));
-		$ticket->quantity_available = !$request->get('quantity_available') ? null : $request->get('quantity_available');
-        $ticket->start_sale_date = $request->get('start_sale_date');
-        $ticket->end_sale_date = $request->get('end_sale_date');
-        $ticket->price = $request->get('price');
-        $ticket->min_per_person = $request->get('min_per_person');
-        $ticket->max_per_person = $request->get('max_per_person');
-		Log::debug($request->get('description')[100]);
-		Log::debug($request->get('description'));
-		*/
         Log::debug('type : '  .$request->get('type'));
         $competition->type = strip_tags($request->get('type'));
-        Log::debug('level : ' .$request->get('level'));
-        $competition->level = strip_tags($request->get('level'));
-        Log::debug('category : ' .$request->get('category'));
-        $competition->category = strip_tags($request->get('category'));
         Log::debug('mp3_upload : ' .$request->get('mp3_upload'));
         $competition->mp3_upload = $request->get('mp3_upload') ? 1 : 0;
         Log::debug('price : ' .$request->get('price'));
@@ -144,16 +118,35 @@ Log::debug('title' + strip_tags($request->get('title')));
         $competition->max_competitors = !$request->get('max_competitors') ? null : $request->get('max_competitors');
         $competition->save();
 
-        // Attach the access codes to the competition if it's hidden and the code ids have come from the front
-		/*
-        if ($competition->is_hidden) {
-            $ticketAccessCodes = $request->get('ticket_access_codes', []);
-            if (empty($ticketAccessCodes) === false) {
-                // Sync the access codes on the ticket
-                $ticket->event_access_codes()->attach($ticketAccessCodes);
-            }
+        /* insert into category tabel */
+        $categories = $request->category;
+        $categoriesColl = new Collection();
+        for($count = 0; $count < count($categories); $count++)
+        {
+        Log::debug('category : ' .$categories[$count]);
+        $categoriesColl->push(
+            new Category([
+                'category' => $categories[$count],
+                'event_id' => $event_id
+            ])
+        );
         }
-		*/
+        $competition->categories()->saveMany($categoriesColl);
+
+         /* insert into level tabel */
+         $levels = $request->level;
+         $levelsColl = new Collection();
+         for($count = 0; $count < count($levels); $count++)
+         {
+         Log::debug('level : ' .$levels[$count]);
+         $levelsColl->push(
+             new Level([
+                 'level' => $levels[$count],
+                 'event_id' => $event_id
+             ])
+         );
+         }
+         $competition->levels()->saveMany($levelsColl);
 
         session()->flash('message', 'Successfully Created Competition');
 
@@ -168,7 +161,7 @@ Log::debug('title' + strip_tags($request->get('title')));
     }
 
     /**
-     * Pause ticket / take it off sale
+     * Pause Competition / take it off sale
      *
      * @param Request $request
      * @return mixed
@@ -256,9 +249,8 @@ Log::debug('title' + strip_tags($request->get('title')));
 
         $request->validate([
             'title' => 'required',
-            'level' => 'required',
-            'category' => 'required',
-            /*'type' => 'required',*/
+             /*'level' => 'required',
+            'type' => 'required',*/
             'price' => 'numeric|min:1',
             'max_competitors' => 'numeric|min:1'
         ]);
@@ -280,8 +272,12 @@ Log::debug('title' + strip_tags($request->get('title')));
         $competition->title = $request->get('title');
         $competition->max_competitors = !$request->get('max_competitors') ? null : $request->get('max_competitors');
         $competition->price = $request->get('price');
+       /*
         $competition->level = $request->get('level');
         $competition->category = $request->get('category');
+        */
+        $competition->mp3_upload = $request->get('mp3_upload') ? 1 : 0;
+        $competition->type = strip_tags($request->get('type'));
         $competition->save();
 
         return response()->json([

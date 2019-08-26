@@ -427,8 +427,6 @@ $(function () {
         });
         e.preventDefault();
     });
-
-
 });
 
 function changeQuestionType(select)

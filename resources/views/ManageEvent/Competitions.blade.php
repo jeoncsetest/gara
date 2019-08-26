@@ -62,7 +62,7 @@
         <!--/ Toolbar -->
     </div>
     <div class="col-md-3">
-        {!! Form::open(array('url' => route('showEditCompetition', ['event_id'=>$event->id,'sort_by'=>$sort_by]), 'method' => 'get')) !!}
+        {!! Form::open(array('url' => route('showEventCompetitions', ['event_id'=>$event->id,'sort_by'=>$sort_by]), 'method' => 'get')) !!}
         <div class="input-group">
             <input name='q' value="{{$q or ''}}" placeholder="@lang("Competition.search_competitions")" type="text" class="form-control">
         <span class="input-group-btn">

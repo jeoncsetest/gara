@@ -16,6 +16,15 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
+                    	<div class="form-group">
+                            {!! Form::label('type', trans("Competition.competition_type"), array('class'=>'control-label required')) !!}
+                            {!! Form::select('type', array('S' => trans("Competition.competition_type_single"),
+                             'D' => trans("Competition.competition_type_double"), 'G' => trans("Competition.competition_type_group"))) !!}
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             {!! Form::label('price', trans("ManageEvent.ticket_price"), array('class'=>'control-label required')) !!}
                             {!!  Form::text('price', null,
@@ -41,23 +50,33 @@
                 </div>
 
                 <div class="form-group more-options">
-                    {!! Form::label('level', trans("Competition.level"), array('class'=>'control-label')) !!}
-                    {!!  Form::text('level', null,
-                                array(
-                                'class'=>'form-control',
-                                'required' => 'required'
-                                ))  !!}
+                    {!! Form::label('level', trans("Competition.competition_level"), array('class'=>'control-label')) !!}
+                    <select>
+                    @foreach ($competition->levels as $iter)
+                                                            <option value="{{ $iter->id }}">{{ $iter->level }}</option>">
+                                                        @endforeach
+                                                        </select>
                 </div>
-
                 <div class="form-group more-options">
-                    {!! Form::label('category', trans("Competition.category"), array('class'=>'control-label')) !!}
-                    {!!  Form::text('category', null,
-                                array(
-                                'class'=>'form-control',
-                                'required' => 'required'
-                                ))  !!}
+                    {!! Form::label('category', trans("Competition.competition_category"), array('class'=>'control-label')) !!}
+                    <select>
+                    @foreach ($competition->categories as $iter)
+                                                            <option value="{{ $iter->id }}">{{ $iter->category }}</option>">
+                                                        @endforeach
+                                                        </select>
                 </div>
+                <div class="form-group more-options">
+                                <div class="form-group">
+                                    <div class="custom-checkbox">
+                                        {!! Form::checkbox('mp3_upload', null, null, ['id' => 'mp3_upload']) !!}
+                                        {!! Form::label('mp3_upload', trans("Competition.competition_mp3"), 
+                                            array(
+                                                'class'=>' control-label'
+                                                )) !!}
+                                    </div>
 
+                                </div>
+                            </div>
 
                 <a href="javascript:void(0);" class="show-more-options">
                     @lang("ManageEvent.more_options")
@@ -65,7 +84,7 @@
             </div> <!-- /end modal body-->
             <div class="modal-footer">
                 {!! Form::button(trans("basic.cancel"), ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
-                {!! Form::submit(trans("ManageCompetition.save_competition"), ['class'=>"btn btn-success"]) !!}
+                {!! Form::submit(trans("Competition.save_competition"), ['class'=>"btn btn-success"]) !!}
             </div>
         </div><!-- /end modal content-->
        {!! Form::close() !!}

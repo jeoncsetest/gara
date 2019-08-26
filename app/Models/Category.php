@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use DB;
 
 
-class Competition extends MyBaseModel
+class Category extends MyBaseModel
 {
       /**
      * The validation rules
@@ -16,8 +16,8 @@ class Competition extends MyBaseModel
      */
     protected $rules = [
         'event_id' => ['required'],
-        'title'  => ['required'],
-        'level'	=> ['required'],
+        'competition_id'  => ['required'],
+        'category'	=> ['required'],
     ];
 	
 	 /**
@@ -34,23 +34,12 @@ class Competition extends MyBaseModel
      */
     protected $fillable = [
         'event_id',
-        'title',
-        'level',
+        'competition_id',
         'category'
     ];
-	
-	   /**
-     * Get the levels for the blog post.
-     */
-    public function levels()
-    {
-		return $this->hasMany(\App\Models\Level::class);
-    }
-		   /**
-     * Get the  for the blog post.
-     */
-    public function categories()
-    {
-		return $this->hasMany(\App\Models\Category::class);
-    }
+	public function competition()
+{
+    return $this->belongsTo('App\Competition');
+	return $this->belongsTo(Competition::class, 'competition_id', 'id');
+}
 }
