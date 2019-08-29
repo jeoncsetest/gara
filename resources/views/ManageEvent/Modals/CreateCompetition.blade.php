@@ -1,4 +1,7 @@
 <script>
+$('.refrsh-closeModal').on('click', function() {
+    window.location.reload();
+});
 var count_dyn_field_cat = 1;
 
 dynamic_field_cat(count_dyn_field_cat);
@@ -6,7 +9,6 @@ dynamic_field_cat(count_dyn_field_cat);
 function dynamic_field_cat(number)
 {
  html = '<tr>';
-        console.info(number);
        html += '<td><input type="text" name="category[]" class="form-control" /></td>';
        if(number > 1)
        {
@@ -67,7 +69,7 @@ $(document).on('click', '#remove_level', function(){
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <button type="button" class="close" data-dismiss="modal">×</button>
+                <button type="button" id="modal1" class="close refrsh-closeModal" data-dismiss="modal">×</button>
                 <h3 class="modal-title">
                     <i class="ico-ticket"></i>
                     @lang("Competition.create_competition")</h3>
@@ -181,7 +183,7 @@ $(document).on('click', '#remove_level', function(){
 
             </div> <!-- /end modal body-->
             <div class="modal-footer">
-               {!! Form::button(trans("basic.cancel"), ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
+               {!! Form::button(trans("basic.cancel"), ['class'=>"btn modal-close btn-danger refrsh-closeModal",'data-dismiss'=>'modal', 'id'=>'cancButtonMod']) !!}
                {!! Form::submit(trans("Competition.create_competition"), ['class'=>"btn btn-success"]) !!}
             </div>
         </div><!-- /end modal content-->

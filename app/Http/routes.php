@@ -77,6 +77,16 @@ Route::group(
             'uses' => 'RemindersController@postReset',
         ]);
 
+
+        Route::get('/eventList', [
+            'as'   => 'showEventListPage',
+            'uses' => 'EventViewController@showEventListHome',
+        ]);
+
+        Route::get('/{event_id}/subscription', [
+            'as'   => 'showSubscriptionPage',
+            'uses' => 'EventViewController@showSubscriptionPage',
+        ]);
         /*
          * Registration / Account creation
          */
@@ -292,6 +302,12 @@ Route::group(
                 'as'   => 'postCreateEvent',
                 'uses' => 'EventController@postCreateEvent',
             ]);
+
+            Route::get('/showEvents', [
+                'as'   => 'showEvents',
+                'uses' => 'EventController@showEvents',
+            ]);
+
         });
 
             /*
@@ -301,7 +317,7 @@ Route::group(
 
             /*
              * ----------
-             * Create Event
+             * Create Competition
              * ----------
              */
             Route::get('/create', [

@@ -7,8 +7,11 @@ use App\Models\Affiliate;
 use App\Models\Event;
 use App\Models\EventAccessCodes;
 use App\Models\EventStats;
+use Carbon\Carbon;
+use DB;
 use Auth;
 use Cookie;
+use DateTime;
 use Illuminate\Http\Request;
 use Mail;
 use Validator;
@@ -67,6 +70,60 @@ class EventViewController extends Controller
         }
 
         return view('Public.ViewEvent.EventPage', $data);
+    }
+
+    /**
+     * Show the homepage for subscritpion
+     *
+     * @param Request $request
+     * @param $event_id
+     * @param string $subs_slug
+     * @param bool $preview
+     * @return mixed
+     */
+    public function showSubscriptionPage(Request $request, $event_id, $slug = '', $preview = false)
+    {
+        $event = Event::findOrFail($event_id);
+        
+        if (!Utils::userOwns($event) && !$event->is_live) {
+            return view('Public.ViewEvent.EventNotLivePage');
+        }
+
+        $data = [
+            'event' => $event,
+            'competitions' => $event->competitions()->orderBy('id', 'asc')->get(),
+            'is_embedded' => 0,
+        ];
+        /*
+         * Don't record stats if we're previewing the event page from the backend or if we own the event.
+         */
+        if (!$preview && !Auth::check()) {
+            $event_stats = new EventStats();
+            $event_stats->updateViewCount($event_id);
+        }
+
+        /*
+         * See if there is an affiliate referral in the URL
+         */
+        if ($affiliate_ref = $request->get('ref')) {
+            $affiliate_ref = preg_replace("/\W|_/", '', $affiliate_ref);
+
+            if ($affiliate_ref) {
+                $affiliate = Affiliate::firstOrNew([
+                    'name'       => $request->get('ref'),
+                    'event_id'   => $event_id,
+                    'account_id' => $event->account_id,
+                ]);
+
+                ++$affiliate->visits;
+
+                $affiliate->save();
+
+                Cookie::queue('affiliate_' . $event_id, $affiliate_ref, 60 * 24 * 60);
+            }
+        }
+
+        return view('Public.ViewEvent.EventSubscriptionPage', $data);
     }
 
     /**
@@ -179,5 +236,39 @@ class EventViewController extends Controller
             'tickets' => $unlockedHiddenTickets,
             'is_embedded' => 0,
         ]);
+    }
+
+    /**
+     * Show the homepage
+     *
+     * @param Request $request
+     * @param $event_id
+     * @param string $slug
+     * @param bool $preview
+     * @return mixed
+     */
+    public function showEventListHome(Request $request)
+    {
+        $mytime = Carbon::now();
+        $eventDay = '';
+        $mytime2 = $mytime->toDateTimeString('Y-m-d H:i:s');
+        $events = DB::table('events')
+                ->whereDate('end_date', '>=', $mytime)
+                ->Where('is_live', '=', 1)
+                ->get();
+
+                $data = [
+                    'events' => $events
+                ];
+        foreach ($events as $e1) {
+            echo $e1->title;
+            echo $e1->start_date;
+            $mytime2 = Carbon::createFromFormat('Y-m-d H:i:s', $e1->start_date);
+            echo $mytime2->format('l');
+        }
+
+        $datetime = DateTime::createFromFormat('YmdHi', '201308131830');
+        echo $datetime->format('D');
+        return view('Public.ViewEvent.EventListPage', $data);
     }
 }

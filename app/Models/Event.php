@@ -431,4 +431,12 @@ ICSTemplate;
     {
         return (is_null($this->access_codes()->where('id', $accessCodeId)->first()) === false);
     }
+
+       /**
+     * Get the compettitons.
+     */
+    public function compettitons()
+    {
+		return $this->hasMany(\App\Models\Compettiton::class);
+    }
 }
