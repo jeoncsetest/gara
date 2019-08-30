@@ -86,6 +86,16 @@ class Event extends MyBaseModel
     {
         return $this->hasMany(\App\Models\EventImage::class);
     }
+	
+	   /**
+     * The pdfs associated with the event.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function pdfs()
+    {
+        return $this->hasMany(\App\Models\EventPdf::class);
+    }
 
     /**
      * The messages associated with the event.

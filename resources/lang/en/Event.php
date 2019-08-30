@@ -21,6 +21,7 @@ return array (
   'event_end_date' => 'Event End Date',
   'event_flyer' => 'Event Flyer',
   'event_image' => 'Event Image (Flyer or Graphic etc.)',
+  'event_pdf' => 'Event rules and regulations(pdf)',
   'event_image_position' => 'Event Image Position',
   'event_image_position_hide' => 'Hidden',
   'event_image_position_before' => 'Before',

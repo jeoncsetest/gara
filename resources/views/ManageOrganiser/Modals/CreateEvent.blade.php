@@ -66,6 +66,11 @@
                             {!! Form::styledFile('event_image') !!}
 
                         </div>
+						 <div class="form-group">
+                            {!! Form::label('event_pdf', trans("Event.event_pdf"), array('class'=>'control-label ')) !!}
+                            {!! Form::styledFile('event_pdf') !!}
+
+                        </div>
                         <div class="form-group address-automatic">
                             {!! Form::label('name', trans("Event.venue_name"), array('class'=>'control-label required ')) !!}
                             {!!  Form::text('venue_name_full', Input::old('venue_name_full'),

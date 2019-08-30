@@ -9,6 +9,7 @@ use Validator;
 use App\Models\Event;
 use App\Models\Organiser;
 use App\Models\EventImage;
+use App\Models\EventPdf;
 use Illuminate\Http\Request;
 use Spatie\GoogleCalendar\Event as GCEvent;
 
@@ -190,6 +191,23 @@ class EventController extends MyBaseController
             $eventImage->image_path = config('attendize.event_images_path') . '/' . $filename;
             $eventImage->event_id = $event->id;
             $eventImage->save();
+        }
+
+        if ($request->hasFile('event_pdf')) {
+            $path = public_path() . '/' . config('attendize.event_pdfs_path');
+            $filename = 'event_pdf-' . md5(time() . $event->id) . '.' . strtolower($request->file('event_pdf')->getClientOriginalExtension());
+
+            $file_full_path = $path . '/' . $filename;
+
+            $request->file('event_pdf')->move($path, $filename);
+
+            /* Upload to s3 */
+            \Storage::put(config('attendize.event_pdfs_path') . '/' . $filename, file_get_contents($file_full_path));
+
+            $eventPdf = EventPdf::createNew();
+            $eventPdf->pdf_path = config('attendize.event_pdfs_path') . '/' . $filename;
+            $eventPdf->event_id = $event->id;
+            $eventPdf->save();
         }
 
         return response()->json([
