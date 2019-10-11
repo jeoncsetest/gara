@@ -1,6 +1,5 @@
 /.env.testing
 /.phpstorm.meta.php
-/vendor
 /node_modules
 .env
 .idea
