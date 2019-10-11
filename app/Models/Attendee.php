@@ -51,7 +51,7 @@ class Attendee extends MyBaseModel
                 $token = Str::Random(15);
             } //check if the token already exists and if it does, try again
 
-            while (Attendee::where('private_reference_number', $token)->first());
+            while (Attendee::where('private_reference_number', $token)->first() || Subscription::where('private_reference_number', $token)->first());
             $order->private_reference_number = $token;
         });
 

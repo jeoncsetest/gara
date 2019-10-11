@@ -39,7 +39,6 @@ class Category extends MyBaseModel
     ];
 	public function competition()
 {
-    return $this->belongsTo('App\Competition');
 	return $this->belongsTo(Competition::class, 'competition_id', 'id');
 }
 }

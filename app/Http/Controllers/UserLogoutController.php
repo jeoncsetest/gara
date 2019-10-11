@@ -25,4 +25,17 @@ class UserLogoutController extends Controller
         Session::flush();
         return redirect()->to('/?logged_out=yup');
     }
+
+    
+    /**
+     * Log a user out and redirect them
+     *
+     * @return mixed
+     */
+    public function doLogoutSimple()
+    {
+        $this->auth->logout();
+        Session::flush();
+        return redirect()->to('/eventList?logged_out=yup');
+    }
 }

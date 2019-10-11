@@ -1,7 +1,6 @@
-@extends('Public.ViewEvent.Layouts.EventPage')
-
-@section('head')
-    @include('Public.ViewEvent.Partials.GoogleTagManager')
+@extends('Public.ViewEvent.Layouts.master')
+@section('title')
+Ticket Cart
 @endsection
 
 @section('content')
@@ -13,4 +12,9 @@
     @include('Public.ViewEvent.Partials.EventOrganiserSection')
     @include('Public.ViewEvent.Partials.EventFooterSection')
 @stop
+
+@section('scripts')
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+@endsection
+
 

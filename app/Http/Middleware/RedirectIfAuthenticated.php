@@ -5,6 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\RedirectResponse;
+use Auth;
+use App\Models\Account;
+use Log;
 
 class RedirectIfAuthenticated
 {
@@ -37,8 +40,23 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next)
     {
+        /*
+            if ($this->auth->check()) {
+              return new RedirectResponse(route('showSelectOrganiser'));
+        }
+        */
+        /* modification to utilize the same user aithentication used by attendize in front end */
+        $session_usr_name = $request->session()->get('name');
+        Log::debug('session_usr_name :' .$session_usr_name);
         if ($this->auth->check()) {
-            return new RedirectResponse(route('showSelectOrganiser'));
+            $account = Account::find(Auth::user()->account_id);
+           
+            if ($account->account_type == config('attendize.simple_account_type') || 
+                $account->account_type == config('attendize.ticket_account_type')){
+              return new RedirectResponse(route('showEventListPage'));
+            }else{
+              return new RedirectResponse(route('showSelectOrganiser'));
+            }
         }
 
         return $next($request);

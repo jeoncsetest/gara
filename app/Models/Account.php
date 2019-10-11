@@ -19,6 +19,7 @@ class Account extends MyBaseModel
         'first_name' => ['required'],
         'last_name'  => ['required'],
         'email'      => ['required', 'email'],
+        'account_type'  => ['required'],
     ];
 
     /**
@@ -65,7 +66,8 @@ class Account extends MyBaseModel
         'stripe_refresh_token',
         'stripe_secret_key',
         'stripe_publishable_key',
-        'stripe_data_raw'
+        'stripe_data_raw',
+        'account_type'
     ];
 
     /**

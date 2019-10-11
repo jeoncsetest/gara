@@ -115,4 +115,6 @@ return array (
   'tickets_for_event' => 'Your tickets for the event :event.',
   'whoops' => 'Whoops! Looks like something went wrong. Please try again.',
   'your_password_reset_link' => 'Your Password Reset Link',
+  
+   'warn_already_subscribed' => ' Warning: <b>:competitor_name</b> is already registered for the competition <b>:competition_name</b>',
 );

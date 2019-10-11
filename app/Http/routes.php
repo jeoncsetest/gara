@@ -41,6 +41,12 @@ Route::group(
         'as'   => 'logout',
     ]);
 
+    Route::any('/logoutSimple', [
+        'uses' => 'UserLogoutController@doLogoutSimple',
+        'as'   => 'logoutSimple',
+    ]);
+
+
     Route::group(['middleware' => ['installed']], function () {
 
         /*
@@ -51,6 +57,16 @@ Route::group(
             'uses' => 'UserLoginController@showLogin',
         ]);
         Route::post('/login', 'UserLoginController@postLogin');
+
+           /*
+         * LoginSimple
+         */
+        Route::get('/loginSimple', [
+            'as'   => 'loginSimple',
+            'uses' => 'UserLoginController@showSimpleLogin',
+        ]);
+        Route::post('/loginSimple', 'UserLoginController@postSimpleLogin');
+        
 
         /*
          * Forgot password
@@ -85,7 +101,48 @@ Route::group(
 
         Route::get('/{event_id}/subscription', [
             'as'   => 'showSubscriptionPage',
-            'uses' => 'EventViewController@showSubscriptionPage',
+            'uses' => 'EventSubscriptionController@showSubscriptionPage',
+        ]);
+        /*
+        Route::get('{event_id}/getSubscriptionCart', [
+            'as'   => 'getSubscriptionCart',
+            'uses' => 'EventSubscriptionController@getSubscriptionCart',
+        ]);
+        */
+        Route::post('{event_id}/checkoutSubscription/create', [
+            'as'   => 'postSubscriptionCreateOrder',
+            'uses' => 'EventCheckoutController@postSubscriptionCreateOrder',
+        ]);
+
+        Route::get('/showCart', [
+            'as'   => 'showCart',
+            'uses' => 'EventSubscriptionController@showCart',
+        ]);
+
+        Route::post('{event_id}/checkout_subscription/', [
+            'as'   => 'postValidateCartItems',
+            'uses' => 'EventCheckoutController@postValidateCartItems',
+        ]);
+
+        Route::post('/postUploadMp3', [
+            'as'   => 'postUploadMp3',
+            'uses' => 'EventSubscriptionController@postUploadMp3',
+        ]);
+        
+
+        Route::get('{event_id}/checkout_subscription/create', [
+            'as'   => 'showEventSubscriptionCheckout',
+            'uses' => 'EventCheckoutController@showEventSubscriptionCheckout',
+        ]);
+
+        Route::post('/{event_id}/addToCart', [
+            'as'   => 'postAddSubscriptionToCart',
+            'uses' => 'EventSubscriptionController@postAddSubscriptionToCart',
+        ]);
+
+        Route::post('{/removeFromCart', [
+            'as'   => 'removeFromCart',
+            'uses' => 'EventSubscriptionController@postRemoveSubscriptionFromCart',
         ]);
         /*
          * Registration / Account creation
@@ -94,7 +151,30 @@ Route::group(
             'uses' => 'UserSignupController@showSignup',
             'as'   => 'showSignup',
         ]);
+
+        Route::get('/signupSimple', [
+            'uses' => 'UserSignupController@showSignupSimple',
+            'as'   => 'showSignupSimple',
+        ]);
+
         Route::post('/signup', 'UserSignupController@postSignup');
+
+        Route::post('/signupSimple', 'UserSignupController@postSignupSimple');
+
+
+        /** gestione front-end
+         * 
+         */
+
+        Route::get('/homepage', [
+            'uses' => 'HomepageController@homepage',
+            'as'   => 'homepage',
+        ]);
+
+        Route::get('/showDanceEvent', [
+            'uses' => 'HomepageController@showDanceEvent',
+            'as'   => 'showDanceEvent',
+        ]);
 
         /*
          * Confirm Email

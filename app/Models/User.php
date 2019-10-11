@@ -168,4 +168,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         $this->notify(new UserResetPassword($token));
     }
+    
+    /**
+     * A school may be associated with an user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function school()
+    {
+        return $this->hasOne(\App\Models\School::class);
+    }
+
 }

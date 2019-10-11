@@ -11,8 +11,14 @@ class IndexController extends Controller
      * @param  Request $request http request
      * @return \Illuminate\Http\RedirectResponse
      */
+    /*
     public function showIndex(Request $request)
     {
         return redirect()->route('showSelectOrganiser');
+    }
+    */
+    public function showIndex(Request $request)
+    {
+        return view('Public.ViewEvent.UnderConstructionPage');
     }
 }

@@ -69,7 +69,14 @@ return [
     'default_query_cache'        => 120, #Minutes
     'default_locale'             => 'en',
     'default_payment_gateway'    => 1, #Stripe=1 Paypal=2
+    'default_account_type'       => 'ADMIN',
+    'simple_account_type'       => 'SIMPLE',
+    'ticket_account_type'       => 'TICKET',
 
+    'signup_type_ticket' => 'TICKET',
+    'signup_type_student' => 'STUDENT',
+    'signup_type_school' => 'SCHOOL',
+    
     'cdn_url_user_assets'   => '',
     'cdn_url_static_assets' => '',
 

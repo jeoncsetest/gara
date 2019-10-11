@@ -15,6 +15,8 @@ use DateTime;
 use Illuminate\Http\Request;
 use Mail;
 use Validator;
+use Log;
+use App\Models\Account;
 
 class EventViewController extends Controller
 {
@@ -29,6 +31,19 @@ class EventViewController extends Controller
      */
     public function showEventHome(Request $request, $event_id, $slug = '', $preview = false)
     {
+        
+        if (empty(Auth::user())) {
+            Log::debug('redirect to login page');
+           
+            return redirect()->to('/loginSimple');
+        }
+        /*else{
+            $account = Account::find(Auth::user()->account_id);
+            if($account->account_type == config('attendize.simple_account_type')){
+                return redirect()->route('showEventListPage');
+            }
+        }
+        */
         $event = Event::findOrFail($event_id);
 
         if (!Utils::userOwns($event) && !$event->is_live) {
@@ -72,60 +87,7 @@ class EventViewController extends Controller
         return view('Public.ViewEvent.EventPage', $data);
     }
 
-    /**
-     * Show the homepage for subscritpion
-     *
-     * @param Request $request
-     * @param $event_id
-     * @param string $subs_slug
-     * @param bool $preview
-     * @return mixed
-     */
-    public function showSubscriptionPage(Request $request, $event_id, $slug = '', $preview = false)
-    {
-        $event = Event::findOrFail($event_id);
-        
-        if (!Utils::userOwns($event) && !$event->is_live) {
-            return view('Public.ViewEvent.EventNotLivePage');
-        }
-
-        $data = [
-            'event' => $event,
-            'competitions' => $event->competitions()->orderBy('id', 'asc')->get(),
-            'is_embedded' => 0,
-        ];
-        /*
-         * Don't record stats if we're previewing the event page from the backend or if we own the event.
-         */
-        if (!$preview && !Auth::check()) {
-            $event_stats = new EventStats();
-            $event_stats->updateViewCount($event_id);
-        }
-
-        /*
-         * See if there is an affiliate referral in the URL
-         */
-        if ($affiliate_ref = $request->get('ref')) {
-            $affiliate_ref = preg_replace("/\W|_/", '', $affiliate_ref);
-
-            if ($affiliate_ref) {
-                $affiliate = Affiliate::firstOrNew([
-                    'name'       => $request->get('ref'),
-                    'event_id'   => $event_id,
-                    'account_id' => $event->account_id,
-                ]);
-
-                ++$affiliate->visits;
-
-                $affiliate->save();
-
-                Cookie::queue('affiliate_' . $event_id, $affiliate_ref, 60 * 24 * 60);
-            }
-        }
-
-        return view('Public.ViewEvent.EventSubscriptionPage', $data);
-    }
-
+   
     /**
      * Show preview of event homepage / used for backend previewing
      *
@@ -257,18 +219,23 @@ class EventViewController extends Controller
                 ->Where('is_live', '=', 1)
                 ->get();
 
-                $data = [
-                    'events' => $events
-                ];
+        $eventsList =[];
         foreach ($events as $e1) {
+            $event = Event::findOrFail($e1->id);
+            $eventsList[] = $event;
+            /*
             echo $e1->title;
-            echo $e1->start_date;
+            echo $e1->start_date;*/
             $mytime2 = Carbon::createFromFormat('Y-m-d H:i:s', $e1->start_date);
-            echo $mytime2->format('l');
+            /*echo $mytime2->format('l');*/
         }
+        $data = [
+            'events' => $eventsList
+        ];
 
         $datetime = DateTime::createFromFormat('YmdHi', '201308131830');
-        echo $datetime->format('D');
-        return view('Public.ViewEvent.EventListPage', $data);
+        /*echo $datetime->format('D');*/
+        /*Log::debug('mi porta evet view controller su EventDancePage');*/
+        return view('Public.ViewEvent.EventDancePage', $data);
     }
 }

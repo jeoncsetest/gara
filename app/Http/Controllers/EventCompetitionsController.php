@@ -84,7 +84,7 @@ class EventCompetitionsController extends MyBaseController
     }
 
     /**
-     * Creates a ticket
+     * Creates a competition
      *
      * @param $event_id
      * @return \Illuminate\Http\JsonResponse
