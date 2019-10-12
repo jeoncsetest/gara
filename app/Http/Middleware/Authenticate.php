@@ -29,7 +29,8 @@ class Authenticate
             Log::debug('session_usr_name :' .$session_usr_name);
             
             if ($account->account_type == config('attendize.simple_account_type') || 
-            $account->account_type == config('attendize.ticket_account_type') || empty($session_usr_name)) {
+            $account->account_type == config('attendize.ticket_account_type') || 
+            ($account->account_type != config('attendize.default_account_type')  && empty($session_usr_name))) {
               return new RedirectResponse(route('showEventListPage'));
             }
         }
