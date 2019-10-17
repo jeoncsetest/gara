@@ -14,7 +14,7 @@ use App\Models\OrderItem;
 use App\Models\PaymentGateway;
 use App\Models\QuestionAnswer;
 use App\Models\ReservedTickets;
-use App\Models\reservedCompetitions;
+use App\Models\ReservedCompetitions;
 use App\Models\Competition;
 use App\Models\Subscription;
 use App\Models\Student;
