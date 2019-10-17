@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
   <a class="navbar-brand" href=" {{ asset('/homepage') }} ">
-  <img src=" {{ asset('/bootstrap/logo1.png') }} " width="120" height="30" class="d-inline-block align-top" alt="">
+  <img src=" {{ asset('/bootstrap/logo1.png') }} " width="120" height="40" style="padding-top:5%" class="d-inline-block" alt="">
 </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -28,23 +28,21 @@
 @endif
   
 @if(Session::has('name'))
-  
-  
-   <div class="dropdown">
-   <span>
-
-<strong class= 'btn-outline-success'>{{Session::get('surname')}} {{Session::get('name')}}</strong>
-</span>
-
+<h3 class= 'btn-outline-success' style="padding-right: 3%;">{{Session::get('surname')}} {{Session::get('name')}}</h3>
 <!--@if(Session::has('account_type') && Session::get('account_type') == 'SIMPLE')-->
-<span>
+<span style="padding-right: 1%;">
        
-        <a href="#" class="btn btn-secondary btn-outline-success my-2 my-sm-0" type="button"  aria-haspopup="true" aria-expanded="false">
-        <span class="glyphicon glyphicon-shopping-cart section_head_carello"> {{Cart::count()}}</span>
+        <a href="#" class=" btn-outline-success my-2 my-sm-0"  aria-haspopup="true" aria-expanded="false">
+        <!--<span class="ico-cart mr5 section_head_carello"> {{Cart::count()}}</span>-->
+        <i class="ico-cart mr5 section_head_carello"> {{Cart::count()}}</i>
     </a>
           
 
       </span>
+  
+   <div class="dropdown">
+
+
  <!--@endif-->
  
     <button class="btn btn-secondary dropdown-toggle btn-outline-success my-2 my-sm-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

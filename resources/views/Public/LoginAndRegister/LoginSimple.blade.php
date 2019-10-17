@@ -32,7 +32,7 @@
                
                     <div class="signup">
                     <!--<span>@lang("User.dont_have_account_button", ["url"=> route('showSignupSimple', ['signupType'=>'STUDENT'])])</span>-->
-                    Non hai un account? <a href="#"><span data-toggle="modal" data-target="#exampleModal">Iscriviti</span></a>
+                    Non hai un account? <a  data-toggle="modal" data-target="#exampleModal" href="#"><span>Iscriviti</span></a>
      
                     
                 <div class="modal " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
