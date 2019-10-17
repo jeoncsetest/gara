@@ -1,4 +1,4 @@
-@extends('Shared.Layouts.MasterWithoutMenus')
+@extends('Shared.Layouts.MasterDanceWithoutMenus')
 
 @section('title', trans("User.login"))
 
