@@ -1,11 +1,9 @@
+<div class="container">
+
 @if(Cart::count()>0)
 {!! Form::open(['url' => route('postValidateCartItems', ['event_id' => $event->id]), 'class' => 'ajax gf',  'enctype'=>'multipart/form-data']) !!}
 <div class="row" id="div_event_dance_cart">
-<h1 class='section_head_carello'>
-    Carello :<span id='section_head_carello'>{{Cart::count()}}</span>
-		
-	</h1>
-  <table>
+	<table class="table table-striped table-light" id="competition_table">
       <thead>
           <tr>
               <th>Identificativo</th>
@@ -21,9 +19,7 @@
       </thead>
 
       <tbody>
-        @foreach(Cart::content() as $row)
-        <!--<input name="cartIds[]" type="hidden" value="{{$row->id}}">-->
-              
+        @foreach(Cart::content() as $row)  
         <tr id="{{$row->rowId}}">
         <td>  
           {!! Form::hidden('cartIds[]', $row->id) !!}
@@ -39,13 +35,7 @@
             <div class="input-group">
             <div class="custom-file">
               <input type="hidden" name="mp3_file_name_{{$row->id}}" value="mp3-{{$event->id}}-{{$row->options->competition_id}}-{{$row->id}}">
-            <!--<a href="#" onclick="uploadMp3('mp3-{{$event->id}}-{{$row->options->competition_id}}-{{$row->id}}')">kkkkkkk</a>-->
-            <!--<button onclick="uploadMp3(mp3-{{$event->id}}-{{$row->options->has('competition_id')}}-{{$row->id}})">kkkkkkk</button>-->
-            <input type="file" name="mp3-{{$event->id}}-{{$row->options->competition_id}}-{{$row->id}}" id="mp3-{{$event->id}}-{{$row->options->competition_id}}-{{$row->id}}" > 
-              <!--
-              <input type="file" id="mp3-{{$event->id}}-{{$row->options->has('competition_id')}}-{{$row->id}}"  class="custom-file-input" 
-                aria-describedby="inputGroupFileAddon01">
-              <label class="custom-file-label" for="inputGroupFile01">Choose file</label>-->
+              <input type="file" name="mp3-{{$event->id}}-{{$row->options->competition_id}}-{{$row->id}}" id="mp3-{{$event->id}}-{{$row->options->competition_id}}-{{$row->id}}" > 
             </div>
           </div>
         </td>
@@ -139,7 +129,7 @@
         </td>
         <td>  
           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-cartrowid="{{$row->rowId}}" data-cartitem="{{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}">Elimina</button>
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -148,24 +138,11 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                    
                   <div class="modal-body">
                   <span>
                     {{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}
                   </span>
-                  <!--
-                    <form>
-                      <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Recipient:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                      </div>
-                      <div class="form-group">
-                        <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                      </div>
-                    </form>-->
                   </div>
-                  
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{trans("Competition.close")}}</button>
                     <button type="button" class="btn btn-primary" id="remove_cart_item" data-dismiss="modal" >{{trans("Competition.confirm")}}</button>
@@ -173,49 +150,39 @@
                 </div>
               </div>
             </div>    
-               <!-- {!! Form::hidden('cartIds[]', $row->id) !!}-->
                <input name="qty_{{$row->id}}" type="hidden" value="{{$row->qty}}">
-
-               <!-- <button type="button" class="btn btn-danger" id="remove_cart_item">Elimina</button ></td>-->
-
       </tr>
-
-
-<!--
-            <p><input name="qty_{{$row->id}}" type="text" value="{{$row->qty}}"></p>-->
-
-          
-     
-
         @endforeach
-
       </tbody>
       
       <tfoot>
-      <!--
         <tr>
-          <td colspan="2">&nbsp;</td>
-          <td>Subtotal</td>
-          <td>{{Cart::subtotal()}}</td>
-        </tr>
-        <tr>
-          <td colspan="2">&nbsp;</td>
-          <td>Tax</td>
-          <td>{{Cart::tax()}}</td>
-        </tr>
-        -->
-        <tr>
-          <td colspan="2">&nbsp;</td>
+          <td>&nbsp;</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
           <td>Total</td>
           <td id="cartTotal">{{money(Cart::subtotal(), $event->currency)}}</td>
         </tr>
         <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
           <td>
-          {!!Form::submit(trans("Public_ViewEvent.register"), ['class' => 'btn btn-lg btn-primary pull-right'])!!}
+              {!!Form::submit(trans("Public_ViewEvent.register"), ['class' => 'btn btn-lg btn-primary pull-right'])!!}
           </td>
         </tr>
       </tfoot>
   </table>
-</div>
+  </div>
 {!! Form::close() !!}
 @endif
+</div>

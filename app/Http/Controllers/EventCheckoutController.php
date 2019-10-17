@@ -604,7 +604,7 @@ class EventCheckoutController extends Controller
         if ($this->is_embedded) {
             return view('Public.ViewEvent.Embedded.EventPageCheckout', $data);
         }
-
+        Log::debug('EventPageCheckout routing');
         return view('Public.ViewEvent.EventPageCheckout', $data);
     }
 
@@ -619,16 +619,18 @@ class EventCheckoutController extends Controller
     {
         Log::debug('soweventCheckout for event: ' .$event_id);
         $order_session = session()->get('competition_order_' . $event_id);
-        $competitions = session()->get('competitions');
+        /*$competitions = session()->get('competitions');*/
 
         if (!$order_session || $order_session['expires'] < Carbon::now()) {
             $route_name = 'showSubscriptionPage';
             Log::debug('$route_name:' .$route_name);
             return redirect()->route($route_name, ['event_id' => $event_id]);
         }
-        if(empty($competitions)){
+        
+        
+        /*if(empty($competitions)){
             Log::debug('ciupa: ' .$order_session['order_total']);
-        }
+        }*/
         $secondsToExpire = Carbon::now()->diffInSeconds($order_session['expires']);
 
         $event = Event::findorFail($order_session['event_id']);

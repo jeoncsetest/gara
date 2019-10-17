@@ -3,9 +3,14 @@
   <div class="carousel-inner">
     <div class="carousel-item active">
     <div class="row">
-
-<img src=" {{ asset('/bootstrap/head.jpg') }} " class="header-img" alt="...">
+    <div class="col-md-4 col-md-offset-4">
+    <div>
+    <img src=" {{ asset('/bootstrap/BEAT_PASS1.png') }} " class="img-fluid" alt="..."></div>
+    <br>
+    <br>
+    </div>
 </div>
+
 </div>
 </div>
 </div>

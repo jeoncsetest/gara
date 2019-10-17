@@ -6,7 +6,7 @@
 @endsection
 
 @section('title')
-SUB
+Sottoscrizione
 @endsection
 
 @section('styles')
@@ -38,10 +38,10 @@ function tempAlert(msg,duration)
 /**add to cart */
 $(document).on('click', '#add_cart_item', function(){
         /**chiamata ajax per eliminare item dal carello */
-       
+
         var rowTobeAdded = $(this).closest("tr").attr('id');
         console.info('row id:' + rowTobeAdded);
-        
+
         var type = $("#competition_table #type_" + rowTobeAdded).val();
         console.info('type:' + type );
         var category = $("#competition_table #category_" + rowTobeAdded+ ' option:selected').text();
@@ -52,7 +52,7 @@ $(document).on('click', '#add_cart_item', function(){
         console.info('title:' + title );
         var price = $("#competition_table #price_" + rowTobeAdded).val();
         console.info('price:' + price );
-        
+
         $.ajaxSetup({
             headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -65,13 +65,12 @@ $(document).on('click', '#add_cart_item', function(){
             data:{competition_id:rowTobeAdded, type : type, level:level, category : category,competition_id : rowTobeAdded, title : title,price : price},
             success:function(data){
                 tempAlert(data.message,1000);
-                $("#section_head_carello").text(data.cartCount);
-                
+                $(".section_head_carello").text(' ' + data.cartCount);
+
                // alert(data.message);
 
             }
-        });    
+        });
 });
 </script>
 @endsection
-

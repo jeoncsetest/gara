@@ -4,5 +4,6 @@
 Homepage
 @endsection
 @section('content')
+    @include('Public.ViewEvent.Partials.head')
     @include('Public.ViewEvent.Partials.homePageSection')
 @endsection('content')

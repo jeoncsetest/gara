@@ -351,7 +351,7 @@ class EventSubscriptionController extends Controller
                     ];
             return view('Public.ViewEvent.EventSubscriptionCartPage', $data);
         }else{
-                Log::debug('total students of the school :' .$school->first_name .' are ' .$school->students->count());
+                Log::debug('total students of the school :' .$school->name .' are ' .$school->students->count());
                 $data = [
                 'students' => $school->students,
                 'event'   => $event

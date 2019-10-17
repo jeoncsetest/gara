@@ -1,6 +1,7 @@
 /.env.testing
 /.phpstorm.meta.php
 /node_modules
+/vendor
 .env
 .idea
 installed

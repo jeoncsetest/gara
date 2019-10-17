@@ -1,9 +1,8 @@
-@extends('Shared.Layouts.MasterWithoutMenus')
+@extends('Shared.Layouts.MasterDanceWithoutMenus')
 
 @section('title')
 @lang("User.forgot_password")
 @stop
-
 @section('content')
     <div class="row">
         <div class="col-md-4 col-md-offset-4">

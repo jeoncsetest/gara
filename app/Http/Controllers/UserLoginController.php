@@ -122,6 +122,7 @@ class UserLoginController extends Controller
         }
         session()->put('name', Auth::user()->first_name );
         session()->put('surname', Auth::user()->last_name);
+        session()->put('account_type', $account->account_type);
         return new RedirectResponse(route('showEventListPage'));
     }
 }

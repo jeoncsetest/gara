@@ -230,7 +230,7 @@ class EventViewController extends Controller
             /*echo $mytime2->format('l');*/
         }
         $data = [
-            'events' => $eventsList
+            'events' => collect($eventsList)
         ];
 
         $datetime = DateTime::createFromFormat('YmdHi', '201308131830');
