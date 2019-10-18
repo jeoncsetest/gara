@@ -29,7 +29,7 @@
   
 @if(Session::has('name'))
 <h3 class= 'btn-outline-success' style="padding-right: 3%;">{{Session::get('surname')}} {{Session::get('name')}}</h3>
-<!--@if(Session::has('account_type') && Session::get('account_type') == 'SIMPLE')-->
+<@if(Session::has('account_type') && Session::get('account_type') == 'SIMPLE')
 <span style="padding-right: 1%;">
        
         <a href="#" class=" btn-outline-success my-2 my-sm-0"  aria-haspopup="true" aria-expanded="false">
@@ -39,11 +39,11 @@
           
 
       </span>
-  
+    @endif
    <div class="dropdown">
 
 
- <!--@endif-->
+ 
  
     <button class="btn btn-secondary dropdown-toggle btn-outline-success my-2 my-sm-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       My menu

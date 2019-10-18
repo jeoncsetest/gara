@@ -17,6 +17,7 @@ use Mail;
 use Validator;
 use Log;
 use App\Models\Account;
+use Config;
 
 class EventViewController extends Controller
 {
@@ -85,6 +86,27 @@ class EventViewController extends Controller
         }
 
         return view('Public.ViewEvent.EventPage', $data);
+    }
+
+
+    
+     /**
+     * Show the homepage for an event
+     *
+     * @param Request $request
+     * @param $event_id
+     * @param string $slug
+     * @param bool $preview
+     * @return mixed
+     */
+    public function showEventDescription(Request $request, $event_id, $slug = '', $preview = false)
+    {
+        $event = Event::findOrFail($event_id);
+        $data = [
+            'event' => $event,
+            'is_embedded' => 0,
+        ];
+        return view('Public.ViewEvent.EventDescriptionGara', $data);
     }
 
    
@@ -238,4 +260,26 @@ class EventViewController extends Controller
         /*Log::debug('mi porta evet view controller su EventDancePage');*/
         return view('Public.ViewEvent.EventDancePage', $data);
     }
+
+        /**
+     * @param $event_id
+     * @param $attendee_id
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function showAgreement($event_id)
+    {
+        Config::set('queue.default', 'sync');
+        Log::info("*********");
+        Log::info($event_id);
+
+        $event = Event::findOrFail($event_id);
+        
+   
+        $pdf_file = $event->pdfs()-first()->pdf_path;
+       /* $pdf_file = 'user_content/event_pdfs/event_pdf-fa180de9a92f290576835ed9c271d884.pdf';*/
+
+
+        return response()->download($pdf_file);
+    }
+
 }

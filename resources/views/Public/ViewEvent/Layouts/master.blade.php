@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/css/jumbotron.css') }}">
-        <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('fontawesome/css/fontawesome.min.css') }}">
         <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
         
 

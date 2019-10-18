@@ -197,6 +197,12 @@ Route::group(
 
     });
 
+    Route::get('/{event_desc_id}/showEventDescription', [
+        'as'   => 'showEventDescription',
+        'uses' => 'EventViewController@showEventDescription',
+    ]);
+
+
     /*
      * Public event page routes
      */
@@ -591,6 +597,11 @@ Route::group(
             Route::get('{event_id}/attendees/{attendee_id}/export_ticket', [
                 'as'   => 'showExportTicket',
                 'uses' => 'EventAttendeesController@showExportTicket',
+            ]);
+
+            Route::get('{event_id}/showAgreement', [
+                'as'   => 'showAgreement',
+                'uses' => 'EventViewController@showAgreement',
             ]);
 
             Route::get('{event_id}/attendees/{attendee_id}/ticket', [

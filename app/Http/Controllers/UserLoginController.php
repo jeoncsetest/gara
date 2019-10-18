@@ -56,6 +56,7 @@ class UserLoginController extends Controller
          * If there's an ajax request to the login page assume the person has been
          * logged out and redirect them to the login page
          */
+        
         if ($request->ajax()) {
             return response()->json([
                 'status'      => 'success',
@@ -90,7 +91,19 @@ class UserLoginController extends Controller
                 ->with(['message' => trans("Controllers.login_password_incorrect"), 'failed' => true])
                 ->withInput();
         }
-
+        if (empty(Auth::user())) {
+            Log::debug('redirect to login page');
+           /* return new RedirectResponse(route('loginSimple'));*/
+            return redirect()->to('/loginSimple');
+        }else{
+            $account = Account::find(Auth::user()->account_id);
+            if ($account->account_type == config('attendize.default_account_type')) {
+                return redirect()->route('showSelectOrganiser');
+            }
+        }
+        session()->put('name', Auth::user()->first_name );
+        session()->put('surname', Auth::user()->last_name);
+        session()->put('account_type', $account->account_type);
         return redirect()->intended(route('showSelectOrganiser'));
     }
     public function postSimpleLogin(Request $request)
