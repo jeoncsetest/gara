@@ -6,7 +6,7 @@
   <div class="col-lg-3">
     <div class="text-center">
     <a class="btn btn-outline-info" href="{{ route('showEventListPage') }}" role="button">
-     <img class="rounded mx-auto d-block" src="{{ asset('/bootstrap/Gare.jpg') }} " alt="Gare" width="180" height="180"><hr>
+     <img class="rounded mx-auto d-block" src="{{ asset('/bootstrap/gare.jpg') }} " alt="Gare" width="180" height="180"><hr>
 </a>
 </div>
   </div><!-- /.col-lg-4 -->
