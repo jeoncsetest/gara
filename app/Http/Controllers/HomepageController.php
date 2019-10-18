@@ -23,7 +23,7 @@ class HomepageController extends Controller
     //
     public function homepage()
     {
-        return view ('public.ViewEvent.HomePage');
+        return view ('Public.ViewEvent.HomePage');
     }
 
     public function showDanceEvent()
