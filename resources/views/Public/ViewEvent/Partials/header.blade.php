@@ -32,11 +32,10 @@
 <@if(Session::has('account_type') && Session::get('account_type') == 'SIMPLE')
 <span style="padding-right: 1%;">
        
-        <a href="#" class=" btn-outline-success my-2 my-sm-0"  aria-haspopup="true" aria-expanded="false">
+        <a href="#" class=" btn-outline-success my-2 my-sm-0 ico-cart mr5 section_head_carello"  aria-haspopup="true" aria-expanded="false">
         <!--<span class="ico-cart mr5 section_head_carello"> {{Cart::count()}}</span>-->
-        <i class="ico-cart mr5 section_head_carello"> {{Cart::count()}}</i>
     </a>
-          
+    <i class=" btn-outline-success my-2 my-sm-0 "> {{Cart::count()}}</i>   
 
       </span>
     @endif

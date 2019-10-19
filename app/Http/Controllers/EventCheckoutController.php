@@ -669,7 +669,8 @@ class EventCheckoutController extends Controller
             Auth::logout();
             Session::flush();
             return redirect()->to('/eventList?logged_out=yup');
-        }else{
+        }
+        /*else{
             $account = Account::find(Auth::user()->account_id);
             if ($account->account_type == config('attendize.default_account_type')) {
                 return response()->json([
@@ -682,7 +683,7 @@ class EventCheckoutController extends Controller
                     'message' => 'please create a ticketing account',
                 ]);
             }
-        }
+        }*/
         Log::debug('stripe token' .$request->get('stripeToken'));
         //If there's no session kill the request and redirect back to the event homepage.
         if (!session()->get('ticket_order_' . $event_id)) {

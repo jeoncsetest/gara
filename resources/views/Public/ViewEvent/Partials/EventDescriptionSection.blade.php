@@ -38,15 +38,20 @@
                            <p class="card-text"> <h5>  {{date ('d-m-Y h:m', strtotime ($event->start_date)) }}</h5></p>
                             <p class="card-text"><h5>{{ $event->venue_name }} - {{ $event->location }}</h5></p>  
 
+                            </div>
+                            <div class="row" style='padding-bottom:5%'>
 
-                            <div>
-
-                              
+                            <div class="col-sm-6 col-md-4">
                             <p >             
                                     <a style="text-align: center"  class="btn btn-lg btn-primary pull-right" 
                                     href = "{{route('showAgreement', ['event_id'=>$event->id])}}">Regolamento</a>
                                 </p>
+                            </div>
+                         
+                               
                                 </div>
+                                <div>
+
                             <ul class="rrssb-buttons clearfix">
 
                 @if($event->social_show_facebook)
@@ -145,9 +150,10 @@
                 </li>
                 @endif
             </ul>
+            </div>
                             </p>  
                         </div>
-                      </div>
+                      
                     </div>
 
                     <div class="col-sm-6 col-md-4">
@@ -176,7 +182,8 @@
 
         <div class="col-md-{{ $descriptionColSize }}">
             <div class="content event_details" property="description">
-               <h3>{!! Markdown::parse($event->description) !!}</h3>
+               <!--<h3>{!! Markdown::parse($event->description) !!}</h3>-->
+                <h3 style="text-align:center">Gare previste</h3>
             </div>
         </div>
 
@@ -197,22 +204,19 @@
        
     </div>
     <div>
-    <div></div>
-    <strong>dfasfdafdasfasfasf</strong>
+    <ul   style="text-left:center;">
+    <li>
+        <h5>Classical dance</h5>
+    </li>
+    <li>
+        <h5 >Salsa cubana</h5>
+    </li>
+    <li>
+        <h5 >HipHop dance</h5>
+    </li>
+    </ul>
+    
     <br>
-    <strong>dfasfdafdasfasfasf</strong>
-    <br>
-    <strong>dfasfdafdasfasfasf</strong>
-    <br>
-    <strong>dfasfdafdasfasfasf</strong>
-    <br>
-    <strong>dfasfdafdasfasfasf</strong>
-    <br>
-    <strong>dfasfdafdasfasfasf</strong>
-    <br>
-    <strong>dfasfdafdasfasfasf</strong>
-    <br>
-    <strong>dfasfdafdasfasfasf</strong>
     </div>
     </div>
 </section>
