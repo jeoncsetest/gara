@@ -37,4 +37,5 @@ return array (
   'city'  => 'Città',
   'address'  => 'Indirizzo',
   'place'  => 'Paese',
+  'add_student'  => 'iscrivi',
 );

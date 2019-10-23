@@ -39,14 +39,15 @@
 		</td>
         <td>  <label class="form-control" id="typedance">{{$competition->type}}</label></td>
 		<td><span title='{{money($competition->price, $event->currency)}} @lang("Public_ViewEvent.competition_price")'>{{money($competition->price, $event->currency)}} </span></td>
-        <td>   <div class="form-group more-options">
-                                                    
-                                                    <select name='category' id="category_{{$competition->id}}">
-                                                    @foreach ($competition->categories as $iter)
-                                                                                            <option value="{{ $iter->category }}">{{ $iter->category }}</option>">
-                                                                                        @endforeach
-                                                                                        </select>
-                                                </div></td>
+        <td>   
+          <div class="form-group more-options">                                       
+            <select name='category' id="category_{{$competition->id}}">
+                @foreach ($competition->categories as $iter)
+                  <option value="{{ $iter->category }}">{{ $iter->category }}</option>">
+                @endforeach
+            </select>
+          </div>
+        </td>
               <td>   
              <div class="form-group more-options">
                                                         

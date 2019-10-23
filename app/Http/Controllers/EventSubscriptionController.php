@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Attendize\Utils;
 use App\Models\Affiliate;
 use App\Models\Event;
@@ -50,6 +49,14 @@ class EventSubscriptionController extends Controller
             }
         }
         Log::debug('event_id : '  .$event_id);
+        $current_event_id = $request->session()->get('current_event_id');
+        if (!empty($current_event_id) && $current_event_id != $event_id) {
+            return response()->json([
+                'status'  => 'error',
+                'cartCount' => Cart::count(),
+                'message' => "finire prima iscrizione del'evento " .$event_id,
+            ]);
+        }
        /* $event = Event::scope()->findOrFail($event_id);*/
         Log::debug('event_id : '  .$event_id);
         $competition_id = $request->get('competition_id');
@@ -76,6 +83,8 @@ class EventSubscriptionController extends Controller
          ['competition_id'=>$competition_id,'event_id' => $event_id,
           'competition_title' => $title,
           'type' => $type,'category' => $category,'level' => $level]);
+
+        $request->session()->put('current_event_id', $event_id);
         /*
         $rules = [
             'social_share_text'      => ['max:3000'],
@@ -313,6 +322,78 @@ class EventSubscriptionController extends Controller
 
         return view('Public.ViewEvent.EventDanceSubsrciptionPage', $data);
     }
+
+
+     /**
+     * Show the homepage for subscritpion
+     *
+     * @param Request $request
+     * @param $event_id
+     * @param string $subs_slug
+     * @param bool $preview
+     * @return mixed
+     */
+    public function showStudentsPage(Request $request, $event_id, $slug = '', $preview = false)
+    {
+        if (empty(Auth::user())) {
+            Log::debug('redirect to login page');
+           /* return new RedirectResponse(route('loginSimple'));*/
+            return redirect()->to('/loginSimple');
+        }else{
+            $account = Account::find(Auth::user()->account_id);
+            if ($account->account_type == config('attendize.default_account_type')) {
+                return redirect()->route('showSelectOrganiser');
+            }elseif($account->account_type == config('attendize.ticket_account_type')){
+                return redirect()->route('showEventListPage');
+            }
+        }
+        $event = Event::findOrFail($event_id);
+        $eventType = $request->get('eventType');
+        Log::debug('$eventType: ' .$eventType);
+        if (!Utils::userOwns($event) && !$event->is_live) {
+            return view('Public.ViewEvent.EventNotLivePage');
+        }
+
+        $data = [
+            'event' => $event,
+            'competitions' => $event->competitions()
+            ->where('competitions.type', 'like', $eventType . '%')
+            ->orderBy('id', 'asc')->get(),
+            'is_embedded' => 0
+        ];
+
+        /*
+         * Don't record stats if we're previewing the event page from the backend or if we own the event.
+         */
+        if (!$preview && !Auth::check()) {
+            $event_stats = new EventStats();
+            $event_stats->updateViewCount($event_id);
+        }
+
+        /*
+         * See if there is an affiliate referral in the URL
+         */
+        if ($affiliate_ref = $request->get('ref')) {
+            $affiliate_ref = preg_replace("/\W|_/", '', $affiliate_ref);
+
+            if ($affiliate_ref) {
+                $affiliate = Affiliate::firstOrNew([
+                    'name'       => $request->get('ref'),
+                    'event_id'   => $event_id,
+                    'account_id' => $event->account_id,
+                ]);
+
+                ++$affiliate->visits;
+
+                $affiliate->save();
+
+                Cookie::queue('affiliate_' . $event_id, $affiliate_ref, 60 * 24 * 60);
+            }
+        }
+
+        return view('Public.ViewEvent.StudentsPage', $data);
+    }
+
 
     /**
      * Show the homepage for subscritpion

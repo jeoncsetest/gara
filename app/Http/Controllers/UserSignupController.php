@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Mail;
 use Log;
 use DB;
+use Auth;
 
 class UserSignupController extends Controller
 {
@@ -37,7 +38,7 @@ class UserSignupController extends Controller
         return view('Public.LoginAndRegister.SignupSimple', compact('is_attendize', 'signupType'));
     }
 
-    
+        
     public function showSignup()
     {
         $is_attendize = Utils::isAttendize();
@@ -89,8 +90,7 @@ class UserSignupController extends Controller
 
         return redirect('login');
     }
-
-
+    
     /**
      * Creates an account.
      *

@@ -136,6 +136,10 @@ class UserLoginController extends Controller
         session()->put('name', Auth::user()->first_name );
         session()->put('surname', Auth::user()->last_name);
         session()->put('account_type', $account->account_type);
+        $school = Auth::user()->school;
+        if(!empty($school)){
+            session()->put('school', $school);
+        }
         return new RedirectResponse(route('showEventListPage'));
     }
 }

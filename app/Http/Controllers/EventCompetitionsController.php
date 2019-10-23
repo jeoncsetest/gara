@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Log;
-
+use DB;
 
 class EventCompetitionsController extends MyBaseController
 {
@@ -78,8 +78,13 @@ class EventCompetitionsController extends MyBaseController
      */
     public function showCreateCompetition($event_id)
     {
+        $disciplines = DB::table('disciplines')
+                    ->get();
+        Log::debug('total:' . $disciplines->count());
+
         return view('ManageEvent.Modals.CreateCompetition', [
             'event' => Event::scope()->find($event_id),
+            'disciplines' => $disciplines,
         ]);
     }
 
@@ -96,6 +101,7 @@ class EventCompetitionsController extends MyBaseController
             'level.*' => 'required',
             'category.*' => 'required',
             'type' => 'required',
+            'discipline_id' => 'required',
             'price' => 'numeric|min:1',
             'max_competitors' => 'numeric|min:1'
         ]);
@@ -110,6 +116,10 @@ class EventCompetitionsController extends MyBaseController
         $competition->title = strip_tags($request->get('title'));
         Log::debug('type : '  .$request->get('type'));
         $competition->type = strip_tags($request->get('type'));
+
+        Log::debug('discipline : '  .$request->get('discipline_id'));
+        $competition->discipline_id = $request->get('discipline_id');
+
         Log::debug('mp3_upload : ' .$request->get('mp3_upload'));
         $competition->mp3_upload = $request->get('mp3_upload') ? 1 : 0;
         Log::debug('price : ' .$request->get('price'));

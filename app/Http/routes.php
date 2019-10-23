@@ -99,6 +99,21 @@ Route::group(
             'uses' => 'EventViewController@showEventListHome',
         ]);
 
+        Route::get('/showStudentsPage', [
+            'as'   => 'showStudentsPage',
+            'uses' => 'SchoolManagementController@showStudentsPage',
+        ]);
+
+        Route::get('/showAddStudent', [
+            'uses' => 'SchoolManagementController@showAddStudent',
+            'as'   => 'showAddStudent',
+        ]);
+
+        Route::post('/postAddStudent', [
+            'uses' => 'SchoolManagementController@postAddStudent',
+            'as'   => 'postAddStudent',
+        ]);
+
         Route::get('/{event_id}/subscription', [
             'as'   => 'showSubscriptionPage',
             'uses' => 'EventSubscriptionController@showSubscriptionPage',
@@ -160,7 +175,6 @@ Route::group(
         Route::post('/signup', 'UserSignupController@postSignup');
 
         Route::post('/signupSimple', 'UserSignupController@postSignupSimple');
-
 
         /** gestione front-end
          * 

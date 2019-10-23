@@ -86,6 +86,14 @@ $(document).on('click', '#remove_level', function(){
                                         'placeholder'=>trans("Competition.competition_title_placeholder")
                                         ))  !!}
                         </div>
+                        <div class="form-group">       
+                        {!! Form::label('type', trans("Competition.discipline"), array('class'=>'control-label required')) !!}                                
+                            <select name='discipline_id' id="discipline_id">
+                                @foreach ($disciplines as $discipline)
+                                <option value="{{ $discipline->id}}">{{ $discipline->discipline_name }}</option>">
+                                @endforeach
+                            </select>
+                        </div>
 						<div class="form-group">
                             {!! Form::label('type', trans("Competition.competition_type"), array('class'=>'control-label required')) !!}
                             {!!  Form::select('type', array('S' => trans("Competition.competition_type_single"),
