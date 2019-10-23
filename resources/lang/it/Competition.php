@@ -48,4 +48,5 @@ return array (
   'doesnt_account_for_refunds' => 'Non tiene conto dei rimborsi.',
   'remaining' => 'Rimanente',
   'save_competition' => 'Salva',
+  'discipline'	=> 'disciplina',
 );
