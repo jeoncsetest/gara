@@ -1,42 +1,83 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title> @yield('title')</title>
+<!doctype html>
+<html lang="en">
 
-    @yield('styles')
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/css/bootstrap.css') }}">
-        <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/css/jumbotron.css') }}">
-        <link rel="stylesheet" href="{{ asset('fontawesome/css/fontawesome.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
-        
+  <!-- Google Web Fonts
+  ================================================== -->
 
-  <script src="{{asset('bootstrap/4.3.1/js/jquery.js')}}"></script>
-  <script src="{{asset('bootstrap/4.3.1/js/bootstrap.js')}}"></script>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700%7CPrata" rel="stylesheet">
 
- <style>
-    .jumbotron {
-      padding-top: 5.5rem;
-      background-image: url({{asset('/assets/images/sfondo.jpg')}});
-      background-color: #cccccc;
-      background-attachment: fixed;
- background-position: center;
- background-repeat: no-repeat;
- background-size: cover;
-    }
-    </style>
+  <!-- Basic Page Needs
+  ================================================== -->
+  <!--
+  <title>Yoga</title>
+ -->
+  <!--meta info
+  <meta charset="utf-8">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+-->
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  </head>
+  <!-- Vendor CSS
+  ============================================ -->
+
+
+  <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/font/demo-files/demo.css') }}">
+  <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/plugins/fancybox/jquery.fancybox.css') }}">
+  <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/plugins/revolution/css/settings.css') }}">
+  <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/plugins/revolution/css/layers.css') }}">
+  <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/plugins/revolution/css/navigation.css') }}">
+
+  <!-- CSS theme files
+  ============================================ -->
+  <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/css/bootstrap-grid.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/css/fontello.css') }}">
+  <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/css/owl.carousel.css') }}">
+  <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/css/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/css/responsive.css') }}">
+
+
+</head>
   <body>
-      @include('Public.ViewEvent.Partials.header')
-      
-<div class="jumbotron">
-  @yield('content')
-</div>
 
-    @yield('scripts')
-      @include('Public.ViewEvent.Partials.foot')
-  </body>
-</html>
+    @include('Public.ViewEvent.Partials.header')
+
+
+  @yield('content')
+
+
+<!-- JS Libs & Plugins
+ ============================================ -->
+ <script src="{{ asset('bootstrap/4.3.1/js/libs/jquery.modernizr.js') }}"></script>
+ <script src="{{ asset('bootstrap/4.3.1/js/libs/jquery-2.2.4.min.js') }}"></script>
+ <script src="{{ asset('bootstrap/4.3.1/js/libs/jquery-ui.min.js') }}"></script>
+ <script src="{{ asset('bootstrap/4.3.1/js/libs/retina.min.js') }}"></script>
+ <script src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyBN4XjYeIQbUspEkxCV2dhVPSoScBkIoic"></script>
+ <script src="{{ asset('bootstrap/4.3.1/plugins/jquery.scrollTo.min.js') }}"></script>
+ <script src="{{ asset('bootstrap/4.3.1/plugins/jquery.localScroll.min.js') }}"></script>
+ <script src="{{ asset('bootstrap/4.3.1/plugins/instafeed.min.js') }}"></script>
+ <script src="{{ asset('bootstrap/4.3.1/plugins/fancybox/jquery.fancybox.min.js') }}"></script>
+ <script src="{{ asset('bootstrap/4.3.1/plugins/mad.customselect.js') }}"></script>
+ <script src="{{ asset('bootstrap/4.3.1/plugins/revolution/js/jquery.themepunch.tools.min.js?ver=5.0') }}"></script>
+ <script src="{{ asset('bootstrap/4.3.1/plugins/revolution/js/jquery.themepunch.revolution.min.js?ver=5.0') }}"></script>
+ <script src="{{ asset('bootstrap/4.3.1/plugins/jquery.queryloader2.min.js') }}"></script>
+ <script src="{{ asset('bootstrap/4.3.1/plugins/owl.carousel.min.js') }}"></script>
+
+ <!-- JS theme files
+ ============================================ -->
+ <script src="{{ asset('bootstrap/4.3.1/js/plugins.js') }}"></script>
+ <script src="{{ asset('bootstrap/4.3.1/js/script.js') }}"></script>
+
+
+ <script type="text/javascript" src="{{ asset('bootstrap/4.3.1/plugins/revolution/js/extensions/revolution.extension.slideanims.min.js') }}"></script>
+ <script type="text/javascript" src="{{ asset('bootstrap/4.3.1/plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js') }}"></script>
+ <script type="text/javascript" src="{{ asset('bootstrap/4.3.1/plugins/revolution/js/extensions/revolution.extension.navigation.min.js') }}"></script>
+
+ @yield('scripts')
+   @include('Public.ViewEvent.Partials.foot')
+
+    </body>
+    </html>
