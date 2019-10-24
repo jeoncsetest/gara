@@ -277,17 +277,29 @@ class EventSubscriptionController extends Controller
             }
         }
         $event = Event::findOrFail($event_id);
-        $eventType = $request->get('eventType');
-        Log::debug('$eventType: ' .$eventType);
+        $disciplineId = $request->get('discipline_id');
+        $competitions = null;
+        if(empty($disciplineId)){
+            $competitions = $event->competitions()
+            ->orderBy('id', 'asc')->get();
+        }else{
+            $competitions = $event->competitions()
+            ->where('competitions.discipline_id', '=', $disciplineId)
+            ->orderBy('id', 'asc')->get();
+        }
+       
+        Log::debug('$disciplineId: ' .$disciplineId);
         if (!Utils::userOwns($event) && !$event->is_live) {
             return view('Public.ViewEvent.EventNotLivePage');
         }
 
         $data = [
             'event' => $event,
-            'competitions' => $event->competitions()
-            ->where('competitions.type', 'like', $eventType . '%')
-            ->orderBy('id', 'asc')->get(),
+            'competitions' => $competitions,
+            'disciplines' => DB::table('disciplines')
+            ->join('competitions', 'disciplines.id', '=', 'competitions.discipline_id')
+            ->distinct()->select('disciplines.id', 'disciplines.discipline_name', 'disciplines.discipline_desc')->where('competitions.event_id', '=', $event_id)
+            ->get(),
             'is_embedded' => 0
         ];
 

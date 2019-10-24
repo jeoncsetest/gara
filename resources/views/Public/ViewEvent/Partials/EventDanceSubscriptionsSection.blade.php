@@ -2,9 +2,14 @@
 <div class="container">
   <div class="form-group text-center">
     <p>  Seleziona la tua gara </p>
-    <a href="{{route('showSubscriptionPage', array('event_id'=>$event->id, 'eventType'=>'S'))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Assolo</a>
+    
+    @foreach($disciplines as $discipline)
+    <a href="{{route('showSubscriptionPage', array('event_id'=>$event->id, 'discipline_id'=>$discipline->id))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">{{$discipline->discipline_name}}</a>
+    <!--
     <a href="{{route('showSubscriptionPage', array('event_id'=>$event->id, 'eventType'=>'D'))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Coppia</a>
     <a href="{{route('showSubscriptionPage', array('event_id'=>$event->id, 'eventType'=>'G'))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Gruppo</a>
+    -->
+    @endforeach
     <a href="{{route('showSubscriptionPage', array('event_id'=>$event->id))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Tutti</a>
   </div>
 
