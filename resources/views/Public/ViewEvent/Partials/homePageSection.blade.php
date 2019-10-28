@@ -42,7 +42,7 @@
       </div>
 
       <!-- Page section -->
-
+<!--
     <div id="popup-sign" class="popup var3">
 
       <div class="popup-inner">
@@ -97,5 +97,5 @@
     </div>
 
   </div>
-
+-->
   <!-- - - - - - - - - - - - end Wrapper - - - - - - - - - - - - - - -->

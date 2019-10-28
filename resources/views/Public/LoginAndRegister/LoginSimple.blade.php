@@ -5,7 +5,7 @@
 {!! Form::open(array('url' => route("loginSimple"))) !!}
         <div class="col-md-4 col-md-offset-4">
             <div class="panel">
-                <div class="panel-body">
+                <div class="popup-inner">
                 <div class="logo">
                         {!!HTML::image('assets/images/logo-dark.png')!!}
                     </div>
@@ -29,12 +29,12 @@
                         <button type="submit" class="btn btn-block btn-success">@lang("User.login")</button>
                     </div>
 
-               
+
                     <div class="signup">
                     <!--<span>@lang("User.dont_have_account_button", ["url"=> route('showSignupSimple', ['signupType'=>'STUDENT'])])</span>-->
                     Non hai un account? <a  data-toggle="modal" data-target="#exampleModal" href="#"><span>Iscriviti</span></a>
-     
-                    
+
+
                 <div class="modal " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -52,7 +52,7 @@
                   <a href="{{route('showSignupSimple', array('signupType'=>'TICKET'))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"><i class="fas fa-users"></i> Pubblico</a>
                   <a href="{{route('showSignupSimple', array('signupType'=>'STUDENT'))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"><i class="fas fa-users"></i> Ballerino</a>
                   <a href="{{route('showSignupSimple', array('signupType'=>'SCHOOL'))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"><i class="fas fa-users"></i> Scuola</a>
-                             
+
                   </span>
                   </div>
                   <div class="modal-footer">
@@ -61,7 +61,7 @@
                   </div>
                 </div>
               </div>
-            </div>   
+            </div>
                     </div>
 
                 </div>
@@ -69,5 +69,3 @@
         </div>
     {!! Form::close() !!}
 @endsection
-   
-

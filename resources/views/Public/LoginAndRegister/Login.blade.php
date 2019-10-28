@@ -6,7 +6,7 @@
     {!! Form::open(array('url' => route("login"))) !!}
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-            <div class="panel">
+            <div class="popup-inner">
                 <div class="panel-body">
                     <div class="logo">
                         {!!HTML::image('assets/images/logo-dark.png')!!}

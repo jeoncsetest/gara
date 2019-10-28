@@ -11,16 +11,11 @@
 
            <p>Copyright © Dancepass 2019. All Rights Reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a></p>
 
-
-           <ul class="social-icons">
-
-             <li><a href="#"><i class="icon-facebook"></i></a></li>
-             <li><a href="#"><i class="icon-twitter"></i></a></li>
-             <li><a href="#"><i class="icon-instagram-5"></i></a></li>
-             <li><a href="#"><i class="icon-youtube-play"></i></a></li>
-
-
-           </ul>
+           <ul>
+             <li><i class="licon-map-marker"></i> via Torino 2 , Milano </li>
+             <li><i class="licon-telephone"></i> <span content="telephone=no">+1 800 559 6580</span> </li>
+             <li><i class="licon-at-sign"></i><a href="mailto:">info@companyname.com</a></li>
+      </ul>
 
          </div>
 

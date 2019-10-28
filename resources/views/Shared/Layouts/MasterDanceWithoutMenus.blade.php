@@ -21,7 +21,7 @@
 
             body {
                 padding-top: 5.5rem;
-                background-image: url("http://localhost:8000/bootstrap/sfondo.jpg") ;
+                background-image: url("http://localhost/gara/gara_github/public/bootstrap/4.3.1/images/1816x980_bg1.jpg") ;
                 background-color: #cccccc;
                 background-attachment: fixed;
                 background-position: center;
@@ -72,7 +72,7 @@
     </head>
     <body>
         <section id="main" role="main">
-            <section class="container">
+            <section class="popup-inner">
                 @yield('content')
             </section>
 
@@ -82,7 +82,7 @@
 
         @include("Shared.Partials.LangScript")
         {!!HTML::script('assets/javascript/backend.js')!!}
-        @include('Public.ViewEvent.Partials.foot')
+
     </body>
-    @include('Shared.Partials.GlobalFooterJS')
+
 </html>
