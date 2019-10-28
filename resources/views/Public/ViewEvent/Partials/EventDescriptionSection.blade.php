@@ -96,13 +96,21 @@
 
                             <span class="share-title">Condividi:</span>
                             <ul class="social-icons var2 share">
+                              @if($event->social_show_facebook)
+                              <li><a href="https://www.facebook.com/sharer/sharer.php?={{$event->event_url}}" class="sh-facebook"><i class="icon-facebook"></i></a></li>
+                              @endif
+                              @if($event->social_show_twitter)
+                              <li><a href="http://twitter.com/intent/tweet?text=Check out: {{$event->event_url}} {{{Str::words(strip_tags($event->description), 20)}}}" class="sh-twitter"><i class="icon-twitter"></i></a></li>
+                              @endif
 
-                              <li><a href="#" class="sh-facebook"><i class="icon-facebook"></i></a></li>
-                              <li><a href="#" class="sh-twitter"><i class="icon-twitter"></i></a></li>
-                              <li><a href="#" class="sh-pinterest"><i class="icon-instagram"></i></a></li>
-                              <li><a href="#" class="sh-mail"><i class="icon-mail"></i></a></li>
+                              <li><a href="#" class="sh-instagram"><i class="icon-instagram-5"></i></a></li>
 
+                             @if($event->social_show_email)
+                              <li><a href="mailto:?subject=Check This Out&body={{urlencode($event->event_url)}}" class="sh-mail"><i class="icon-mail"></i></a></li>
+                             @endif
                             </ul>
+
+
 
                           </div>
                         </div>

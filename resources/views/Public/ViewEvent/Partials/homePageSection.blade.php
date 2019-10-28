@@ -17,7 +17,7 @@
 
         <div class="info-box" data-bg="{{ asset('/bootstrap/4.3.1/images/480x338_bg2.jpg') }}">
 
-          <h3 class="box-title"><a href="#">Eventi</a></h3>
+          <h3 class="box-title">Eventi</h3>
   <!--        <p>Aenean auctor wisi et urna. Aliquam <br> erat volutpat. Duis ac turpis. Donec sit <br> amet eros. Lorem ipsum dolor sit amet.</p>
           <a href="#" class="btn btn-style-2">Visualizza </a>
 -->
@@ -25,7 +25,7 @@
 
         <div class="info-box" data-bg="{{ asset('/bootstrap/4.3.1/images/480x338_bg3.jpg') }}">
 
-          <h3 class="box-title"><a href="#">Lezioni</a></h3>
+          <h3 class="box-title">Lezioni</h3>
   <!--        <p>Aenean auctor wisi et urna. Aliquam <br> erat volutpat. Duis ac turpis. Donec sit <br> amet eros. Lorem ipsum dolor sit amet.</p>
           <a href="#" class="btn btn-style-2">Visualizza</a>
 -->
@@ -33,7 +33,7 @@
 
         <div class="info-box" data-bg="{{ asset('/bootstrap/4.3.1/images/480x338_bg4.jpg') }}">
 
-          <h3 class="box-title"><a href="#">Serate</a></h3>
+          <h3 class="box-title">Serate</h3>
 <!--        <p>Aenean auctor wisi et urna. Aliquam <br> erat volutpat. Duis ac turpis. Donec sit <br> amet eros. Lorem ipsum dolor sit amet.</p>
           <a href="#" class="btn btn-style-2">Visualizza</a>
 -->

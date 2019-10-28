@@ -1,6 +1,7 @@
 <section id="tickets" class="container">
+  <span> &nbsp;</span>
     <div class="row">
-        <h1 class='section_head'>
+        <h2 class='section_head'>
             @lang("Public_ViewEvent.tickets")
         </h1>
     </div>
@@ -16,7 +17,7 @@
             {!! Form::open(['url' => route('postValidateTickets', ['event_id' => $event->id]), 'class' => 'ajax']) !!}
             <div class="row">
                 <div class="col-md-12">
-                    <div class="content">
+                    <div id="content" class="page-content-wrap">
                         <div class="tickets_table_wrap">
                             <table class="table">
                                 <?php
@@ -31,6 +32,7 @@
                                             <p class="ticket-descripton mb0 text-muted" property="description">
                                                 {{$ticket->description}}
                                             </p>
+                                            <span> &nbsp;</span>
                                         </td>
                                         <td style="width:200px; text-align: right;">
                                             <div class="ticket-pricing" style="margin-right: 20px;">
@@ -49,6 +51,7 @@
                                                           content="{{ number_format($ticket->price, 2, '.', '') }}">
                                                 @endif
                                             </div>
+                                            <span> &nbsp;</span>
                                         </td>
                                         <td style="width:85px;">
                                             @if($ticket->is_paused)
@@ -131,12 +134,15 @@
                                             </div>
 
                                         @endif
+                                        <div class="align-center">
                                         {!!Form::submit(trans("Public_ViewEvent.register"), ['class' => 'btn btn-lg btn-primary pull-right'])!!}
+    </div>
                                     </td>
                                 </tr>
                             </table>
                         </div>
-                    </div>
+
+                      </div>
                 </div>
             </div>
             {!! Form::hidden('is_embedded', $is_embedded) !!}

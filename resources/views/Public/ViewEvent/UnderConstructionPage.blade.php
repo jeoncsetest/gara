@@ -5,7 +5,7 @@
 <title>www.beatpass.it</title>
 </head>
 <p align='center'>
-<b><font face="Verdana" size="6" color="#003399">www.beatpass.it</font></b>
+<b><font face="Verdana" size="6" color="#003399">www.Dancepass.it</font></b>
 <br>
 <br>
 <b><font face="Verdana" size="6" color="#003399">Under Construction</font></b>

@@ -1,13 +1,9 @@
 <div class="breadcrumbs-wrap">
-
       <div class="container">
-
         <h1 class="page-title">Gare</h1>
-
         <ul class="breadcrumbs">
-
-          <li><a href="index.html">Home</a></li>
-          <li>Events List</li>
+          <li>Home</li>
+          <li>Gare</li>
 
         </ul>
 
@@ -18,10 +14,7 @@
 <!------- content -------->
 
     <div id="content" class="page-content-wrap">
-
   <div class="container">
-
-
       <div class="tribe-events-bar">
 
         <div class="row">
@@ -57,7 +50,7 @@
                 <div class="info-item">
                   <i class="licon-map-marker"></i>
                   <div class="wrapper">
-                    <span>{{ $event->title }}</span>
+                    <span>{{$event->venue_name}}</span>
                   </div>
                 </div>
 

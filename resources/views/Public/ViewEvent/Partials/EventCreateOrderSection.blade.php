@@ -52,9 +52,9 @@
                 @endif
 
             </div>
-            <div class="help-block">
+      <!--      <div class="help-block">
                 {!! @trans("Public_ViewEvent.time", ["time"=>"<span id='countdown'></span>"]) !!}
-            </div>
+            </div> -->
         </div>
         <div class="col-md-8 col-md-pull-4">
             <div class="event_order_form">
@@ -78,8 +78,7 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
+               <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             {!! Form::label("order_email", trans("Public_ViewEvent.email")) !!}
@@ -87,9 +86,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="row"><div class="col-md-12">&nbsp;</div></div>
-                <div class="row">
-                    <div class="col-md-12">
+                    <div class="row"><div class="col-md-12">&nbsp;</div></div>
+            <!--     <div class="row">
+                 <div class="col-md-12">
                         <div class="form-group">
                             <div class="custom-checkbox">
                                 {!! Form::checkbox('is_business', 1, null, ['data-toggle' => 'toggle', 'id' => 'is_business']) !!}
@@ -97,12 +96,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                </div>-->
+            <!--    <div class="row"><div class="col-md-12">&nbsp;</div></div>
                 <div class="row hidden" id="business_details">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <div class="row">
+                         <div class="row">
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         {!! Form::label("business_name", trans("Public_ViewEvent.business_name")) !!}
@@ -153,14 +152,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="row"><div class="col-md-12">&nbsp;</div></div>
-                <div class="p20 pl0">
+                <div class="row"><div class="col-md-12">&nbsp;</div></div> -->
+            <!--    <div class="p20 pl0">
                     <a href="javascript:void(0);" class="btn btn-primary btn-xs" id="mirror_buyer_info">
                         @lang("Public_ViewEvent.copy_buyer")
                     </a>
-                </div>
+                </div> -->
 
-                <div class="row">
+            <!--    <div class="row">
                     <div class="col-md-12">
                         <div class="ticket_holders_details" >
                             <h3>@lang("Public_ViewEvent.ticket_holder_information")</h3>
@@ -210,7 +209,7 @@
                             @endforeach
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <style>
                     .offline_payment_toggle {
@@ -305,4 +304,3 @@
 @if(session()->get('message'))
     <script>showMessage('{{session()->get('message')}}');</script>
 @endif
-

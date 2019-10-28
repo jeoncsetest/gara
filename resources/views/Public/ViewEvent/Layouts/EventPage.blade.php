@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <!--
-                  _   _                 _ _
-             /\  | | | |               | (_)
-            /  \ | |_| |_ ___ _ __   __| |_ _______   ___ ___  _ __ ___
-           / /\ \| __| __/ _ \ '_ \ / _` | |_  / _ \ / __/ _ \| '_ ` _ \
-          / ____ \ |_| ||  __/ | | | (_| | |/ /  __/| (_| (_) | | | | | |
-         /_/    \_\__|\__\___|_| |_|\__,_|_/___\___(_)___\___/|_| |_| |_|
 
-        -->
         <title>{{{$event->title}}}</title>
 
 
@@ -69,7 +61,7 @@
         @if (($event->bg_type == 'image' || $event->bg_type == 'custom_image' || Input::get('bg_img_preview')) && !Input::get('bg_color_preview'))
             <style>
                 body {
-                    background-image: url({{asset('/assets/images/sfondo.jpg')}}); no-repeat center center fixed;
+                    background-image: url({{asset('/assets/images/1816x980_bg1.jpg')}}); no-repeat center center fixed;
                     background-size: cover;
                 }
             </style>

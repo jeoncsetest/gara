@@ -108,10 +108,52 @@
             <!-- search button -->
             <div class="search-holder"><button type="button" class="search-button"></button></div>
             <!-- account button -->
+            @if(!Session::has('name'))
+
             <button type="button" class="account popup-btn-login"></button>
+            <a href="http://localhost/gara/gara-master/public/loginSimple" role="button" class="btn btn-big btn-style-3 popup-btn-sign">Accedi</a>
+              @endif
 
-            <a href="#" class="btn btn-big btn-style-3 popup-btn-sign">Join Free</a>
+              @if(Session::has('error'))
+              <div class="alert alert-danger">
+                {{ Session::get('error')}}
+              </div>
+              @endif
 
+              @if(Session::has('name'))
+              <h3 class= 'btn btn-big btn-style-3' >{{Session::get('surname')}} {{Session::get('name')}}</h3>
+              <@if(Session::has('account_type') && Session::get('account_type') == 'SIMPLE')
+              <span style="padding-right: 1%;">
+
+                      <a href="#" class=" btn btn-big btn-style-3 ico-cart mr5 section_head_carello"  aria-haspopup="true" aria-expanded="false">
+                      <!--<span class="ico-cart mr5 section_head_carello"> {{Cart::count()}}</span>-->
+                  </a>
+                  <i class=" btn btn-big btn-style-3 "> {{Cart::count()}}</i>
+                    </span>
+                  @endif
+
+                  <div class="sub-menu-wrap">
+
+
+                   <button class="btn btn-big btn-style-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     My menu
+                   </button>
+                   <div class="dropdown-menu my-2 my-lg-0" aria-labelledby="dropdownMenuButton" >
+
+                       <button class="btn btn-big btn-style-3" type="button">my profile</button>
+
+                       <button class="btn btn-big btn-style-3" type="button">my orders</button>
+                       <button type="button" class="btn btn-default" aria-label="Left Align">
+                       <p>Shopping-cart icon: <span class="glyphicon glyphicon-shopping-cart"></span></p>
+               </button>
+
+                       <button class="btn btn-big btn-style-3" type="button">
+                       <a href="\logoutSimple">logout me</a></button>
+
+                   </div>
+                 </div>
+
+  @endif
           </div>
 
         </div>
