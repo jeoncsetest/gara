@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Redirect;
 use View;
 use Auth;
+use Log;
 use App\Models\Account;
 
 class UserLoginController extends Controller
@@ -110,17 +111,34 @@ class UserLoginController extends Controller
     {
         $email = $request->get('email');
         $password = $request->get('password');
-
+        $ajaxCall = $request->get('ajaxCall');
+        Log::debug('login successful. ajaxcall:' .$ajaxCall );
         if (empty($email) || empty($password)) {
-            return Redirect::back()
+
+            if (!empty($ajaxCall)) {
+                return response()->json([
+                    'message' => trans("Controllers.fill_email_and_password"),
+                     'failed' => 'true',
+                ]);
+            }else{
+                return Redirect::back()
                 ->with(['message' => trans("Controllers.fill_email_and_password"), 'failed' => true])
                 ->withInput();
+            }
+          
         }
 
         if ($this->auth->attempt(['email' => $email, 'password' => $password], true) === false) {
-            return Redirect::back()
-                ->with(['message' => trans("Controllers.login_password_incorre"), 'failed' => true])
+            if (!empty($ajaxCall)) {
+                return response()->json([
+                    'message' => trans("Controllers.login_password_incorrect"),
+                     'failed' => 'true',
+                ]);
+            }else{
+                return Redirect::back()
+                ->with(['message' => trans("Controllers.login_password_incorrect"), 'failed' => true])
                 ->withInput();
+            }
         }
 
         if (empty(Auth::user())) {
@@ -138,8 +156,22 @@ class UserLoginController extends Controller
         session()->put('account_type', $account->account_type);
         $school = Auth::user()->school;
         if(!empty($school)){
-            session()->put('school', $school);
+            session()->put('school', $school->name);
         }
-        return new RedirectResponse(route('showEventListPage'));
+        Log::debug('login successful');
+
+        if (!empty($ajaxCall)) {
+            return response()->json([
+                'status'      => 'success',
+                'message'      => 'suc',
+                'redirectUrl' => route('showEventListPage'),
+            ]);
+        }else{
+            return new RedirectResponse(route('showEventListPage'));
+        }
+        
+
+
+        
     }
 }

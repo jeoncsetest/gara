@@ -7,3 +7,36 @@ Homepage
   @include('Public.ViewEvent.Partials.head')
     @include('Public.ViewEvent.Partials.homePageSection')
 @endsection('content')
+@section('scripts')
+<script>
+/**login */
+$(document).on('click', '#loginBtn', function(){
+        /**chiamata ajax per login */
+        alert('OK');
+        var email = $('#myemail').val();
+        console.info('email:' + email );
+        var password = $('#mypassword').val();
+        console.info('password:' + password );
+        $.ajaxSetup({
+            headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+        });
+
+        $.ajax({
+            type:'POST',
+            url: '/loginSimple',
+            data:{email:email, password : password, ajaxCall:'yes'},
+            success:function(data){
+              if(data.status == 'success'){
+                  location.href = data.redirectUrl;
+              }else{
+                  alert(data.message);
+              }
+               // alert(data.message);
+
+            }
+        });
+});
+</script>
+@endsection

@@ -13,7 +13,7 @@
               <th>Categoria</th>
               <th>Prezzo</th>
               <th>Scegli file Mp3</th>  
-              <th>participant</th>  
+              <th>{{trans("Competition.participant")}}</th>  
               <th></th>                      
           </tr>
       </thead>
@@ -42,88 +42,137 @@
         <td>
         @if($row->options->has('type'))
             @if($row->options->type == trans("Competition.competition_type_single_abbr"))
-              <div class="form-group more-options">
-              <table>
-              <tr>
-                <td>   
-                  <div class="ui-widget">
-                    <select name='participants_{{$row->id}}[]' class="combobox">
-                    @foreach ($students as $iter)
-                      <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
-                    @endforeach
-                    </select>
-                  </div>
-                </td>
-              </tr>
-              </table>
-              </div>
-            @elseif($row->options->type == trans("Competition.competition_type_double_abbr"))
-            <div class="form-group more-options">
-              {!! Form::label('participant', trans("Competition.participant"), array('class'=>'control-label')) !!}
-              <table>
-              <tr>
-                <td>   
-                  <div class="ui-widget">
-                    <select name='participants_{{$row->id}}[]' class="combobox">
-                    @foreach ($students as $iter)
-                      <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
-                    @endforeach
-                    </select>
-                  </div>
-                </td>   
-              </tr>
-              <tr>
-                <td>
-                <div class="ui-widget">
-                    <select name='participants_{{$row->id}}[]' class="combobox">
-                    @foreach ($students as $iter)
-                      <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
-                    @endforeach
-                    </select>
-                  </div>
-                </td>
-              </tr>
-              </table>
-              </div>
-            @elseif($row->options->type == trans("Competition.competition_type_group_abbr"))
-            <div class="form-group more-options" >
-              {!! Form::label('participant', trans("Competition.participant"), array('class'=>'control-label')) !!}
-              <table id="dyn_participants_{{$row->id}}">
-              <tr>
-                <td>   
-                  <div class="ui-widget">
-                    <select name='participants_{{$row->id}}[]' class="combobox">
-                    @foreach ($students as $iter)
-                      <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
-                    @endforeach
-                    </select>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-              <td>
-              <div class="ui-widget">
-                  <select name='participants_{{$row->id}}[]' class="combobox">
-                  @foreach ($students as $iter)
-                    <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
-                  @endforeach
-                  </select>
+              @if(Session::has('school'))
+                <div class="form-group more-options">
+                <table>
+                <tr>
+                  <td>   
+                    <div class="ui-widget">
+                      <select name='participants_{{$row->id}}[]' class="combobox">
+                      @foreach ($students as $iter)
+                        <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
+                      @endforeach
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+                </table>
                 </div>
-              </td>
-              </tr>
-              </table>
-              <div  class="ui-widget">
-              <button type="button" class="btn btn-primary" onclick="add_participant({{$row->id}})">add</button>
-              <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}})">remove</button>
-              </div>
-              <div  class="ui-widget">
-              {!! Form::label('participant', trans("Competition.group_name"), array('class'=>'control-label')) !!}
-              <input name="grp_name_{{$row->id}}" type="text" value="">
-              </div>
-               
-                <!--<div  class="ui-widget"><a href="#" onclick="add_participant({{$row->id}}, count(participants_{{$row->id}})">add</a></div>-->
-              </div>
-              
+              @else
+              <div class="form-group more-options">
+                <table>
+                <tr> 
+                  <td>  <label class="form-control" id="description">{{Session::get('surname')}} {{Session::get('name')}}</label></td>
+                </tr>
+                </table>
+                </div>
+              @endif
+            @elseif($row->options->type == trans("Competition.competition_type_double_abbr"))
+              @if(Session::has('school'))
+                <div class="form-group more-options">
+                  <table>
+                  <tr>
+                    <td>   
+                      <div class="ui-widget">
+                        <select name='participants_{{$row->id}}[]' class="combobox">
+                        @foreach ($students as $iter)
+                          <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
+                        @endforeach
+                        </select>
+                      </div>
+                    </td>   
+                  </tr>
+                  <tr>
+                    <td>
+                    <div class="ui-widget">
+                        <select name='participants_{{$row->id}}[]' class="combobox">
+                        @foreach ($students as $iter)
+                          <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
+                        @endforeach
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                  </table>
+                  </div>
+                @else
+                <div class="form-group more-options">
+                  <table>
+                  <tr> 
+                  <td>  <label class="form-control" id="description">{{Session::get('surname')}} {{Session::get('name')}}</label></td>
+                </tr>
+                  <tr>
+                    <td>   
+                      <div class="ui-widget">
+                        <select name='participants_{{$row->id}}[]' class="combobox">
+                        @foreach ($students as $iter)
+                          <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
+                        @endforeach
+                        </select>
+                      </div>
+                    </td>   
+                  </tr>
+                  </table>
+                  </div>
+                @endif
+            @elseif($row->options->type == trans("Competition.competition_type_group_abbr"))
+              @if(Session::has('school'))
+                <div class="form-group more-options" >
+                  <table id="dyn_participants_{{$row->id}}">
+                  <tr>
+                    <td>   
+                      <div class="ui-widget">
+                        <select name='participants_{{$row->id}}[]' class="combobox">
+                        @foreach ($students as $iter)
+                          <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
+                        @endforeach
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                  <td>
+                  <div class="ui-widget">
+                      <select name='participants_{{$row->id}}[]' class="combobox">
+                      @foreach ($students as $iter)
+                        <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
+                      @endforeach
+                      </select>
+                    </div>
+                  </td>
+                  </tr>
+                  </table>
+                  <div  class="ui-widget">
+                  @else
+                <div class="form-group more-options">
+                  <table>
+                  <tr> 
+                  <td>  <label class="form-control" id="description">{{Session::get('surname')}} {{Session::get('name')}}</label></td>
+                </tr>
+                  <tr>
+                    <td>   
+                      <div class="ui-widget">
+                        <select name='participants_{{$row->id}}[]' class="combobox">
+                        @foreach ($students as $iter)
+                          <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
+                        @endforeach
+                        </select>
+                      </div>
+                    </td>   
+                  </tr>
+                  </table>
+                  </div>
+                @endif
+                  <button type="button" class="btn btn-primary" onclick="add_participant({{$row->id}})">add</button>
+                  <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}})">remove</button>
+                  </div>
+                  <div  class="ui-widget">
+                  {!! Form::label('participant', trans("Competition.group_name"), array('class'=>'control-label')) !!}
+                  <input name="grp_name_{{$row->id}}" type="text" value="">
+                  </div>
+                  
+                    <!--<div  class="ui-widget"><a href="#" onclick="add_participant({{$row->id}}, count(participants_{{$row->id}})">add</a></div>-->
+                  </div>
             @endif
           @endif
         </td>

@@ -418,6 +418,8 @@ class EventSubscriptionController extends Controller
      */
     public function showCart(Request $request)
     {
+        Log::debug('school:'  .session()->get('school'));
+
         $event = Event::findOrFail($request->get('event_id'));
         if (empty(Auth::user())) {
             Log::debug('redirect to login page');
@@ -434,6 +436,7 @@ class EventSubscriptionController extends Controller
 
         $user = Auth::user();
         $school = Auth::user()->school;
+        $data = null;
         if(empty($school)){
             $students = DB::table('students')
                     ->get();
@@ -442,15 +445,20 @@ class EventSubscriptionController extends Controller
                         'students' => $students,
                         'event'   => $event
                     ];
-            return view('Public.ViewEvent.EventSubscriptionCartPage', $data);
         }else{
+                session()->put('school', $school->name);
+              
                 Log::debug('total students of the school :' .$school->name .' are ' .$school->students->count());
                 $data = [
                 'students' => $school->students,
                 'event'   => $event
             ];
-            return view('Public.ViewEvent.EventSubscriptionCartPage', $data);
         }
+        session()->put('name', Auth::user()->first_name );
+        Log::debug('name:'  .session()->get('name'));
+        session()->put('surname', Auth::user()->last_name);
+        session()->put('account_type', $account->account_type);
+        return view('Public.ViewEvent.EventSubscriptionCartPage', $data);
     }
 
     /**
