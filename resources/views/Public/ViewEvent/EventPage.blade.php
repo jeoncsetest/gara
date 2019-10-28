@@ -3,7 +3,7 @@
     @include('Public.ViewEvent.Partials.GoogleTagManager')
 @endsection
 @section('title')
-Ticket Cart
+Biglietto
 @endsection
 @section('styles')
 {!!HTML::style(config('attendize.cdn_url_static_assets').'/assets/stylesheet/frontend.css')!!}
@@ -13,11 +13,9 @@ Ticket Cart
 
   @include('Public.ViewEvent.Partials.EventHeaderSection')
     @include('Public.ViewEvent.Partials.EventTicketsSection')
-    @include('Public.ViewEvent.Partials.EventDescriptionSection')
+
 @stop
 
 @section('scripts')
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 @endsection
-
-

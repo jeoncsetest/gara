@@ -1,47 +1,33 @@
 
 <!-- - - - - - - - - - - - - - Footer - - - - - - - - - - - - - - - - -->
 
-<footer id="footer" class="footer" data-bg="images/1920x390_bg1.jpg">
+   <footer id="footer" class="footer style-4">
 
-  <div class="logo"><img src="images/logo.png" alt=""></div>
+ <div class="copyright">
 
-  <div class="container wide-style">
+       <div class="container wide2">
 
-    <!-- main footer -->
-    <div class="main-footer">
+         <div class="flex-row align-items-center justify-content-between">
 
-      <div class="row">
+           <p>Copyright © Dancepass 2019. All Rights Reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a></p>
 
-              <div class="widget">
 
-            <h6 class="widget-title">Stay Connected</h6>
+           <ul class="social-icons">
 
-            <ul class="social-icons">
+             <li><a href="#"><i class="icon-facebook"></i></a></li>
+             <li><a href="#"><i class="icon-twitter"></i></a></li>
+             <li><a href="#"><i class="icon-instagram-5"></i></a></li>
+             <li><a href="#"><i class="icon-youtube-play"></i></a></li>
 
-              <li><a href="#"><i class="icon-facebook"></i></a></li>
-              <li><a href="#"><i class="icon-twitter"></i></a></li>
-              <li><a href="#"><i class="icon-gplus-3"></i></a></li>
-              <li><a href="#"><i class="icon-linkedin"></i></a></li>
-              <li><a href="#"><i class="icon-instagram-5"></i></a></li>
-              <li><a href="#"><i class="icon-youtube-play"></i></a></li>
-              <li><a href="#"><i class="icon-pinterest"></i></a></li>
 
-            </ul>
+           </ul>
 
-          </div>
+         </div>
 
-      </div>
+       </div>
 
-    </div>
+     </div>
 
-    <div class="copyright">
+   </footer>
 
-      <p>Copyright © Dancepass. All Rights Reserved.</p>
-
-    </div>
-
-  </div>
-
-</footer>
-
-<!-- - - - - - - - - - - - - end Footer - - - - - - - - - - - - - - - -->
+<!-- ------- Foooter  -------------->

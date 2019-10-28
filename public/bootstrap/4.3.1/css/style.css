@@ -909,7 +909,7 @@ a:hover .tooltip{
 /* Header-3 */
 
 .header.style-3{
-  background: #754b75;
+  background: #01151E;
 }
 
   .header.style-3 .top-header{
@@ -2552,6 +2552,7 @@ button.account:before{
     margin-right: 8px;
     line-height: 10px;
   }
+  
 
   [class*="btn"].btn-small i{
     font-size: 14px;
@@ -2572,7 +2573,7 @@ button.account:before{
   }
 
   [class*="btn"].btn-style-3{
-    background: #e883ae;
+    background: #00C9FC;
   }
 
   [class*="btn"].btn-style-4{

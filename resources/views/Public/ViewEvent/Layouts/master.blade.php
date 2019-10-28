@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/plugins/revolution/css/settings.css') }}">
   <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/plugins/revolution/css/layers.css') }}">
   <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/plugins/revolution/css/navigation.css') }}">
+  <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
 
   <!-- CSS theme files
   ============================================ -->

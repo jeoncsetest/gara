@@ -11,6 +11,7 @@
     </div>
 </section>
 @endif
+<!--
 <section id="organiserHead" class="container-fluid">
     <div class="container">
         <div class="row">
@@ -22,6 +23,39 @@
         </div>
     </div>
 </section>
+-->
+
+<!---   link  -->
+
+<div class="breadcrumbs-wrap no-title">
+
+   <div class="container">
+
+     <ul class="breadcrumbs">
+       <li>Home</a></li>
+       <li>Gare</li>
+       <li>{{ $event->title }}</li>
+       <li>Biglietto</li>
+     </ul>
+   </div>
+ </div>
+<span> &nbsp; &nbsp;</span>
+ <!-- - - - - - - - - - - - - - Content - - - - - - - - - - - - - - - - -->
+
+
+  <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 property="name">{{$event->title}}</h1>
+
+        </div>
+    </div>
+</div>
+<span> &nbsp; &nbsp;</span>
+<span> &nbsp; &nbsp;</span>
+
+
+  <!--
 <section id="intro" class="container">
     <div class="row">
         <div class="col-md-12">
@@ -44,8 +78,7 @@
                     <meta property="address" content="{{ urldecode($event->venue_name) }}">
                 </span>
             </div>
-
-            <div class="event_buttons">
+             <div class="event_buttons">
                 <div class="row">
                     <div class="col-md-4 col-sm-4">
                         <a class="btn btn-event-link btn-lg" href="#tickets">@lang("Public_ViewEvent.TICKETS")</a>
@@ -53,12 +86,13 @@
                     <div class="col-md-4 col-sm-4">
                         <a class="btn btn-event-link btn-lg" href="#details">@lang("Public_ViewEvent.DETAILS")</a>
                     </div>
-                    <!--
+
                     <div class="col-md-4 col-sm-4">
                         <a class="btn btn-event-link btn-lg" href="#location">@lang("Public_ViewEvent.LOCATION")</a>
-                    </div>-->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+-->
