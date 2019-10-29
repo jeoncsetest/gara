@@ -14,33 +14,34 @@
  <div id="content" class="page-content-wrap">
 
 <div class="content-element">
-
 <div class="content-element3">
 
        <h5>Informazione Ordine</h5>
        <div class="content-element4">
 
-         <div class="shop-cart-form order-type table-type-1">
-           <table>
-             <tr>
-               <th class="product-col">Descrizione</th>
-       <th class="product-col">Prezzo</th>
-               <th class="total-col">Totale</th>
-             </tr>
-             <tr>
-               <td data-title="Product">
+         <div class="content-element4">
+           <div class="table-type-2">
+             <table>
+               <tr>
+                 <th>Numero Ordine</th>
+                 <th>Nome</th>
+                 <th>Cognome</th>
+                 <th>Gara</th>
+                 <th>Data Acquisto</th>
 
-                 <div class="product">
-                   <div class="product-description">
-                     <h6 class="product-name"><a href="#">Non Slip Yoga Mat</a></h6>
-                   </div><!--/ .product-info -->
-                 </div>
 
-               </td>
-                        <td class="price total-price">$19.95</td>
-             </tr>
+               </tr>
+               <tr>
+                      <td> </td>
+                      <td>  </td>
+                      <td> </td>
+                      <td>   </td>
+                      <td>  </td>
+                    
+           </tr>
+             </table>
 
-           </table>
+           </div>
          </div>
 
        </div>

@@ -200,6 +200,10 @@ Route::group(
             'as'   => 'descriptionOrders',
         ]);
 
+        Route::get('/profileMenu', [
+            'uses' => 'ProfileMenuController@profileMenu',
+            'as'   => 'profileMenu',
+        ]);
 
         /*
          * Confirm Email

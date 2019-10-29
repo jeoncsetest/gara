@@ -13,7 +13,7 @@ return array (
   'hide_change_password' => 'Nascondi cambio Password',
   'last_name' => 'Cognome',
   'login' => 'Login',
-  'login_fail_msg' => 'Please check your details and try again.',
+  'login_fail_msg' => 'Si prega di controllare i dati e riprovare.',
   'my_profile' => 'Mio Profilo',
   'new_password' => 'Nuova Password',
   'old_password' => 'Vecchia Password',

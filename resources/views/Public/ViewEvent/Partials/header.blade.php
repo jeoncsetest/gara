@@ -71,7 +71,7 @@
             @if(!Session::has('name'))
 
           <!--  <button type="button" class="account popup-btn-login"> </button>  -->
-            <a role="button" class="btn btn-big btn-style-3 popup-btn-sign">Accedi</a>
+            <a href="{{ asset('/loginSimple')}}" role="button" class="btn btn-big btn-style-3 popup-btn-sign">Accedi</a>
               @endif
 
               @if(Session::has('error'))
@@ -88,7 +88,7 @@
               </li>
 
           <li>
-                      <a href="#" class="fas fa-shopping-cart"  aria-haspopup="true" aria-expanded="false"> |  
+                      <a href="#" class="fas fa-shopping-cart"  aria-haspopup="true" aria-expanded="false"> |
                       <i class=" text-size-small "><span class="section_head_carello"> {{Cart::count()}}</span> </i> </a>
                       <!--<span class="ico-cart mr5 section_head_carello"> {{Cart::count()}}</span>
                   </li>    <i class=" text-size-small "> {{Cart::count()}}</i>-->
@@ -98,12 +98,12 @@
                                         <!--sub menu-->
                                         <div class="sub-menu-wrap">
                                           <ul>
-                                            <li><a href="shop_category.html">Profilo</a></li>
+                                            <li><a href="{{ asset('/profileMenu')}} ">Profilo</a></li>
                                             @if(Session::has('school'))
-                                              <li><a href="\showStudentsPage">studenti miei</a></li>
+                                              <li><a href="/showStudentsPage">Ballerini</a></li>
                                             @endif
                                             <li><a href="shop_single.html">Ordini</a></li>
-                                            <li><a href="\logout">Logout</a></li>
+                                            <li><a href="{{ asset('/logout')}} ">Logout</a></li>
                                           </ul>
                                         </div>
                                       </li>
