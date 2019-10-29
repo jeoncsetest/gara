@@ -66,7 +66,7 @@ Route::group(
             'uses' => 'UserLoginController@showSimpleLogin',
         ]);
         Route::post('/loginSimple', 'UserLoginController@postSimpleLogin');
-        
+
 
         /*
          * Forgot password
@@ -143,7 +143,7 @@ Route::group(
             'as'   => 'postUploadMp3',
             'uses' => 'EventSubscriptionController@postUploadMp3',
         ]);
-        
+
 
         Route::get('{event_id}/checkout_subscription/create', [
             'as'   => 'showEventSubscriptionCheckout',
@@ -177,7 +177,7 @@ Route::group(
         Route::post('/signupSimple', 'UserSignupController@postSignupSimple');
 
         /** gestione front-end
-         * 
+         *
          */
 
         Route::get('/homepage', [
@@ -189,6 +189,12 @@ Route::group(
             'uses' => 'HomepageController@showDanceEvent',
             'as'   => 'showDanceEvent',
         ]);
+
+        Route::get('/descriptionOrders', [
+            'uses' => 'DescriptionsOrderController@descriptionOrders',
+            'as'   => 'descriptionOrders',
+        ]);
+
 
         /*
          * Confirm Email
@@ -541,8 +547,8 @@ Route::group(
                 'as'   => 'postUpdateCompetitionsOrder',
                 'uses' => 'EventCompetitionsController@postUpdateCompetitionsOrder',
             ]);
-			
-			
+
+
             /*
              * -------
              * Attendees
@@ -886,4 +892,3 @@ Route::group(
         'uses' => 'IndexController@showIndex',
     ]);
 });
-

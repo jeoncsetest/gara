@@ -1,15 +1,19 @@
 <section id='order_form' class="container">
-
     <div class="row">
         <h1 class="section_head">
             @lang("Public_ViewEvent.order_details")
         </h1>
     </div>
+<div container class="page-content-wrap">
     <div class="row">
         <div class="col-md-12" style="text-align: center">
             @lang("Public_ViewEvent.below_order_details_header")
         </div>
+        <form class="contact-form style-2">
+
+                <div class="contact-item">
         <div class="col-md-4 col-md-push-8">
+
             <div class="panel">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -57,6 +61,8 @@
                 {!! @trans("Public_ViewEvent.time", ["time"=>"<span id='countdown'></span>"]) !!}
             </div> -->
         </div>
+        </div>
+      </form>
 
         <div class="col-md-8 col-md-pull-4">
             <div class="event_order_form">
@@ -302,6 +308,7 @@
         </div>
     </div>
     <img src="https://cdn.attendize.com/lg.png" />
+</div>
 </section>
 @if(session()->get('message'))
     <script>showMessage('{{session()->get('message')}}');</script>

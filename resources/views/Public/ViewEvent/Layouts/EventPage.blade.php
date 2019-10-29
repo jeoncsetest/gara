@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
         <link rel="shortcut icon" href="{{ asset('bootstrap/4.3.1/images/favicon.ico') }}" >
 
-
+        
         <!-- Open Graph data -->
         <meta property="og:title" content="{{{$event->title}}}" />
         <meta property="og:type" content="article" />
@@ -64,7 +64,7 @@
         @if (($event->bg_type == 'image' || $event->bg_type == 'custom_image' || Input::get('bg_img_preview')) && !Input::get('bg_color_preview'))
             <style>
                 body {
-                    background-image: url({{asset('/assets/images/1816x980_bg1.jpg')}}); no-repeat center center fixed;
+                    background-image: url({{asset('/bootstrap/4.3.1/images/1816x980_bg1.jpg')}}); no-repeat center center fixed;
                     background-size: cover;
                 }
             </style>
