@@ -12,7 +12,6 @@ Homepage
 /**login */
 $(document).on('click', '#loginBtn', function(){
         /**chiamata ajax per login */
-        alert('OK');
         var email = $('#myemail').val();
         console.info('email:' + email );
         var password = $('#mypassword').val();

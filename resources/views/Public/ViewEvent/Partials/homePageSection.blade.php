@@ -53,15 +53,13 @@
         <p>Already have an account? <a href="#" class="link-text var2 popup-btn-login">Login Here</a></p>
         <a href="#" class="btn fb-btn btn-big">Sign Up With Facebook</a>
         <p class="content-element2">OR</p>
-       
-       <!--###############################################################################-->
-  
-<!--##################################################################################################-->
 
         <form class="content-element2">
 
                   <a href="{{route('showSignupSimple', array('signupType'=>'TICKET'))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"><i class="fas fa-users"></i> Pubblico</a>
+                  <br>
                   <a href="{{route('showSignupSimple', array('signupType'=>'STUDENT'))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"><i class="fas fa-users"></i> Ballerino</a>
+                  <br>
                   <a href="{{route('showSignupSimple', array('signupType'=>'SCHOOL'))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"><i class="fas fa-users"></i> Scuola</a>
                             
 
