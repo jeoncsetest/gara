@@ -71,7 +71,7 @@
             @if(!Session::has('name'))
 
           <!--  <button type="button" class="account popup-btn-login"> </button>  -->
-            <a href="http://localhost/gara/gara_github/public/loginSimple" role="button" class="btn btn-big btn-style-3 popup-btn-sign">Accedi</a>
+            <a role="button" class="btn btn-big btn-style-3 popup-btn-sign">Accedi</a>
               @endif
 
               @if(Session::has('error'))
@@ -99,6 +99,9 @@
                                         <div class="sub-menu-wrap">
                                           <ul>
                                             <li><a href="shop_category.html">Profilo</a></li>
+                                            @if(Session::has('school'))
+                                              <li><a href="\showStudentsPage">studenti miei</a></li>
+                                            @endif
                                             <li><a href="shop_single.html">Ordini</a></li>
                                             <li><a href="\logout">Logout</a></li>
                                           </ul>
