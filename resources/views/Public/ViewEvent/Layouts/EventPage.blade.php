@@ -9,6 +9,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
         <link rel="canonical" href="{{$event->event_url}}" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
+        <link rel="shortcut icon" href="{{ asset('bootstrap/4.3.1/images/favicon.ico') }}" >
 
 
         <!-- Open Graph data -->

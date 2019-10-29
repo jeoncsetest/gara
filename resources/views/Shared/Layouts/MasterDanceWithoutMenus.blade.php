@@ -14,6 +14,7 @@
         <!--Style-->
        {!!HTML::style('assets/stylesheet/application.css')!!}
         <!--/Style-->
+        <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/css/style.css') }}">
 
         @yield('head')
 

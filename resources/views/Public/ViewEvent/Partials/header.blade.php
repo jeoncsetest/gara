@@ -65,26 +65,7 @@
 
               <!-- - - - - - - - - - - - - - Navigation - - - - - - - - - - - - - - - - -->
 
-      <!--   <nav id="main-navigation" class="main-navigation">
-                <ul id="menu" class="clearfix">
-                      <li><a href="#">Shop</a>
-                    <!--sub menu-->
-                <!--    <div class="sub-menu-wrap">
-                      <ul>
-                        <li><a href="shop_category.html">Category Page</a></li>
-                        <li><a href="shop_single.html">Single Product Page</a></li>
-                        <li><a href="shop_cart.html">Cart</a></li>
-                        <li><a href="shop_checkout.html">Checkout</a></li>
-                        <li><a href="shop_account.html">My Account</a></li>
-                      </ul>
-                    </div>
-                  </li>
-                </ul>
-              </nav>
--->
-              <!-- - - - - - - - - - - - - end Navigation - - - - - - - - - - - - - - - -->
-
-            </div>
+              </div>
 
             <!-- account button -->
             @if(!Session::has('name'))
@@ -102,15 +83,15 @@
               @if(Session::has('name'))
               <nav id="main-navigation" class="main-navigation">
                      <ul id="menu" class="clearfix">
-                           <li><p> {{Session::get('surname')}} {{Session::get('name')}}
-              <@if(Session::has('account_type') && Session::get('account_type') == 'SIMPLE')</p>
+                           <li><p> <font color="white">{{Session::get('surname')}} {{Session::get('name')}}
+              @if(Session::has('account_type') && Session::get('account_type') == 'SIMPLE')</font></p>
               </li>
 
           <li>
-                      <a href="#" class="fas fa-shopping-cart"  aria-haspopup="true" aria-expanded="false">   </a>
-                      <!--<span class="ico-cart mr5 section_head_carello"> {{Cart::count()}}</span>-->
-                  </li>  <li>   <i class=" text-size-small "> {{Cart::count()}}</i>
-                  </li>
+                      <a href="#" class="fas fa-shopping-cart"  aria-haspopup="true" aria-expanded="false"> |  <i class=" text-size-small "> {{Cart::count()}}</i> </a>
+                      <!--<span class="ico-cart mr5 section_head_carello"> {{Cart::count()}}</span>
+                  </li>    <i class=" text-size-small "> {{Cart::count()}}</i>-->
+
                   @endif
                   <li><a href="#">Menu</a>
                                         <!--sub menu-->
@@ -123,22 +104,7 @@
                                         </div>
                                       </li>
 
-                <!--   <button class="btn btn-big btn-style-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">   </button>-->
-
-              <!--     <div class="dropdown-menu my-2 my-lg-0" aria-labelledby="dropdownMenuButton" >
-
-                       <button class="btn btn-big btn-style-3" type="button">my profile</button>
-
-                       <button class="btn btn-big btn-style-3" type="button">my orders</button>
-                       <button type="button" class="btn btn-default" aria-label="Left Align">
-                       <p>Shopping-cart icon: <span class="glyphicon glyphicon-shopping-cart"></span></p>
-               </button>
-
-                       <button class="btn btn-big btn-style-3" type="button">
-                       <a href="\logoutSimple">logout </a></button>
-
-                   </div>-->
-                 </ul>
+               </ul>
              </nav>
 
   @endif
