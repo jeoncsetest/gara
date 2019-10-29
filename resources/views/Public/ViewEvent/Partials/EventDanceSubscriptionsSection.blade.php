@@ -13,7 +13,10 @@
     <div class="isotope-nav" id = "filters">
   <div class="form-group text-center">
 
-    <p><h4>  Seleziona la tua gara  </h4></p
+    <p><h1>  Seleziona la tua gara </h1></p>
+      <a href="{{route('showSubscriptionPage', array('event_id'=>$event->id, 'eventType'=>'S'))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Assolo</a>
+
+    <p> Seleziona la tua disciplina </p>
 
     @foreach($disciplines as $discipline)
     <a href="{{route('showSubscriptionPage', array('event_id'=>$event->id, 'discipline_id'=>$discipline->id))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">{{$discipline->discipline_name}}</a>
@@ -58,7 +61,7 @@
 			<input name="price" id="price_{{$competition->id}}" type="hidden" value="{{$competition->price}}"/>
 		</td>
         <td>  <label class="form-control" id="typedance">{{$competition->type}}</label></td>
-		<td><label class="form-control">{{money($competition->price, $event->currency)}} </label></td>
+		<td><span title='{{money($competition->price, $event->currency)}} @lang("Public_ViewEvent.competition_price")'>{{money($competition->price, $event->currency)}} </span></td>
     <td>
    <div class="mad-custom-select">
 

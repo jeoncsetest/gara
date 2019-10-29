@@ -41,7 +41,7 @@
 
       </div>
 
-      <!-- Page section -->
+      <!-- Page section
 
     <div id="popup-sign" class="popup var3">
 
@@ -61,7 +61,7 @@
                   <a href="{{route('showSignupSimple', array('signupType'=>'STUDENT'))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"><i class="fas fa-users"></i> Ballerino</a>
                   <br>
                   <a href="{{route('showSignupSimple', array('signupType'=>'SCHOOL'))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"><i class="fas fa-users"></i> Scuola</a>
-                            
+
 
         </form>
 
@@ -99,6 +99,5 @@
 
     </div>
 
-  </div>
-
-  <!-- - - - - - - - - - - - end Wrapper - - - - - - - - - - - - - - -->
+    -- - - - - - - - - - - - end Wrapper - - - - - - - - - - - - - - -->
+</div>
