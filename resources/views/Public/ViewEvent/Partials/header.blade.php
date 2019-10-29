@@ -24,7 +24,7 @@
 
     <!-- searchform -->
 
-    <div class="searchform-wrap">
+<!--    <div class="searchform-wrap">
       <div class="vc-child h-inherit">
 
         <form class="search-form">
@@ -38,7 +38,7 @@
 
       </div>
     </div>
-
+-->
     <!-- top-header -->
 
     <div class="top-header">
@@ -65,30 +65,11 @@
 
               <!-- - - - - - - - - - - - - - Navigation - - - - - - - - - - - - - - - - -->
 
-              <nav id="main-navigation" class="main-navigation">
+      <!--   <nav id="main-navigation" class="main-navigation">
                 <ul id="menu" class="clearfix">
-                  <li class="current"><a href="#">Home</a>
-                    <!--sub menu-->
-                    <div class="sub-menu-wrap">
-                      <ul>
-                      <li class="sub"><a href="#">Header Layouts</a>
-                          <!--sub menu-->
-                          <div class="sub-menu-wrap sub-menu-inner">
-                            <ul>
-                              <li><a href="index.html">Header 1</a></li>
-                              <li><a href="home_2.html">Header 2</a></li>
-                              <li><a href="home_3.html">Header 3</a></li>
-                              <li><a href="home_4.html">Header 4</a></li>
-                              <li><a href="home_5.html">Header 5</a></li>
-                            </ul>
-                          </div>
-                        </li>
-                                              </ul>
-                    </div>
-                  </li>
                       <li><a href="#">Shop</a>
                     <!--sub menu-->
-                    <div class="sub-menu-wrap">
+                <!--    <div class="sub-menu-wrap">
                       <ul>
                         <li><a href="shop_category.html">Category Page</a></li>
                         <li><a href="shop_single.html">Single Product Page</a></li>
@@ -100,18 +81,16 @@
                   </li>
                 </ul>
               </nav>
-
+-->
               <!-- - - - - - - - - - - - - end Navigation - - - - - - - - - - - - - - - -->
 
             </div>
 
-            <!-- search button -->
-            <div class="search-holder"><button type="button" class="search-button"></button></div>
             <!-- account button -->
             @if(!Session::has('name'))
 
-            <button type="button" class="account popup-btn-login"></button>
-            <a href="http://localhost/gara/gara-master/public/loginSimple" role="button" class="btn btn-big btn-style-3 popup-btn-sign">Accedi</a>
+          <!--  <button type="button" class="account popup-btn-login"> </button>  -->
+            <a href="http://localhost/gara/gara_github/public/loginSimple" role="button" class="btn btn-big btn-style-3 popup-btn-sign">Accedi</a>
               @endif
 
               @if(Session::has('error'))
@@ -121,24 +100,32 @@
               @endif
 
               @if(Session::has('name'))
-              <h3 class= 'btn btn-big btn-style-3' >{{Session::get('surname')}} {{Session::get('name')}}</h3>
-              <@if(Session::has('account_type') && Session::get('account_type') == 'SIMPLE')
-              <span style="padding-right: 1%;">
+              <nav id="main-navigation" class="main-navigation">
+                     <ul id="menu" class="clearfix">
+                           <li><p> {{Session::get('surname')}} {{Session::get('name')}}
+              <@if(Session::has('account_type') && Session::get('account_type') == 'SIMPLE')</p>
+              </li>
 
-                      <a href="#" class=" btn btn-big btn-style-3 ico-cart mr5 section_head_carello"  aria-haspopup="true" aria-expanded="false">
+          <li>
+                      <a href="#" class="fas fa-shopping-cart"  aria-haspopup="true" aria-expanded="false">   </a>
                       <!--<span class="ico-cart mr5 section_head_carello"> {{Cart::count()}}</span>-->
-                  </a>
-                  <i class=" btn btn-big btn-style-3 "> {{Cart::count()}}</i>
-                    </span>
+                  </li>  <li>   <i class=" text-size-small "> {{Cart::count()}}</i>
+                  </li>
                   @endif
+                  <li><a href="#">Menu</a>
+                                        <!--sub menu-->
+                                        <div class="sub-menu-wrap">
+                                          <ul>
+                                            <li><a href="shop_category.html">Profilo</a></li>
+                                            <li><a href="shop_single.html">Ordini</a></li>
+                                            <li><a href="\logout">Logout</a></li>
+                                          </ul>
+                                        </div>
+                                      </li>
 
-                  <div class="sub-menu-wrap">
+                <!--   <button class="btn btn-big btn-style-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">   </button>-->
 
-
-                   <button class="btn btn-big btn-style-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     My menu
-                   </button>
-                   <div class="dropdown-menu my-2 my-lg-0" aria-labelledby="dropdownMenuButton" >
+              <!--     <div class="dropdown-menu my-2 my-lg-0" aria-labelledby="dropdownMenuButton" >
 
                        <button class="btn btn-big btn-style-3" type="button">my profile</button>
 
@@ -148,10 +135,11 @@
                </button>
 
                        <button class="btn btn-big btn-style-3" type="button">
-                       <a href="\logoutSimple">logout me</a></button>
+                       <a href="\logoutSimple">logout </a></button>
 
-                   </div>
-                 </div>
+                   </div>-->
+                 </ul>
+             </nav>
 
   @endif
           </div>
@@ -165,127 +153,3 @@
   </header>
 
   <!-- - - - - - - - - - - - - end Header - - - - - - - - - - - - - - - -->
-
-
-<!--
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
-<a class="navbar-brand" href=" {{ asset('/homepage') }} ">
-<img src=" {{ asset('/bootstrap/logo1.png') }} " width="120" height="30" class="d-inline-block align-top" alt="">
-</a>
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item active">
-      <a class="nav-link" href=" {{ asset('/homepage') }} ">Home <span class="sr-only">(current)</span></a>
-    </li>
-  </ul>
-
-  @if(!Session::has('name'))
-<form class="form-inline my-2 my-lg-0">
-      <a href="\loginSimple" role="button">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="button">Accedi</button></a>
-  </form>
-@endif
-
-@if(Session::has('error'))
-<div class="alert alert-danger">
-{{ Session::get('error')}}
-</div>
-@endif
-
-@if(Session::has('name'))
-
- <div class="dropdown">
- <div>
-  <h1 style="color:white">{{Session::get('surname')}} {{Session::get('name')}}</h1>
-</div>
-  <button class="btn btn-secondary dropdown-toggle btn-outline-success my-2 my-sm-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    My menu
-  </button>
-  <div class="dropdown-menu my-2 my-lg-0" aria-labelledby="dropdownMenuButton" >
-
-      <button class="btn btn-outline-success my-2 my-sm-0" type="button">my profile</button>
-
-      <button class="btn btn-outline-success my-2 my-sm-0" type="button">my orders</button>
-
-      <button class="btn btn-outline-success my-2 my-sm-0" type="button">
-      <a href="\logoutSimple">logout me</a></button>
-
-  </div>
-</div>
-@endif
-</div>
-</nav>
--->
-
-
-<!--
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" href=" {{ asset('/homepage') }} ">
-  <img src=" {{ asset('/bootstrap/logo1.png') }} " width="120" height="40" style="padding-top:5%" class="d-inline-block" alt="">
-</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href=" {{ asset('/homepage') }} "><span class= 'btn-outline-success'>Home</span> <span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
-
-
-    @if(!Session::has('name'))
-  <form class="form-inline my-2 my-lg-0">
-        <a href="\loginSimple" role="button">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="button">Accedi</button></a>
-    </form>
-@endif
-
-@if(Session::has('error'))
-<div class="alert alert-danger">
-  {{ Session::get('error')}}
-</div>
-@endif
-
-@if(Session::has('name'))
-<h3 class= 'btn-outline-success' style="padding-right: 3%;">{{Session::get('surname')}} {{Session::get('name')}}</h3>
-<@if(Session::has('account_type') && Session::get('account_type') == 'SIMPLE')
-<span style="padding-right: 1%;">
-
-        <a href="#" class=" btn-outline-success my-2 my-sm-0 ico-cart mr5 section_head_carello"  aria-haspopup="true" aria-expanded="false">
-        <!--<span class="ico-cart mr5 section_head_carello"> {{Cart::count()}}</span>-->
-<!--    </a>
-    <i class=" btn-outline-success my-2 my-sm-0 "> {{Cart::count()}}</i>
-
-      </span>
-    @endif
-   <div class="dropdown">
-
-
-
-
-    <button class="btn btn-secondary dropdown-toggle btn-outline-success my-2 my-sm-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      My menu
-    </button>
-    <div class="dropdown-menu my-2 my-lg-0" aria-labelledby="dropdownMenuButton" >
-
-        <button class="btn btn-outline-success my-2 my-sm-0" type="button">my profile</button>
-
-        <button class="btn btn-outline-success my-2 my-sm-0" type="button">my orders</button>
-        <button type="button" class="btn btn-default" aria-label="Left Align">
-        <p>Shopping-cart icon: <span class="glyphicon glyphicon-shopping-cart"></span></p>
-</button>
-
-        <button class="btn btn-outline-success my-2 my-sm-0" type="button">
-        <a href="\logoutSimple">logout me</a></button>
-
-    </div>
-  </div>
-  @endif
-</div>
-</nav>
--->

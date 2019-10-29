@@ -1,7 +1,7 @@
 <?php
 
 return array (
-  'already_have_account' => 'Hai già un account? <a class="semibold" href=":url">Registrati </a>',
+  'already_have_account' => 'Hai già un account? <a class="semibold" href=":url">Accedi </a>',
   'after_welcome' => 'Prima di continuare, aggiorna il tuo account con il tuo nome e una nuova password.',
   'change_password' => 'Cambia Password',
   'confirm_new_password' => 'Conferma Nuova Password',
@@ -37,5 +37,5 @@ return array (
   'city'  => 'Città',
   'address'  => 'Indirizzo',
   'place'  => 'Paese',
-  'add_student'  => 'iscrivi',
+  'add_student'  => 'Iscrivi',
 );

@@ -6,11 +6,11 @@
 
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700%7CPrata" rel="stylesheet">
 
+
   <!-- Basic Page Needs
   ================================================== -->
-  <!--
-  <title>Yoga</title>
- -->
+<title> @yield('title')</title>
+
   <!--meta info
   <meta charset="utf-8">
   <meta name="author" content="">
@@ -39,7 +39,7 @@
   <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/css/owl.carousel.css') }}">
   <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/css/responsive.css') }}">
-
+  <link rel="shortcut icon" href="{{ asset('bootstrap/4.3.1/images/favicon.ico') }}" > 
 
 </head>
   <body>
