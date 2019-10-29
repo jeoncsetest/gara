@@ -114,6 +114,11 @@ Route::group(
             'as'   => 'postAddStudent',
         ]);
 
+        Route::post('/postAddBallerino', [
+            'uses' => 'SchoolManagementController@postAddBallerino',
+            'as'   => 'postAddBallerino',
+        ]);
+
         Route::get('/{event_id}/subscription', [
             'as'   => 'showSubscriptionPage',
             'uses' => 'EventSubscriptionController@showSubscriptionPage',

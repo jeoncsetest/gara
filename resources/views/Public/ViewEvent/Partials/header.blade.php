@@ -109,7 +109,7 @@
           <li>
                       <a href="#" class="fas fa-shopping-cart"  aria-haspopup="true" aria-expanded="false">   </a>
                       <!--<span class="ico-cart mr5 section_head_carello"> {{Cart::count()}}</span>-->
-                  </li>  <li>   <i class=" text-size-small "> {{Cart::count()}}</i>
+                  </li>  <li>   <i class=" text-size-small"> <span class=" section_head_carello">{{Cart::count()}} </span> </i>
                   </li>
                   @endif
                   <li><a href="#">Menu</a>

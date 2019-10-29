@@ -145,26 +145,37 @@
                   <div  class="ui-widget">
                   @else
                 <div class="form-group more-options">
-                  <table>
+                <table id="dyn_participants_{{$row->id}}">
                   <tr> 
                   <td>  <label class="form-control" id="description">{{Session::get('surname')}} {{Session::get('name')}}</label></td>
                 </tr>
-                  <tr>
+                <tr>
                     <td>   
-                      <div class="ui-widget">
-                        <select name='participants_{{$row->id}}[]' class="combobox">
-                        @foreach ($students as $iter)
-                          <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
-                        @endforeach
-                        </select>
+                      <div>
+                      <span>
+                      <table>
+                      <tr>
+                      <td><input type=text name='participantSurname_{{$row->id}}[]'></td>
+                      <td><input type=text name='participantSurname_{{$row->id}}[]'></td>
+                      </tr>
+                      </table>
+                      
+                      
+                      <input type=date name='participantDOB_{{$row->id}}[]'>
+                      <input type=text name='participantFiscalCode_{{$row->id}}[]'>
+                      </span>
                       </div>
                     </td>   
                   </tr>
                   </table>
                   </div>
                 @endif
+                @if(Session::has('school'))
                   <button type="button" class="btn btn-primary" onclick="add_participant({{$row->id}})">add</button>
                   <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}})">remove</button>
+                @else
+                  <button type="button" class="btn btn-danger" onclick="showAddBallerino('{{$row->rowId}}', {{$row->id}}, '{{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}')" >Aggiungi ballerino</button>       
+                @endif
                   </div>
                   <div  class="ui-widget">
                   {!! Form::label('participant', trans("Competition.group_name"), array('class'=>'control-label')) !!}
@@ -177,29 +188,24 @@
           @endif
         </td>
         <td>  
-          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-cartrowid="{{$row->rowId}}" data-cartitem="{{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}">Elimina</button>
-            <div class="modal " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{trans("Competition.cofirmation_popup_title")}}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                  <span>
-                    {{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}
-                  </span>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{trans("Competition.close")}}</button>
-                    <button type="button" class="btn btn-primary" id="remove_cart_item" data-dismiss="modal" >{{trans("Competition.confirm")}}</button>
-                  </div>
-                </div>
-              </div>
-            </div>    
+          <button type="button" class="btn btn-danger" onclick="showPopupRemoveItem('{{$row->rowId}}', {{$row->id}}, '{{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}')" >Elimina</button>
+         
+ <div id="popup-removeCart_{{$row->id}}" class="popup var3">
+  <div class="popup-inner">
+    <button type="button" class="close-popup"></button>
+    <h4 class="title">Eliminare dal carello</h4>
+    <span>
+      {{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}
+    </span>
+    <button type="button" name="{{$row->rowId}}" class="btn btn-primary" id="remove_cart_item" >{{trans("Competition.confirm")}}</button>
+  </div>
+  </div>
+
+  
                <input name="qty_{{$row->id}}" type="hidden" value="{{$row->qty}}">
+
+               
+               </td>
       </tr>
         @endforeach
       </tbody>
@@ -231,6 +237,39 @@
         </tr>
       </tfoot>
   </table>
+  <div id="popup-ballerino" class="popup var3">
+  <div class="popup-inner">
+    <button type="button" class="close-popup"></button>
+    <h4 class="title">Aggiungi nuovo ballerino</h4>
+    <table>
+      <tr>
+        <td>{!! Form::label('first_name', trans("User.first_name"), ['class' => 'control-label required']) !!}</td>
+        <td>
+          <input type=text name='name' id='name' >
+          <input type=hidden name='item_id' id='item_id' >
+          <input type=hidden name='item_rowId' id='item_rowId' >
+        </td>
+      </tr>
+      <tr>
+      <td>{!! Form::label('last_name', trans("User.last_name"), ['class' => 'control-label required']) !!}</td>
+        <td><input type=text name='surname' id='surname'></td>
+      </tr>
+      <tr>
+      <td> {!! Form::label('fiscal_code', trans("User.fiscal_code"), ['class' => 'control-label required']) !!}</td>
+        <td><input type=text name='fiscal_code' id='fiscal_code'></td>
+      </tr>
+      <tr>
+      <td> {!! Form::label('birth_date', trans("User.birth_date"), ['class' => 'control-label required']) !!}</td>
+        <td><input type=date name='birth_date' id='birth_date'></td>
+      </tr>
+      <tr>
+      <td> {!! Form::label('birth_place', trans("User.birth_place"), ['class' => 'control-label required']) !!}</td>
+        <td><input type=text name='birth_place' id='birth_place'></td>
+      </tr>
+    </table>
+    <button type="button" name="{{$row->rowId}}" class="btn btn-primary" id="add_nuovo_ballerino" >aggiungi ballerino</button>
+  </div>
+  </div>
   </div>
 {!! Form::close() !!}
 @endif
