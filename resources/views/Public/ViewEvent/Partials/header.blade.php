@@ -88,7 +88,8 @@
               </li>
 
           <li>
-                      <a href="#" class="fas fa-shopping-cart"  aria-haspopup="true" aria-expanded="false"> |  <i class=" text-size-small "> {{Cart::count()}}</i> </a>
+                      <a href="#" class="fas fa-shopping-cart"  aria-haspopup="true" aria-expanded="false"> |  
+                      <i class=" text-size-small "><span class="section_head_carello"> {{Cart::count()}}</span> </i> </a>
                       <!--<span class="ico-cart mr5 section_head_carello"> {{Cart::count()}}</span>
                   </li>    <i class=" text-size-small "> {{Cart::count()}}</i>-->
 

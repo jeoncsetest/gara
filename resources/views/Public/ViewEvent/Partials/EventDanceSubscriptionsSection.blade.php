@@ -14,28 +14,17 @@
   <div class="form-group text-center">
 
     <p><h1>  Seleziona la tua gara </h1></p>
-      <a href="{{route('showSubscriptionPage', array('event_id'=>$event->id, 'eventType'=>'S'))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Assolo</a>
-
-    <p> Seleziona la tua disciplina </p>
-
+    
     @foreach($disciplines as $discipline)
     <a href="{{route('showSubscriptionPage', array('event_id'=>$event->id, 'discipline_id'=>$discipline->id))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">{{$discipline->discipline_name}}</a>
-    <!--
->>>>>>> 4ce8c5d1b7cbf5e7f9785cbecd2070a219ac4159
-    <a href="{{route('showSubscriptionPage', array('event_id'=>$event->id, 'eventType'=>'D'))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Coppia</a>
-    <a href="{{route('showSubscriptionPage', array('event_id'=>$event->id, 'eventType'=>'G'))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Gruppo</a>
-    -->
+
     @endforeach
     <a href="{{route('showSubscriptionPage', array('event_id'=>$event->id))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Tutti</a>
   </div>
 </div>
  </div>
 <span> &nbsp; &nbsp;</span>
-<!--
-	<h1>
-    Carello <span class='section_head_carello' id='section_head_carello'>{{Cart::count()}}</span>
 
-	</h1>-->
  <div class="content-element">
   <div class="row" id="div_event_dance_cart">
 	<table class="table-type-1" id="competition_table">
