@@ -41,7 +41,7 @@
 
       </div>
 
-      <!-- Page section
+      <!-- Page section -->
 
     <div id="popup-sign" class="popup var3">
 
