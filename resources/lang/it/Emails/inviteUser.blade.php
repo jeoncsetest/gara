@@ -4,7 +4,7 @@
 
 <p>Ciao</p>
 <p>
-  Sei stato aggiunto a un {{ config('attendize.app_name') }} account di {{$inviter->first_name.' '.$inviter->last_name}}.
+  Sei stato aggiunto a {{ config('attendize.app_name') }} account di {{$inviter->first_name.' '.$inviter->last_name}}.
 </p>
 
 <p>

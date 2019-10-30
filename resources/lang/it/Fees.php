@@ -5,7 +5,7 @@
 
 return array (
   'service_fee_fixed_price' => 'Prezzo fisso commissione di servizio',
-  'service_fee_fixed_price_help' => 'e.Esempio: inserisci  <b>1.25</b> per <b>:cur1.25</b>',
+  'service_fee_fixed_price_help' => 'Esempio: inserisci  <b>1.25</b> per <b>:cur1.25</b>',
   'service_fee_fixed_price_placeholder' => '0.00',
   'organiser_fees' => 'Commissioni organizzatore',
   'organiser_fees_text' => 'Queste sono commissioni opzionali che puoi includere nel costo di ciascun biglietto. Tale addebito verrà visualizzato nelle fatture dell acquirente come \'<b>BOOKING FEES</b>\'.',

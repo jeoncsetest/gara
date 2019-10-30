@@ -34,7 +34,7 @@ return array (
   'cofirmation_popup_title' => 'Conferma',
   'confirm' => 'Si',
   'close' => 'Chiudi',
-  'delete_cart_item_confirmation' => 'Do you really want to delete :competitionTitle from your cart?',
+  'delete_cart_item_confirmation' => 'Vuoi davvero cancellare :competitionTitle dal tuo carrello?',
   'group_name' => 'Nome Gruppo',
   'mp3_uploaded_successfully' => 'Mp3 {mp3_file} è stato caricato correttamente',
   'event' => 'Evento',

@@ -20,6 +20,12 @@
                     <div id="content" class="page-content-wrap">
                         <div class="tickets_table_wrap">
                             <table class="table">
+                              <tr>
+                                <th class="ticket-title semibold">Descrizione biglietto</th>
+                                <th class="ticket-descripton" style="margin-right: 20px;">Prezzo</th>
+                                <th class="form-control" style="text-align: left">Quantità</th>
+                              </tr>
+                              <tbody>
                                 <?php
                                 $is_free_event = true;
                                 ?>
@@ -34,7 +40,7 @@
                                             </p>
                                             <span> &nbsp;</span>
                                         </td>
-                                        <td style="width:200px; text-align: right;">
+                                        <td style="width:200px; text-align: center;">
                                             <div class="ticket-pricing" style="margin-right: 20px;">
                                                 @if($ticket->is_free)
                                                     @lang("Public_ViewEvent.free")
@@ -78,7 +84,7 @@
                                                 @else
                                                     {!! Form::hidden('tickets[]', $ticket->id) !!}
                                                     <meta property="availability" content="http://schema.org/InStock">
-                                                    <select name="ticket_{{$ticket->id}}" class="form-control"
+                                   <select name="ticket_{{$ticket->id}}" class="form-control"
                                                             style="text-align: center">
                                                         @if ($tickets->count() > 1)
                                                             <option value="0">0</option>
@@ -139,7 +145,7 @@
     </div>
                                     </td>
                                 </tr>
-
+</tbody>
                             </table>
                         </div>
                       </div>
