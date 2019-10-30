@@ -113,7 +113,6 @@ class UserSignupController extends Controller
 
         if($signupType == config('attendize.signup_type_student')){
             $validation_rules_signup_student =[
-                'school_eps'   => 'required',
                 'fiscal_code'   => 'required',
                 'phone'   => 'required',
                 'birth_date'   => 'required',

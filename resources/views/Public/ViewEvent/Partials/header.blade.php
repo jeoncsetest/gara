@@ -102,7 +102,7 @@
                                             @if(Session::has('school'))
                                               <li><a href="/showStudentsPage">Ballerini</a></li>
                                             @endif
-                                            <li><a href="shop_single.html">Ordini</a></li>
+                                            <li><a href="{{route('descriptionOrders')}}">Ordini</a></li>
                                             <li><a href="{{ asset('/logout')}} ">Logout</a></li>
                                           </ul>
                                         </div>

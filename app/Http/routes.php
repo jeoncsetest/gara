@@ -454,6 +454,10 @@ Route::group(
             'uses' => 'EventController@postUploadEventImage',
         ]);
 
+        Route::get('{event_id}/showAgreement', [
+            'as'   => 'showAgreement',
+            'uses' => 'EventViewController@showAgreement',
+        ]);
         /*
          * Event management routes
          */
@@ -628,10 +632,7 @@ Route::group(
                 'uses' => 'EventAttendeesController@showExportTicket',
             ]);
 
-            Route::get('{event_id}/showAgreement', [
-                'as'   => 'showAgreement',
-                'uses' => 'EventViewController@showAgreement',
-            ]);
+            
 
             Route::get('{event_id}/attendees/{attendee_id}/ticket', [
                 'as'   => 'showAttendeeTicket',

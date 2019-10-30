@@ -43,10 +43,10 @@ function add_participant(rowId){
     $('#dyn_participants_' + rowId).append(html);
 }
 
-function remove_participant(rowId){
+function remove_participant(rowId, isSchool){
         var rowCount = $('#dyn_participants_' + rowId + ' tr').length;
         console.info('count row :' + rowCount);
-        if(rowCount > 2){
+        if((isSchool == 'true' && rowCount > 2) || rowCount > 1){
             $('#dyn_participants_' + rowId + ' tr:last').remove();
         }
 }
@@ -106,6 +106,9 @@ $(document).on('click', '#add_nuovo_ballerino', function(){
         birth_date = $('#birth_date').val();
         birth_place = $('#birth_place').val();
         fiscal_code = $('#fiscal_code').val();
+
+        rowId = $('#popup-ballerino #item_id').val();
+  
         
         if((name.trim()) && (surname.trim()) && (birth_date.trim()) && (birth_place.trim())  && (fiscal_code.trim())){
           $.ajaxSetup({
@@ -123,6 +126,16 @@ $(document).on('click', '#add_nuovo_ballerino', function(){
                 alert(data.message);
               }else{
                 alert(data.student_id);
+                html = '';
+                participantName = "participants_"+rowId + "[]";
+                html +=  '<tr><td>';
+                html += '<div>' +
+                  "<label class='form-control'>" + surname + "  " + name + "</label>" +
+                  "<input type=hidden name='participants_" + rowId + "[]'" + " value='" + data.student_id + "'>";
+                html +=  '</div>'
+  
+                html += '</td></tr>';
+                $('#dyn_participants_' + rowId).append(html);
                 $('#popup-ballerino').fadeOut("slow");
               }
               

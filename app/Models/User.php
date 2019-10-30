@@ -178,5 +178,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasOne(\App\Models\School::class);
     }
+	
+	 public function student()
+    {
+        return $this->hasOne(\App\Models\Student::class);
+    }
 
 }

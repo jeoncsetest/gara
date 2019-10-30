@@ -23,7 +23,13 @@ class DescriptionsOrderController extends Controller
     //
     public function descriptionOrders()
     {
-        return view ('Public.ViewEvent.DescriptionsOrder');
+        $orders = DB::table('Orders')
+        ->where('orders.user_id', '=', Auth::user()->id)
+        ->get();
+        Log::debug('total:' . $orders->count());
+        return view('Public.ViewEvent.DescriptionsOrder', [
+        'orders' => $orders,
+        ]);
     }
 
 

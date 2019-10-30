@@ -26,18 +26,28 @@
                  <th>Numero Ordine</th>
                  <th>Nome</th>
                  <th>Cognome</th>
-                 <th>Gara</th>
+                 <th>Totale</th>
                  <th>Data Acquisto</th>
 
 
                </tr>
+
+               @foreach($orders as $order)
+              
                <tr>
-                      <td> </td>
-                      <td>  </td>
-                      <td> </td>
-                      <td>   </td>
-                      <td>  </td>
-                    
+                      <td>{{$order->order_reference}}</td>
+                      <td>{{$order->first_name}}</td>
+                      <td>{{$order->last_name}}</td>
+                      <@if($order->cart_amount == 0)
+                      <td>{{$order->amount}}</td>
+                      @else
+                      <td>{{$order->cart_amount}}</td>
+                
+                          @endif
+                         
+                         
+                      <td>  {{$order->created_at}}</td>
+                      @endforeach  
            </tr>
              </table>
 

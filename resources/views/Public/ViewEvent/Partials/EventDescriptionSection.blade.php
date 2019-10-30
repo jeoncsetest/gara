@@ -62,8 +62,7 @@
                              <h6 class="event-title">Dettagli</h6>
                                  <ul class="custom-list">
                                   <li><p >
-                                          <a style="text-align: center"  class="btn btn-lg btn-primary pull-right"
-                                          href = "{{route('showAgreement', ['event_id'=>$event->id])}}">Regolamento</a>
+                                          <a href = "{{route('showAgreement', array('event_id'=>$event->id))}}"  target="_blank">Regolamento</a>
                                       </p></li>
                                         <li><p >
                                       <div class="align-rigth">

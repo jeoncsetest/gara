@@ -62,7 +62,10 @@
               <div class="form-group more-options">
                 <table>
                 <tr> 
-                  <td>  <label class="form-control" id="description">{{Session::get('surname')}} {{Session::get('name')}}</label></td>
+                <td>  
+                    <label class="form-control" id="description">{{Session::get('surname')}} {{Session::get('name')}}</label>
+                    <input type="hidden" name='participants_{{$row->id}}[]'  value='{{$row->options->student_id}}'>
+                  </td>
                 </tr>
                 </table>
                 </div>
@@ -96,24 +99,19 @@
                   </table>
                   </div>
                 @else
+
                 <div class="form-group more-options">
-                  <table>
-                  <tr> 
-                  <td>  <label class="form-control" id="description">{{Session::get('surname')}} {{Session::get('name')}}</label></td>
+                <table id="dyn_participants_{{$row->id}}">
+                <tr> 
+                <td>  
+                    <label class="form-control" id="description">{{Session::get('surname')}} {{Session::get('name')}}</label>
+                    <input type="hidden" name='participants_{{$row->id}}[]'  value='{{$row->options->student_id}}'>
+                  </td>
                 </tr>
-                  <tr>
-                    <td>   
-                      <div class="ui-widget">
-                        <select name='participants_{{$row->id}}[]' class="combobox">
-                        @foreach ($students as $iter)
-                          <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
-                        @endforeach
-                        </select>
-                      </div>
-                    </td>   
-                  </tr>
-                  </table>
-                  </div>
+                </table>
+                </div>
+                  <button type="button" class="btn btn-danger" onclick="showAddBallerino('{{$row->rowId}}', {{$row->id}}, '{{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}')" >Aggiungi</button>       
+                  <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}}, 'false')">elimina</button>
                 @endif
             @elseif($row->options->type == trans("Competition.competition_type_group_abbr"))
               @if(Session::has('school'))
@@ -144,37 +142,23 @@
                   </table>
                   <div  class="ui-widget">
                   @else
-                <div class="form-group more-options">
-                <table id="dyn_participants_{{$row->id}}">
-                  <tr> 
-                  <td>  <label class="form-control" id="description">{{Session::get('surname')}} {{Session::get('name')}}</label></td>
+                  <div class="form-group more-options">
+                  <table id="dyn_participants_{{$row->id}}">
+                <tr> 
+                  <td>  
+                    <label class="form-control" id="description">{{Session::get('surname')}} {{Session::get('name')}}</label>
+                    <input type="hidden" name='participants_{{$row->id}}[]'  value='{{$row->options->student_id}}'>
+                  </td>
                 </tr>
-                <tr>
-                    <td>   
-                      <div>
-                      <span>
-                      <table>
-                      <tr>
-                      <td><input type=text name='participantSurname_{{$row->id}}[]'></td>
-                      <td><input type=text name='participantSurname_{{$row->id}}[]'></td>
-                      </tr>
-                      </table>
-                      
-                      
-                      <input type=date name='participantDOB_{{$row->id}}[]'>
-                      <input type=text name='participantFiscalCode_{{$row->id}}[]'>
-                      </span>
-                      </div>
-                    </td>   
-                  </tr>
-                  </table>
-                  </div>
+                </table>
+                </div>
                 @endif
                 @if(Session::has('school'))
                   <button type="button" class="btn btn-primary" onclick="add_participant({{$row->id}})">add</button>
-                  <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}})">remove</button>
+                  <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}}, 'true')">remove</button>
                 @else
                   <button type="button" class="btn btn-danger" onclick="showAddBallerino('{{$row->rowId}}', {{$row->id}}, '{{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}')" >Aggiungi ballerino</button>       
+                  <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}}, 'false')">elimina</button>
                 @endif
                   </div>
                   <div  class="ui-widget">

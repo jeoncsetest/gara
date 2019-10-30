@@ -266,10 +266,11 @@ class EventViewController extends Controller
      * @param $attendee_id
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function showAgreement($event_id)
+    public function showAgreementt($event_id)
     {
-        Config::set('queue.default', 'sync');
         Log::info("*********");
+        Config::set('queue.default', 'sync');
+       
         Log::info($event_id);
 
         $event = Event::findOrFail($event_id);

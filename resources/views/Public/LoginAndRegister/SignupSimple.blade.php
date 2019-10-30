@@ -86,7 +86,7 @@
                     @endif
                 </div>
                 <div class="form-group {{ ($errors->has('school_eps')) ? 'has-error' : '' }}">
-                    {!! Form::label('school_eps', trans("User.school_eps"), ['class' => 'control-label required']) !!}
+                    {!! Form::label('school_eps', trans("User.school_eps"), ['class' => 'control-label']) !!}
                     {!! Form::text('school_eps', null, ['class' => 'form-control']) !!}
                     @if($errors->has('school_eps'))
                         <p class="help-block">{{ $errors->first('school_eps') }}</p>

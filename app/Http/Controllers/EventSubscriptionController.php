@@ -17,6 +17,7 @@ use Validator;
 use Log;
 use Cart;
 use App\Models\Account;
+use App\Models\User;
 use Illuminate\Support\Facades\Session;
 
 
@@ -58,6 +59,11 @@ class EventSubscriptionController extends Controller
             ]);
         }
        /* $event = Event::scope()->findOrFail($event_id);*/
+       $user = User::find(Auth::user()->id);
+       $student_id = null;
+       if(!empty($user->Student)){
+        $student_id = $user->Student->id;
+       }
         Log::debug('event_id : '  .$event_id);
         $competition_id = $request->get('competition_id');
         Log::debug('competition_id : '  .$competition_id);
@@ -81,7 +87,7 @@ class EventSubscriptionController extends Controller
         $cartId = $competition_id . '-' .$cartCount;
         Cart::add($cartCount,$cartId, 1, $request->get('price'), 1,
          ['competition_id'=>$competition_id,'event_id' => $event_id,
-          'competition_title' => $title,
+          'competition_title' => $title, 'student_id' => $student_id,
           'type' => $type,'category' => $category,'level' => $level]);
 
         $request->session()->put('current_event_id', $event_id);
