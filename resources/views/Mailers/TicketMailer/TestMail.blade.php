@@ -1,10 +1,10 @@
 @extends('en.Emails.Layouts.Master')
 
 @section('message_content')
-Hello,<br><br>
+Ciao,<br><br>
 
-Your email was sent successfully.
+La tua email è stata inviata correttamente.
 
 <br><br>
-Thank you
+Grazie.
 @stop

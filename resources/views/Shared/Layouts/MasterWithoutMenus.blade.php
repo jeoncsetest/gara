@@ -20,7 +20,7 @@
         <style>
 
             body {
-                background: url({{asset('assets/images/background.png')}}) repeat;
+                background: url({{ asset ('bootstrap/4.3.1/images/1816x980_bg1.jpg')}}) no-repeat;
                 background-color: #2E3254;
             }
 
