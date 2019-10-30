@@ -9,7 +9,7 @@
     </p>
 
     <p>
-        Puoi contattare <b>{{{ $attendee->event->organiser->name }}}</b> direttamente a <a href='mailto:{{{$attendee->event->organiser->email}}}'>{{{$attendee->event->organiser->email}}}</a> o rispondendo a questa email se hai bisogno di ulteriori informazioni.
+        Puoi contattare <b>{{{ $attendee->event->organiser->name }}}</b> direttamente all'indirizzo <a href='mailto:{{{$attendee->event->organiser->email}}}'>{{{$attendee->event->organiser->email}}}</a> o rispondendo a questa email se hai bisogno di ulteriori informazioni.
     </p>
 @stop
 

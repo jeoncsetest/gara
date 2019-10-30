@@ -14,11 +14,11 @@ a: {{route('showOrderDetails', ['order_reference' => $order->order_reference])}}
     pagina dell'ordine: {{route('showOrderDetails', ['order_reference' => $order->order_reference])}}</strong>
 <br><br>
 @endif
-<h3>Dettagli dell'ordine</h3>
-Order Reference: <strong>{{$order->order_reference}}</strong><br>
-Order Name: <strong>{{$order->full_name}}</strong><br>
-Order Date: <strong>{{$order->created_at->format(config('attendize.default_datetime_format'))}}</strong><br>
-Order Email: <strong>{{$order->email}}</strong><br>
+<h3>Ordine</h3>
+Numero di riferimeno ordine: <strong>{{$order->order_reference}}</strong><br>
+Nome ordine: <strong>{{$order->full_name}}</strong><br>
+Data ordine: <strong>{{$order->created_at->format(config('attendize.default_datetime_format'))}}</strong><br>
+Email: <strong>{{$order->email}}</strong><br>
 <a href="{!! route('downloadCalendarIcs', ['event_id' => $order->event->id]) !!}">Aggiungi al calendario</a>
 
 @if ($order->is_business)
@@ -32,7 +32,7 @@ Order Email: <strong>{{$order->email}}</strong><br>
 @if ($order->business_address_code) @lang("Public_ViewEvent.business_address_code"): <strong>{{$order->business_address_code}}</strong><br>@endif
 @endif
 
-<h3>Ordina articoli</h3>
+<h3>Dettaglio ordine</h3>
 <div style="padding:10px; background: #F9F9F9; border: 1px solid #f1f1f1;">
     <table style="width:100%; margin:10px;">
         <tr>

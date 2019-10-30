@@ -6,6 +6,6 @@
         Per reimpostare la password, completare questo form: {{ route('password.reset', ['token' => $token]) }}.
         <br><br><br>
         Grazie,<br>
-        Team Dancematik
+        Team Dancepass
     </div>
 @stop

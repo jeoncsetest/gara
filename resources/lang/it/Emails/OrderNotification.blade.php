@@ -11,11 +11,11 @@ Hai ricevuto un nuovo ordine per l'evento <b>{{$order->event->title}}</b>.<br><b
 @endif
 
 
-<h3>Order Summary</h3>
-Order Reference: <b>{{$order->order_reference}}</b><br>
-Order Name: <b>{{$order->full_name}}</b><br>
-Order Date: <b>{{$order->created_at->format(config('attendize.default_datetime_format'))}}</b><br>
-Order Email: <b>{{$order->email}}</b><br>
+<h3>Ordine</h3>
+Numero Riferimento Ordine: <b>{{$order->order_reference}}</b><br>
+Nome Ordine: <b>{{$order->full_name}}</b><br>
+Data Ordine: <b>{{$order->created_at->format(config('attendize.default_datetime_format'))}}</b><br>
+Email: <b>{{$order->email}}</b><br>
 @if ($order->is_business)
 <h3>Dettagli aziendali</h3>
 @if ($order->business_name) @lang("Public_ViewEvent.business_name"): <strong>{{$order->business_name}}</strong><br>@endif
@@ -27,7 +27,7 @@ Order Email: <b>{{$order->email}}</b><br>
 @if ($order->business_address_code) @lang("Public_ViewEvent.business_address_code"): <strong>{{$order->business_address_code}}</strong><br>@endif
 @endif
 
-<h3>Ordina articoli</h3>
+<h3>Dettaglio ordine</h3>
 <div style="padding:10px; background: #F9F9F9; border: 1px solid #f1f1f1;">
 
     <table style="width:100%; margin:10px;">
