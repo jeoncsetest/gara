@@ -15,7 +15,7 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $t) {
 			$t->increments('id');
-			$t->string('school_eps')->nullable();
+			$t->string('school_eps')->index();
 			$t->unsignedInteger('school_id')->nullable();
 			$t->unsignedInteger('user_id')->nullable();
             $t->nullableTimestamps();
@@ -29,6 +29,7 @@ class CreateStudentsTable extends Migration
             $t->string('phone')->nullable();
             $t->string('email')->nullable();
 
+            $t->foreign('school_eps')->references('eps')->on('schools')->onDelete('cascade');
 			/*$t->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');*/
         });
     }

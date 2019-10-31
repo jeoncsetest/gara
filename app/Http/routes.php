@@ -46,6 +46,11 @@ Route::group(
         'as'   => 'logoutSimple',
     ]);
 
+    Route::any('/loginWithLogoutSimple', [
+        'as'   => 'loginWithLogoutSimple',
+        'uses' => 'UserLoginController@loginWithLogoutSimple',
+    ]);
+
 
     Route::group(['middleware' => ['installed']], function () {
 
@@ -65,8 +70,12 @@ Route::group(
             'as'   => 'loginSimple',
             'uses' => 'UserLoginController@showSimpleLogin',
         ]);
-        Route::post('/loginSimple', 'UserLoginController@postSimpleLogin');
 
+        Route::post('/loginSimple', [
+            'as'   => 'loginSimple',
+            'uses' => 'UserLoginController@postSimpleLogin',
+        ]);
+             
 
         /*
          * Forgot password

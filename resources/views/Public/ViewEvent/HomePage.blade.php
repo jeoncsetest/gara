@@ -22,9 +22,19 @@ $(document).on('click', '#loginBtn', function(){
                     }
         });
 
+
         $.ajax({
             type:'POST',
-            url: '/loginSimple',
+            url: "{{route('logoutSimple')}}",
+            data:{email:email, password : password, ajaxCall:'yes'},
+            success:function(data){
+                console.info(data);
+            }
+        });
+
+        $.ajax({
+            type:'POST',
+            url: "{{route('loginWithLogoutSimple')}}",
             data:{email:email, password : password, ajaxCall:'yes'},
             success:function(data){
               if(data.status == 'success'){

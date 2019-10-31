@@ -26,12 +26,23 @@ class Authenticate
         if (Auth::check()) {
             $account = Account::find(Auth::user()->account_id);      
             $session_usr_name = $request->session()->get('name');
-            Log::debug('session_usr_name :' .$session_usr_name);
-            
+            Log::debug('session_usr_name dsfdfs:' .$session_usr_name);
+            $ajaxCall = $request->get('ajaxCall');
+            Log::debug('session_usr_name ajaxCall:' .$ajaxCall);
             if ($account->account_type == config('attendize.simple_account_type') || 
             $account->account_type == config('attendize.ticket_account_type') || 
             ($account->account_type != config('attendize.default_account_type')  && empty($session_usr_name))) {
-              return new RedirectResponse(route('showEventListPage'));
+                if (!empty($ajaxCall)) {
+                    Log::debug('login successful');
+                    return response()->json([
+                        'status'      => 'success',
+                        'message'      => 'suc',
+                        'redirectUrl' => route('showSelectOrganiser'),
+                    ]);
+                }else{
+                    return new RedirectResponse(route('showEventListPage'));
+                }
+              
             }
         }
 

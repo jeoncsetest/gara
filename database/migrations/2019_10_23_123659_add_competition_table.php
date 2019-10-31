@@ -25,6 +25,8 @@ class AddCompetitionTable extends Migration
      */
     public function down()
     {
+		Schema::table('competitions', function (Blueprint $table) {
         $table->dropColumn('discipline_id');
+		});
     }
 }

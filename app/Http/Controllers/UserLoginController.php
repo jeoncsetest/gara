@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Redirect;
@@ -168,10 +169,82 @@ class UserLoginController extends Controller
             ]);
         }else{
             return new RedirectResponse(route('showEventListPage'));
+        }        
+    }
+
+    public function loginWithLogoutSimple(Request $request)
+    {
+        $this->auth->logout();
+        Session::flush();
+        $email = $request->get('email');
+        $password = $request->get('password');
+        $ajaxCall = $request->get('ajaxCall');
+        Log::debug('login successful. ajaxcall:' .$ajaxCall );
+        if (empty($email) || empty($password)) {
+
+            if (!empty($ajaxCall)) {
+                return response()->json([
+                    'message' => trans("Controllers.fill_email_and_password"),
+                     'failed' => 'true',
+                ]);
+            }else{
+                return Redirect::back()
+                ->with(['message' => trans("Controllers.fill_email_and_password"), 'failed' => true])
+                ->withInput();
+            }
+          
         }
-        
 
+        if ($this->auth->attempt(['email' => $email, 'password' => $password], true) === false) {
+            if (!empty($ajaxCall)) {
+                return response()->json([
+                    'message' => trans("Controllers.login_password_incorrect"),
+                     'failed' => 'true',
+                ]);
+            }else{
+                return Redirect::back()
+                ->with(['message' => trans("Controllers.login_password_incorrect"), 'failed' => true])
+                ->withInput();
+            }
+        }
 
-        
+        if (empty(Auth::user())) {
+            Log::debug('redirect to login page');
+           /* return new RedirectResponse(route('loginSimple'));*/
+            return redirect()->to('/loginSimple');
+        }else{
+            $account = Account::find(Auth::user()->account_id);
+            if ($account->account_type == config('attendize.default_account_type')) {
+                if (!empty($ajaxCall)) {
+                    Log::debug('login successful');
+                    return response()->json([
+                        'status'      => 'success',
+                        'message'      => 'suc',
+                        'redirectUrl' => route('showSelectOrganiser'),
+                    ]);
+                }else{
+                    return redirect()->route('showSelectOrganiser');
+                }
+                
+            }
+        }
+        session()->put('name', Auth::user()->first_name );
+        session()->put('surname', Auth::user()->last_name);
+        session()->put('account_type', $account->account_type);
+        $school = Auth::user()->school;
+        if(!empty($school)){
+            session()->put('school', $school->name);
+        }
+        Log::debug('login successful');
+
+        if (!empty($ajaxCall)) {
+            return response()->json([
+                'status'      => 'success',
+                'message'      => 'suc',
+                'redirectUrl' => route('showEventListPage'),
+            ]);
+        }else{
+            return new RedirectResponse(route('showEventListPage'));
+        }    
     }
 }

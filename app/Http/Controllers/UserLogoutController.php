@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
+use Log;
 
 class UserLogoutController extends Controller
 {
@@ -32,10 +34,21 @@ class UserLogoutController extends Controller
      *
      * @return mixed
      */
-    public function doLogoutSimple()
+    public function doLogoutSimple(Request $request)
     {
         $this->auth->logout();
         Session::flush();
-        return redirect()->to('/eventList?logged_out=yup');
+        $ajaxCall = $request->get('ajaxCall');
+        Log::debug('logout successful. ajaxcall:' .$ajaxCall );
+        if (!empty($ajaxCall)) {
+            Log::debug('return ajax respon logout');
+            return response()->json([
+                'message' => trans("logout success"),
+                 'status' => 'success',
+            ]);
+        }else{
+            return redirect()->to('/eventList?logged_out=yup');
+        }
+        
     }
 }

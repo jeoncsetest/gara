@@ -228,6 +228,17 @@ class SchoolManagementController extends Controller
 
         $validation_rules_signup = $validation_rules_signup + $validation_rules_signup_student ;
         $this->validate($request, $validation_rules_signup);
+
+        $schools = DB::table('schools')
+        ->where('eps', '=', 'zxcv1234')
+        ->get();
+        if(empty($schools) || $schools->count()==0){
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Whoops! There was a problem processing your signup. Please try again.'
+            ]);
+        }
+
         $students = DB::table('students')
                 ->where('fiscal_code', '=', $request->get('fiscal_code'))
                 ->get();
@@ -237,12 +248,14 @@ class SchoolManagementController extends Controller
                 'message' => 'Whoops! un ballerino con stesso codice fiscale presente già, prova con un altro codice fiscale'
             ]);
         }
+
         DB::beginTransaction();
         $student = null;
         try { 
             $student = new Student();
             $student_data = $request->only(['name', 'surname', 
             'fiscal_code', 'birth_date', 'birth_place']);
+            $student_data['school_eps'] = $schools->first()->eps;
             $student = Student::create($student_data);
     } catch (Exception $e) {
 
