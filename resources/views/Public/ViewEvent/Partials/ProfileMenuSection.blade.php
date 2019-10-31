@@ -23,83 +23,44 @@
                <th>Nome</th>
                <th>Cognome</th>
                <th>mail</th>
-               <th>eps</th>
                <th>Telefono</th>
+               <th>eps</th>
                <th>Indirizzo</th>
 
              </tr>
              <tr>
-                    <td> </td>
-                    <td>  </td>
-                    <td> </td>
-                    <td>   </td>
-                    <td>  </td>
-                    <td>   </td>
-                    <td>   </td>
+                    <td>{{$user->School->name}}</td>
+                    <td>{{$user->first_name}}</td>
+                    <td>{{$user->last_name}}</td>
+                    <td>{{$user->school->email}}</td>
+                    <td>{{$user->school->phone}}</td>
+                    <td>{{$user->school->eps}}</td>
+                    <td>{{$user->school->address}}</td>
          </tr>
            </table>
 
          </div>
        </div>
-   @endif
-
-   @if(Session::has('ticket'))
+  @else
    <div class="content-element4">
      <div class="table-type-2">
        <table>
          <tr>
-           <th>Nome scuola</th>
            <th>Nome</th>
            <th>Cognome</th>
            <th>mail</th>
-           <th>eps</th>
            <th>Telefono</th>
-           <th>Indirizzo</th>
-
          </tr>
          <tr>
-                <td> </td>
-                <td>  </td>
-                <td> </td>
-                <td>   </td>
-                <td>  </td>
-                <td>   </td>
-                <td>   </td>
+                <td>{{$user->first_name}}</td>
+                <td>{{$user->last_name}}</td>
+                <td>{{$user->email}}</td>
+                <td>{{$user->phone}}</td>
      </tr>
        </table>
 
      </div>
    </div>
   @endif
-
-  @if(Session::has('student'))
-  <div class="content-element4">
-    <div class="table-type-2">
-      <table>
-        <tr>
-          <th>Nome scuola</th>
-          <th>Nome</th>
-          <th>Cognome</th>
-          <th>mail</th>
-          <th>eps</th>
-          <th>Telefono</th>
-          <th>Indirizzo</th>
-
-        </tr>
-        <tr>
-               <td> </td>
-               <td>  </td>
-               <td> </td>
-               <td>   </td>
-               <td>  </td>
-               <td>   </td>
-               <td>   </td>
-    </tr>
-      </table>
-
-    </div>
-  </div>
- @endif
-
-   </div>
+</div>
 </div>
