@@ -266,17 +266,14 @@ class EventViewController extends Controller
      * @param $attendee_id
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function showAgreementt($event_id)
+    public function showAgreement(Request $request, $event_id, $slug = '', $preview = false)
     {
-        Log::info("*********");
         Config::set('queue.default', 'sync');
-       
-        Log::info($event_id);
-
         $event = Event::findOrFail($event_id);
+        Log::info($event_id . ' count pdf :' .$event->pdfs()->count());
         
    
-        $pdf_file = $event->pdfs()-first()->pdf_path;
+        $pdf_file = $event->pdfs()->first()->pdf_path;
        /* $pdf_file = 'user_content/event_pdfs/event_pdf-fa180de9a92f290576835ed9c271d884.pdf';*/
 
 

@@ -123,6 +123,11 @@ Route::group(
             'as'   => 'showSubscriptionPage',
             'uses' => 'EventSubscriptionController@showSubscriptionPage',
         ]);
+
+        Route::get('/{event_id}/showAgreement', [
+            'as'   => 'showAgreement',
+            'uses' => 'EventViewController@showAgreement',
+        ]);
         /*
         Route::get('{event_id}/getSubscriptionCart', [
             'as'   => 'getSubscriptionCart',
@@ -454,10 +459,6 @@ Route::group(
             'uses' => 'EventController@postUploadEventImage',
         ]);
 
-        Route::get('{event_id}/showAgreement', [
-            'as'   => 'showAgreement',
-            'uses' => 'EventViewController@showAgreement',
-        ]);
         /*
          * Event management routes
          */
