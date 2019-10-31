@@ -1,6 +1,6 @@
 <div class="well">
     <p>
-        Il completamento dell'installazione potrebbe richiedere alcuni minuti. Una volta cliccato '<b>Install Beatpass</b>'le impostazioni di configurazione verranno scritte in questo file: <b>{{base_path('.env')}}</b>. È possibile modificare manualmente queste impostazioni in futuro modificando questo file.
+        Il completamento dell'installazione potrebbe richiedere alcuni minuti. Una volta cliccato '<b>Install Dancepass</b>'le impostazioni di configurazione verranno scritte in questo file: <b>{{base_path('.env')}}</b>. È possibile modificare manualmente queste impostazioni in futuro modificando questo file.
     </p>
     <p>
       Se l'installazione non funziona, assicurati di controllare il file di registro <b>{{storage_path('logs')}}</b>. Se non ci sono errori anche nei file di registro <b>controlla altri file di registro sul tuo server</b>.
