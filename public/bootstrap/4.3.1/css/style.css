@@ -152,7 +152,7 @@ html,body{height: 100%;}
 
 body{
   font: 16px/26px 'Poppins', sans-serif;
-  color: #333;
+  color: #777;
   position: relative;
 }
 
@@ -4503,7 +4503,7 @@ button.account:before{
     }
 
     .accordion.style-2 .a-title.active{
-      color: #45b29d;
+      color: #00AEFF;
     }
 
     .accordion.style-2 .a-content{

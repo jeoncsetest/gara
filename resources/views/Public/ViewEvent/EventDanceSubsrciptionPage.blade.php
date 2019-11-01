@@ -6,7 +6,7 @@
 @endsection
 
 @section('title')
-Sottoscrizione
+Iscriviti
 @endsection
 
 @section('styles')

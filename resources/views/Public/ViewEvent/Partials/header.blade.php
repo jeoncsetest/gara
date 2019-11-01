@@ -100,7 +100,7 @@
                                           <ul>
                                             <li><a href="{{ asset('/profileMenu')}} ">Profilo</a></li>
                                             @if(Session::has('school'))
-                                              <li><a href="/showStudentsPage">Ballerini</a></li>
+                                              <li><a href="{{ asset('/showStudentsPage')}}">Ballerini</a></li>
                                             @endif
                                             <li><a href="{{route('descriptionOrders')}}">Ordini</a></li>
                                             <li><a href="{{ asset('/logout')}} ">Logout</a></li>

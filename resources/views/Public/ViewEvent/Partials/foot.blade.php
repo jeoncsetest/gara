@@ -9,7 +9,7 @@
 
          <div class="flex-row align-items-center justify-content-between">
 
-           <p>Copyright © Dancepass 2019. All Rights Reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a></p>
+           <p>Copyright © Dancepass 2019. All Rights Reserved. <a href="{{ asset('/privacy')}}">Privacy Policy</a> | <a href="{{ asset('/terms')}}">Terms & Conditions</a></p>
 
            <ul>
              <li><i class="licon-map-marker"></i> via Torino 2 , Milano | <i class="licon-at-sign"></i><a href="mailto:">info@companyname.com</a> </li>

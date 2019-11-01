@@ -75,7 +75,7 @@ Route::group(
             'as'   => 'loginSimple',
             'uses' => 'UserLoginController@postSimpleLogin',
         ]);
-             
+
 
         /*
          * Forgot password
@@ -214,6 +214,14 @@ Route::group(
             'as'   => 'descriptionOrders',
         ]);
 
+        Route::get('/terms', [
+            'uses' => 'termsController@terms',
+            'as'   => 'terms',
+        ]);
+        Route::get('/privacy', [
+            'uses' => 'PrivacyController@privacy',
+            'as'   => 'privacy',
+        ]);
         Route::get('/profileMenu', [
             'uses' => 'ProfileMenuController@profileMenu',
             'as'   => 'profileMenu',
@@ -642,7 +650,7 @@ Route::group(
                 'uses' => 'EventAttendeesController@showExportTicket',
             ]);
 
-            
+
 
             Route::get('{event_id}/attendees/{attendee_id}/ticket', [
                 'as'   => 'showAttendeeTicket',
