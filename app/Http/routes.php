@@ -215,7 +215,7 @@ Route::group(
         ]);
 
         Route::get('/terms', [
-            'uses' => 'termsController@terms',
+            'uses' => 'TermsController@terms',
             'as'   => 'terms',
         ]);
         Route::get('/privacy', [
