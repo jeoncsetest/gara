@@ -29,7 +29,7 @@
                       <div class="info-item">
                         <i class="licon-clock3"></i>
                         <div class="wrapper">
-                          <span>{{date ('d-m-Y h:m', strtotime ($event->start_date)) }} &nbsp; </span>
+                          <span>{{date ('d-m-Y', strtotime ($event->start_date)) }} &nbsp; </span>
                         </div>
                       </div>
                       <div class="info-item">
@@ -62,7 +62,7 @@
                              <h6 class="event-title">Dettagli</h6>
                                  <ul class="custom-list">
                                   <li><p >
-                                          <a href = "{{route('showAgreement', array('event_id'=>$event->id))}}" class="btn btn-big btn-style-4">Regolamento</a>
+                                          <a href = "{{route('showAgreement', array('event_id'=>$event->id))}}" class="btn btn-big">Regolamento</a>
                                       </p></li>
                                         <li><p >
                                       <div class="align-rigth">
@@ -102,7 +102,7 @@
                               <li><a href="http://twitter.com/intent/tweet?text=Check out: {{$event->event_url}} {{{Str::words(strip_tags($event->description), 20)}}}" class="sh-twitter"><i class="icon-twitter"></i></a></li>
                               @endif
 
-                              <li><a href="#" class="sh-instagram"><i class="icon-instagram-5"></i></a></li>
+                          <!--    <li><a href="#" class="sh-instagram"><i class="icon-instagram-5"></i></a></li> -->
 
                              @if($event->social_show_email)
                               <li><a href="mailto:?subject=Check This Out&body={{urlencode($event->event_url)}}" class="sh-mail"><i class="icon-mail"></i></a></li>

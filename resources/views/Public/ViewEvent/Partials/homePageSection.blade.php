@@ -71,9 +71,9 @@
         <button type="button" class="close-popup"></button>
 
         <h4 class="title">Login</h4>
-        <p>Non hai ancora un account?<a href="#" class="link-text var2 popup-btn-sign">Iscriviti</a></p>
+    <!--    <p>Non hai ancora un account?<a href="#" class="link-text var2 popup-btn-sign">Iscriviti</a></p>
         <a href="#" class="btn fb-btn btn-big"> Login con Facebook</a>
-        <p class="content-element2">OR</p>
+        <p class="content-element2">OR</p> -->
         <form  method="post" class="content-element1">
           <input name="email" id="myemail" type="text" placeholder="Enter Your Email Address">
           <input name="password" id="mypassword" type="password" placeholder="Password">

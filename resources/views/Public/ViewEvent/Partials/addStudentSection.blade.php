@@ -1,6 +1,6 @@
 <div class="breadcrumbs-wrap">
   <div class="container">
-        <h1 class="page-title"> Iscrivi Ballerino  </h1>
+        <h1 class="page-title"> Iscrivi Ballerino </h1>
   </div>
 
 <div class="page-content-wrap">

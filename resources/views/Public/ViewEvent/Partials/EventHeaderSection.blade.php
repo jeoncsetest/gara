@@ -28,9 +28,7 @@
 <!---   link  -->
 
 <div class="breadcrumbs-wrap no-title">
-
    <div class="container">
-
      <ul class="breadcrumbs">
        <li>Home</a></li>
        <li>Gare</li>
@@ -41,7 +39,6 @@
  </div>
 <span> &nbsp; &nbsp;</span>
  <!-- - - - - - - - - - - - - - Content - - - - - - - - - - - - - - - - -->
-
 
   <div class="container">
     <div class="row">

@@ -1,24 +1,35 @@
+<!-- - - - - - - - - - - - - - Breadcrumbs - - - - - - - - - - - - - - - - -->
+
 <div class="breadcrumbs-wrap">
-      <div class="container">
-        <h1 class="page-title">Gare</h1>
-        <ul class="breadcrumbs">
-          <li>Home</li>
-          <li>Gare</li>
 
-        </ul>
+  <div class="container">
 
-      </div>
+    <h1 class="page-title">Gare</h1>
+
+    <ul class="breadcrumbs">
+
+      <li>Home</li>
+      <li>Gare</li>
+
+    </ul>
+
+  </div>
+
+</div>
+
+<!-- - - - - - - - - - - - - end Breadcrumbs - - - - - - - - - - - - - - - -->
+
 
 
 
 <!------- content -------->
 
     <div id="content" class="page-content-wrap">
-  <div class="container">
-      <div class="tribe-events-bar">
+      <div class="container">
+        <div class="content-element8">
 
-        <div class="row">
-          <div class="col-lg-10">
+    <!--   <div class="row">
+          <div class="col-lg-10"> -->
     @foreach($events->chunk(3) as $eventChunk)
 
             <div class="entry-box list-type">
@@ -28,46 +39,45 @@
           <!-- - - - - - - - - - - - - - Entry - - - - - - - - - - - - - - - - -->
           <div class="entry">
 
-
-
             <!-- - - - - - - - - - - - - - Entry attachment - - - - - - - - - - - - - - - - -->
             <div class="thumbnail-attachment">
-              <a href="#"><img src="{{ asset($event->images->first()['image_path']) }}" alt=" ... "></a>
+            <img src="{{ asset($event->images->first()['image_path']) }}" alt=" ... ">
             </div>
 
             <!-- - - - - - - - - - - - - - Entry body - - - - - - - - - - - - - - - - -->
-            <div class="entry-body">
+            <div class="entry-body"  align="center">
 
-              <h5 class="entry-title"><a href="#">{{ $event->title }} </a></h5>
+              <h3 class="entry-title">{{ $event->title }} </h3>
               <div class="our-info">
 
                 <div class="info-item">
                   <i class="licon-clock3"></i>
                   <div class="wrapper">
-                    <span> {{date ('d-m-Y h:m', strtotime ($event->start_date)) }}</span>
+                    <span><h6> {{date ('d-m-Y', strtotime ($event->start_date)) }} </h6></span>
                   </div>
                 </div>
                 <div class="info-item">
                   <i class="licon-map-marker"></i>
                   <div class="wrapper">
-                    <span>{{$event->venue_name}}</span>
+                    <span><h6> {{$event->venue_name}}</h6></span>
                   </div>
                 </div>
 
               </div>
 
-              <a href="{{route('showEventDescription', array('event_desc_id'=>$event->id))}}" class="btn btn-small"> Partecipa </a>
-
+              <h1>
+              <a href="{{route('showEventDescription', array('event_desc_id'=>$event->id))}}" class="btn btn-big"> Partecipa </a>
+            </h1>
                 </div>
             </div>
 	@endforeach
           </div>
-    </div>
+
 @endforeach
 
 
     </div>
-        </div>
+
             </div>
                 </div>
                     </div>

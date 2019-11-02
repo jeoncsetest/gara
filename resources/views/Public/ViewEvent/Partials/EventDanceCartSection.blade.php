@@ -12,16 +12,16 @@
               <th>Livello</th>
               <th>Categoria</th>
               <th>Prezzo</th>
-              <th>Scegli file Mp3</th>  
-              <th>{{trans("Competition.participant")}}</th>  
-              <th></th>                      
+              <th>Scegli file Mp3</th>
+              <th>{{trans("Competition.participant")}}</th>
+              <th></th>
           </tr>
       </thead>
 
       <tbody>
-        @foreach(Cart::content() as $row)  
+        @foreach(Cart::content() as $row)
         <tr id="{{$row->rowId}}">
-        <td>  
+        <td>
           {!! Form::hidden('cartIds[]', $row->id) !!}
           <input name="competition_type_{{$row->options->competition_id}}" type="hidden" value="{{$row->options->type}}">
                 <input name="competitionId_{{$row->id}}" type="hidden" value="{{($row->options->has('competition_id') ? $row->options->competition_id : '')}}">
@@ -35,7 +35,7 @@
             <div class="input-group">
             <div class="custom-file">
               <input type="hidden" name="mp3_file_name_{{$row->id}}" value="mp3-{{$event->id}}-{{$row->options->competition_id}}-{{$row->id}}">
-              <input type="file" name="mp3-{{$event->id}}-{{$row->options->competition_id}}-{{$row->id}}" id="mp3-{{$event->id}}-{{$row->options->competition_id}}-{{$row->id}}" > 
+              <input type="file" name="mp3-{{$event->id}}-{{$row->options->competition_id}}-{{$row->id}}" id="mp3-{{$event->id}}-{{$row->options->competition_id}}-{{$row->id}}" >
             </div>
           </div>
         </td>
@@ -46,7 +46,7 @@
                 <div class="form-group more-options">
                 <table>
                 <tr>
-                  <td>   
+                  <td>
                     <div class="ui-widget">
                       <select name='participants_{{$row->id}}[]' class="combobox">
                       @foreach ($students as $iter)
@@ -61,8 +61,8 @@
               @else
               <div class="form-group more-options">
                 <table>
-                <tr> 
-                <td>  
+                <tr>
+                <td>
                     <label class="form-control" id="description">{{Session::get('surname')}} {{Session::get('name')}}</label>
                     <input type="hidden" name='participants_{{$row->id}}[]'  value='{{$row->options->student_id}}'>
                   </td>
@@ -75,7 +75,7 @@
                 <div class="form-group more-options">
                   <table>
                   <tr>
-                    <td>   
+                    <td>
                       <div class="ui-widget">
                         <select name='participants_{{$row->id}}[]' class="combobox">
                         @foreach ($students as $iter)
@@ -83,7 +83,7 @@
                         @endforeach
                         </select>
                       </div>
-                    </td>   
+                    </td>
                   </tr>
                   <tr>
                     <td>
@@ -102,15 +102,15 @@
 
                 <div class="form-group more-options">
                 <table id="dyn_participants_{{$row->id}}">
-                <tr> 
-                <td>  
+                <tr>
+                <td>
                     <label class="form-control" id="description">{{Session::get('surname')}} {{Session::get('name')}}</label>
                     <input type="hidden" name='participants_{{$row->id}}[]'  value='{{$row->options->student_id}}'>
                   </td>
                 </tr>
                 </table>
                 </div>
-                  <button type="button" class="btn btn-danger" onclick="showAddBallerino('{{$row->rowId}}', {{$row->id}}, '{{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}')" >Aggiungi</button>       
+                  <button type="button" class="btn btn-danger" onclick="showAddBallerino('{{$row->rowId}}', {{$row->id}}, '{{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}')" >Aggiungi</button>
                   <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}}, 'false')">elimina</button>
                 @endif
             @elseif($row->options->type == trans("Competition.competition_type_group_abbr"))
@@ -118,7 +118,7 @@
                 <div class="form-group more-options" >
                   <table id="dyn_participants_{{$row->id}}">
                   <tr>
-                    <td>   
+                    <td>
                       <div class="ui-widget">
                         <select name='participants_{{$row->id}}[]' class="combobox">
                         @foreach ($students as $iter)
@@ -144,8 +144,8 @@
                   @else
                   <div class="form-group more-options">
                   <table id="dyn_participants_{{$row->id}}">
-                <tr> 
-                  <td>  
+                <tr>
+                  <td>
                     <label class="form-control" id="description">{{Session::get('surname')}} {{Session::get('name')}}</label>
                     <input type="hidden" name='participants_{{$row->id}}[]'  value='{{$row->options->student_id}}'>
                   </td>
@@ -154,10 +154,10 @@
                 </div>
                 @endif
                 @if(Session::has('school'))
-                  <button type="button" class="btn btn-primary" onclick="add_participant({{$row->id}})">add</button>
-                  <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}}, 'true')">remove</button>
+                  <button type="button" class="btn btn-primary" onclick="add_participant({{$row->id}})"><i class="fas fa-plus-circle"></i></button>
+                  <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}}, 'true')"><i class="fas fa-minus-circle"></i></button>
                 @else
-                  <button type="button" class="btn btn-danger" onclick="showAddBallerino('{{$row->rowId}}', {{$row->id}}, '{{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}')" >Aggiungi ballerino</button>       
+                  <button type="button" class="btn btn-danger" onclick="showAddBallerino('{{$row->rowId}}', {{$row->id}}, '{{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}')" >Aggiungi ballerino</button>
                   <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}}, 'false')">elimina</button>
                 @endif
                   </div>
@@ -165,15 +165,15 @@
                   {!! Form::label('participant', trans("Competition.group_name"), array('class'=>'control-label')) !!}
                   <input name="grp_name_{{$row->id}}" type="text" value="">
                   </div>
-                  
+
                     <!--<div  class="ui-widget"><a href="#" onclick="add_participant({{$row->id}}, count(participants_{{$row->id}})">add</a></div>-->
                   </div>
             @endif
           @endif
         </td>
-        <td>  
+        <td>
           <button type="button" class="btn btn-danger" onclick="showPopupRemoveItem('{{$row->rowId}}', {{$row->id}}, '{{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}')" >Elimina</button>
-         
+
  <div id="popup-removeCart_{{$row->id}}" class="popup var3">
   <div class="popup-inner">
     <button type="button" class="close-popup"></button>
@@ -185,15 +185,15 @@
   </div>
   </div>
 
-  
+
                <input name="qty_{{$row->id}}" type="hidden" value="{{$row->qty}}">
 
-               
+
                </td>
       </tr>
         @endforeach
       </tbody>
-      
+
       <tfoot>
         <tr>
           <td>&nbsp;</td>

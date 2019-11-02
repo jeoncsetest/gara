@@ -14,7 +14,7 @@
   <div class="form-group text-center">
 
     <p><h1>  Seleziona la tua gara </h1></p>
-    
+
     @foreach($disciplines as $discipline)
     <a href="{{route('showSubscriptionPage', array('event_id'=>$event->id, 'discipline_id'=>$discipline->id))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">{{$discipline->discipline_name}}</a>
 
@@ -43,8 +43,8 @@
 	 @foreach($competitions as $competition)
      <!--{!! Form::open(['url' => route('postAddSubscriptionToCart', ['event_id' => $event->id]), 'class' => 'ajax subscriptionForm', 'name'=>'subscriptionForm']) !!}-->
 
-    <tr id="{{$competition->id}}">
-    <!--    <th scope="row">1</th> -->
+    <!--  <tr id="{{$competition->id}}">
+      <th scope="row">1</th> -->
     <td>
 			<label class="form-control" id="description_{{$competition->id}}">{{$competition->title}}</label>
 			<input name="price" id="price_{{$competition->id}}" type="hidden" value="{{$competition->price}}"/>
@@ -80,7 +80,7 @@
                   <!-- {{trans("Public_ViewEvent.add_to_cart")}} -->
                   <!--{!!Form::button(trans("Public_ViewEvent.add_to_cart"), ['class' => 'btn btn-lg btn-primary pull-right'])!!}-->
          </td>
-      </tr>
+
         {!! Form::hidden('is_embedded', $is_embedded) !!}
                              <!--   {!! Form::close() !!}-->
                                 @endforeach

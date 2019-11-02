@@ -177,7 +177,7 @@ body{
 
 ::selection{
   background: #45b29d;
-  color: #fff;
+  color: #000;
 }
 
 ::-moz-selection{

@@ -39,7 +39,7 @@
   <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/css/owl.carousel.css') }}">
   <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/css/responsive.css') }}">
-  <link rel="shortcut icon" href="{{ asset('bootstrap/4.3.1/images/favicon.ico') }}" > 
+  <link rel="shortcut icon" href="{{ asset('bootstrap/4.3.1/images/favicon.png') }}" >
 
 </head>
   <body>

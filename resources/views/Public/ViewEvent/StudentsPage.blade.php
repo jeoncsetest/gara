@@ -6,7 +6,7 @@
 @endsection
 
 @section('title')
-gestione ballerini
+Gestione ballerini
 @endsection
 
 @section('styles')
