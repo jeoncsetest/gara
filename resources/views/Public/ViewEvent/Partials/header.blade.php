@@ -88,7 +88,13 @@
               </li>
 
           <li>
-                      <a href="#" class="fas fa-shopping-cart"  aria-haspopup="true" aria-expanded="false"> |
+                      @if(Session::has('current_event_id'))
+                        <a href= "/showCart?event_id={{Session::get('current_event_id')}}" class="fas fa-shopping-cart"
+                          aria-haspopup="true" aria-expanded="false"> |
+                      @else
+                        <a href= "#" class="fas fa-shopping-cart"  aria-haspopup="true" aria-expanded="false"> |                      
+                      @endif
+                     
                       <i class=" text-size-small "><span class="section_head_carello"> {{Cart::count()}}</span> </i> </a>
                       <!--<span class="ico-cart mr5 section_head_carello"> {{Cart::count()}}</span>
                   </li>    <i class=" text-size-small "> {{Cart::count()}}</i>-->

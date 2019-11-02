@@ -46,8 +46,8 @@ class EventCompetitionsController extends MyBaseController
 
         // Get competitions for event.
         $competitions = empty($q) === false
-            ? $event->competitions()->where('title', 'like', '%' . $q . '%')->orderBy($sort_by, 'asc')->paginate()
-            : $event->competitions()->orderBy($sort_by, 'asc')->paginate();
+            ? $event->competitions()->where('title', 'like', '%' . $q . '%')->orderBy($sort_by, 'asc')->paginate(200)
+            : $event->competitions()->orderBy($sort_by, 'asc')->paginate(200);
 
         // Return view.
         return view('ManageEvent.Competitions', compact('event', 'competitions', 'sort_by', 'q', 'allowed_sorts'));
