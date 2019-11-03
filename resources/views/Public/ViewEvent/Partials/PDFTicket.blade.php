@@ -112,7 +112,7 @@
                 @endif
             @endforeach
 
-            @if(!empty(subscriptions))
+            @if(!empty($subscriptions))
                 @foreach($subscriptions as $subscription)
                     @if(!$subscription->is_cancelled)
                         <div class="ticket">
