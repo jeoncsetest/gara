@@ -52,7 +52,12 @@ class GenerateTicket extends Job implements ShouldQueue
         $order = Order::where('order_reference', $this->order_reference)->first();
         Log::info($order);
         $event = $order->event;
-
+        $subscriptions = null;
+        if(!empty($order->order_type) && $order->order_type == 'SUBSCRIPTION'){
+            $query = $order->subscriptions();
+            $subscriptions = $query->get();
+        }
+        
         $query = $order->attendees();
         if ($this->isAttendeeTicket()) {
             $query = $query->where('reference_index', '=', $this->attendee_reference_index);
@@ -70,6 +75,7 @@ class GenerateTicket extends Job implements ShouldQueue
             'order'     => $order,
             'event'     => $event,
             'attendees' => $attendees,
+            'subscriptions' => $subscriptions,
             'css'       => file_get_contents(public_path('assets/stylesheet/ticket.css')),
             'image'     => base64_encode(file_get_contents(public_path($image_path))),
             'images'    => $images,

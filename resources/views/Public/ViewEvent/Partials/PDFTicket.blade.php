@@ -112,6 +112,59 @@
                 @endif
             @endforeach
 
+            @if(!empty(subscriptions))
+                @foreach($subscriptions as $subscription)
+                    @if(!$subscription->is_cancelled)
+                        <div class="ticket">
+
+                            <div class='logo'>
+                    <img alt="{{$event->organiser->full_logo_path}}" src="data:image/png;base64, {{$image}}" />
+                                @if(isset($images) && count($images) > 0)
+                                    @foreach($images as $img)
+                                        <BR><img src="data:image/png;base64, {{$img}}" />
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div class="layout_even">
+                            <div class="event_details">
+                                    <h4>@lang("Ticket.event")</h4>
+                                {{$event->title}}
+                                    <h4>@lang("Ticket.organiser")</h4>
+                                {{$event->organiser->name}}
+                                    <h4>@lang("Ticket.venue")</h4>
+                                {{$event->venue_name}}
+                                    <h4>@lang("Ticket.start_date_time")</h4>
+                                    {{$event->startDateFormatted()}}
+                                    <h4>@lang("Ticket.end_date_time")</h4>
+                                    {{$event->endDateFormatted()}}
+                            </div>
+
+                            <div class="attendee_details">
+                            <h4>@lang("Ticket.name")</h4>
+                            {{$subscription->competition->title}}
+                            @foreach($subscription->participants as $participant)
+                                <h4>@lang("Ticket.name")</h4>
+                                {{$participant->student->name .' '.$participant->student->surname}}
+                            @endforeach
+                                    <h4>@lang("Ticket.order_ref")</h4>
+                                {{$order->order_reference}}
+                                    <h4>@lang("Ticket.attendee_ref")</h4>
+                                {{$subscription->reference}}
+                                </div>
+                            </div>
+                            <div class="barcode">
+                                {!! DNS2D::getBarcodeSVG($attendee->private_reference_number, "QRCODE", 6, 6) !!}
+                            </div>
+                            @if($event->is_1d_barcode_enabled)
+                            <div class="barcode_vertical">
+                                {!! DNS1D::getBarcodeSVG($subscription->private_reference_number, "C39+", 1, 50) !!}
+                            </div>
+                            @endif
+                        </div>
+                    @endif
+                @endforeach
+            @endif
+
             <div class="bottom_info">
                 {{--Attendize is provided free of charge on the condition the below hyperlink is left in place.--}}
                 {{--See https://www.attendize.com/license.html for more information.--}}

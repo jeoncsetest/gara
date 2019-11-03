@@ -56,6 +56,11 @@ class Order extends MyBaseModel
     {
         return $this->hasMany(\App\Models\Attendee::class);
     }
+	
+	public function subscriptions()
+    {
+        return $this->hasMany(\App\Models\Subscription::class);
+    }
 
     /**
      * The account associated with the order.
