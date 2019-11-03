@@ -34,6 +34,7 @@ class QueueHandler
             'order'     => $order,
             'event'     => $order->event,
             'tickets'   => $order->event->tickets,
+            'subscriptions' => $order->subscriptions,
             'attendees' => $order->attendees,
         ];
 

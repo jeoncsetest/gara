@@ -153,6 +153,7 @@ class Order extends MyBaseModel
             'event'     => $this->event,
             'tickets'   => $this->event->tickets,
             'attendees' => $this->attendees,
+            'subscriptions' => '',
             'css'       => file_get_contents(public_path('assets/stylesheet/ticket.css')),
             'image'     => base64_encode(file_get_contents(public_path($this->event->organiser->full_logo_path))),
         ];

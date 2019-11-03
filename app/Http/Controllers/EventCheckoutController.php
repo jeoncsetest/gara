@@ -1751,6 +1751,7 @@ class EventCheckoutController extends Controller
             'event'     => $order->event,
             'tickets'   => $order->event->tickets,
             'attendees' => $order->attendees,
+            'subscriptions' => $order->subscriptions,
             'css'       => file_get_contents(public_path('assets/stylesheet/ticket.css')),
             'image'     => base64_encode(file_get_contents(public_path($order->event->organiser->full_logo_path))),
             'images'    => $images,
