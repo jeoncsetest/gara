@@ -81,9 +81,10 @@ class EventCheckoutController extends Controller
                 return redirect()->route('showEventListPage');
             }
         }*/
-        Log::debug('stripe token' .$request->get('stripeToken'));
+        Log::debug('stripe token 1' .$request->get('stripeToken'));
         $order_expires_time = Carbon::now()->addMinutes(config('attendize.checkout_timeout_after'));
-
+        
+        Log::debug('$order_expires_tim :' .$order_expires_time .'$event_id :' .$event_id);
         $event = Event::findOrFail($event_id);
 
         if (!$request->has('tickets')) {
@@ -175,6 +176,7 @@ class EventCheckoutController extends Controller
                 /*
                  * Create our validation rules here
                  */
+                /*
                 $validation_rules['ticket_holder_first_name.' . $i . '.' . $ticket_id] = ['required'];
                 $validation_rules['ticket_holder_last_name.' . $i . '.' . $ticket_id] = ['required'];
                 $validation_rules['ticket_holder_email.' . $i . '.' . $ticket_id] = ['required', 'email'];
@@ -183,7 +185,7 @@ class EventCheckoutController extends Controller
                 $validation_messages['ticket_holder_last_name.' . $i . '.' . $ticket_id . '.required'] = 'Ticket holder ' . ($i + 1) . '\'s last name is required';
                 $validation_messages['ticket_holder_email.' . $i . '.' . $ticket_id . '.required'] = 'Ticket holder ' . ($i + 1) . '\'s email is required';
                 $validation_messages['ticket_holder_email.' . $i . '.' . $ticket_id . '.email'] = 'Ticket holder ' . ($i + 1) . '\'s email appears to be invalid';
-
+                */
                 /*
                  * Validation rules for custom questions
                  */
@@ -684,7 +686,7 @@ class EventCheckoutController extends Controller
                 ]);
             }
         }*/
-        Log::debug('stripe token' .$request->get('stripeToken'));
+        Log::debug('stripe token 3' .$request->get('stripeToken'));
         //If there's no session kill the request and redirect back to the event homepage.
         if (!session()->get('ticket_order_' . $event_id)) {
             return response()->json([
@@ -699,7 +701,7 @@ class EventCheckoutController extends Controller
         $event = Event::findOrFail($event_id);
         $order = new Order();
         $ticket_order = session()->get('ticket_order_' . $event_id);
-
+        
         $validation_rules = $ticket_order['validation_rules'];
         $validation_messages = $ticket_order['validation_messages'];
 
@@ -727,18 +729,24 @@ class EventCheckoutController extends Controller
             $order->rules = $order->rules + $businessRules;
             $order->messages = $order->messages + $businessMessages;
         }
-
+        Log::debug('step 2');
+        foreach($order->rules as $rule_val){
+            Log::debug($rule_val);
+        }
+        foreach($order->messages as $rule_val){
+            Log::debug($rule_val);
+        }
         if (!$order->validate($request->all())) {
             return response()->json([
                 'status'   => 'error',
                 'messages' => $order->errors(),
             ]);
         }
-
+    
         //Add the request data to a session in case payment is required off-site
         Log::debug('stripe token' .$request->get('stripeToken'));
         session()->push('ticket_order_' . $event_id . '.request_data', $request->except(['card-number', 'card-cvc']));
-        Log::debug('stripe token' .$request->get('stripeToken'));
+        Log::debug('' .$request->get('stripeToken'));
         $orderRequiresPayment = $ticket_order['order_requires_payment'];
 
         if ($orderRequiresPayment && $request->get('pay_offline') && $event->enable_offline_payments) {
@@ -1316,9 +1324,9 @@ class EventCheckoutController extends Controller
                 for ($i = 0; $i < $attendee_details['qty']; $i++) {
 
                     $attendee = new Attendee();
-                    $attendee->first_name = strip_tags($request_data["ticket_holder_first_name"][$i][$attendee_details['ticket']['id']]);
-                    $attendee->last_name = strip_tags($request_data["ticket_holder_last_name"][$i][$attendee_details['ticket']['id']]);
-                    $attendee->email = $request_data["ticket_holder_email"][$i][$attendee_details['ticket']['id']];
+                    $attendee->first_name = sanitise($user->first_name);;
+                    $attendee->last_name = sanitise($user->last_name);;
+                    $attendee->email = sanitise($user->email);;
                     $attendee->event_id = $event_id;
                     $attendee->order_id = $order->id;
                     $attendee->ticket_id = $attendee_details['ticket']['id'];
