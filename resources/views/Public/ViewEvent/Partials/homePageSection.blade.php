@@ -10,12 +10,12 @@
         <div class="info-box" data-bg="{{ asset('/bootstrap/4.3.1/images/480x338_bg1.jpg') }}">
 
           <h3 class="box-title"><a href="{{ route('showEventListPage') }}">Gare</a></h3>
-          <p> <h3> <br> Dancepass <br> Tutta la danza che vuoi. </h3></p>
+          <p> <span> &nbsp; &nbsp;</span> <br> </p>
           <a href="{{ route('showEventListPage') }}" class="btn btn-style-2">Visualizza</a>
 
         </div>
 
-        <div class="info-box" data-bg="{{ asset('/bootstrap/4.3.1/images/480x338_bg2.jpg') }}">
+        <div class="info-box" data-bg="{{ asset('/bootstrap/4.3.1/images/480x338_bg4.jpg') }}">
 
           <h3 class="box-title">Eventi</h3>
 
@@ -27,7 +27,7 @@
 
         </div>
 
-        <div class="info-box" data-bg="{{ asset('/bootstrap/4.3.1/images/480x338_bg4.jpg') }}">
+        <div class="info-box" data-bg="{{ asset('/bootstrap/4.3.1/images/480x338_bg2.jpg') }}">
 
            <h3 class="box-title">Serate</h3>
 
@@ -44,9 +44,9 @@
         <button type="button" class="close-popup"></button>
 
         <h4 class="title">Iscriviti</h4>
-        <p>Hai già un account? <a href="#" class="link-text var2 popup-btn-login">Login </a></p>
-        <a href="#" class="btn fb-btn btn-big">Sign Up With Facebook</a>
-        <p class="content-element2">O</p>
+       <p>Hai già un account? <a href="#" class="link-text var2 popup-btn-login">Login </a></p>
+    <!--     <a href="#" class="btn fb-btn btn-big">Sign Up With Facebook</a>
+        <p class="content-element2">O</p> -->
 
         <form class="content-element2">
 
@@ -57,9 +57,6 @@
                   <a href="{{route('showSignupSimple', array('signupType'=>'SCHOOL'))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"><i class="fas fa-users"></i> Scuola</a>
 
         </form>
-
-        <p class="text-size-small">By signing up you agree to <a href="#" class="link-text">Terms of Service</a></p>
-
       </div>
 
     </div>

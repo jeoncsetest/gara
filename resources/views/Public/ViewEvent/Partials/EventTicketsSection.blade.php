@@ -21,7 +21,7 @@
                         <div class="tickets_table_wrap">
                             <table class="table">
                               <tr>
-                                <th class="ticket-title semibold">Descrizione biglietto</th>
+                                <th class="ticket-title semibold" style="text-align: left">Descrizione biglietto</th>
                                 <th class="ticket-descripton" style="margin-right: 20px;">Prezzo</th>
                                 <th class="form-control" style="text-align: left">Quantità</th>
                           </tr>
