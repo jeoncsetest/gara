@@ -53,6 +53,7 @@
     </head>
     <body style="background-color: #FFFFFF; font-family: Arial, Helvetica, sans-serif;">
         <div class="container">
+        @if(!empty($attendees))
             @foreach($attendees as $attendee)
                 @if(!$attendee->is_cancelled)
                     <div class="ticket">
@@ -111,6 +112,7 @@
                     </div>
                 @endif
             @endforeach
+            @endif
 
             @if(!empty($subscriptions))
                 @foreach($subscriptions as $subscription)
