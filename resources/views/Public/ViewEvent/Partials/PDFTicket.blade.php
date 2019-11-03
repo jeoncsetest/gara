@@ -155,7 +155,7 @@
                                 </div>
                             </div>
                             <div class="barcode">
-                                {!! DNS2D::getBarcodeSVG($attendee->private_reference_number, "QRCODE", 6, 6) !!}
+                                {!! DNS2D::getBarcodeSVG($subscription->private_reference_number, "QRCODE", 6, 6) !!}
                             </div>
                             @if($event->is_1d_barcode_enabled)
                             <div class="barcode_vertical">
