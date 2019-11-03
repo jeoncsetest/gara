@@ -144,10 +144,6 @@
                             <div class="attendee_details">
                             <h4>@lang("Ticket.name")</h4>
                             {{$subscription->competition->title}}
-                            @foreach($subscription->participants as $participant)
-                                <h4>@lang("Ticket.name")</h4>
-                                {{$participant->student->name .' '.$participant->student->surname}}
-                            @endforeach
                                     <h4>@lang("Ticket.order_ref")</h4>
                                 {{$order->order_reference}}
                                     <h4>@lang("Ticket.attendee_ref")</h4>
