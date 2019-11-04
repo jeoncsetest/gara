@@ -215,12 +215,23 @@
           <td></td>
           <td></td>
           <td></td>
+          <!--
           <td>
-              {!!Form::submit(trans("Public_ViewEvent.register"), ['class' => 'btn btn-lg btn-primary pull-right'])!!}
+            <div class="align-center">
+              <button class="btn btn-primary btn-lg active" type="submit">
+                {{trans("Public_ViewEvent.register")}}
+              </button>
+              </div>
           </td>
+          -->
         </tr>
+
+           
+
+
       </tfoot>
   </table>
+ 
   <div id="popup-ballerino" class="popup var3">
   <div class="popup-inner">
     <button type="button" class="close-popup"></button>
@@ -255,6 +266,12 @@
   </div>
   </div>
   </div>
+   
+  <div style="" class="align-center">
+              <button class="align-center btn btn-primary btn-lg active" type="submit">
+                {{trans("Public_ViewEvent.register")}}
+              </button>
+              </div>
 {!! Form::close() !!}
 @endif
 </div>

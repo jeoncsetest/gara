@@ -116,7 +116,11 @@ class Order extends MyBaseModel
      */
     public function getOrganiserAmountAttribute()
     {
-        return $this->amount + $this->organiser_booking_fee + $this->taxamt;
+		if(!empty($this->order_type) && $order->order_type == 'SUBSCRIPTION'){
+			return $this->cart_amount + $this->organiser_booking_fee + $this->taxamt;
+		}else{
+			return $this->amount + $this->organiser_booking_fee + $this->taxamt;
+		}
     }
 
     /**
@@ -126,7 +130,11 @@ class Order extends MyBaseModel
      */
     public function getTotalAmountAttribute()
     {
-        return $this->amount + $this->organiser_booking_fee + $this->booking_fee;
+		if(!empty($this->order_type) && $order->order_type == 'SUBSCRIPTION'){
+			return $this->cart_amount + $this->organiser_booking_fee + $this->booking_fee;
+		}else{
+			return $this->amount + $this->organiser_booking_fee + $this->booking_fee;
+		} 
     }
 
     /**
