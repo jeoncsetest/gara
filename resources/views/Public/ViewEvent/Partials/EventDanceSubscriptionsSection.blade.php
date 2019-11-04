@@ -56,7 +56,7 @@
 
                                               <select name='level' id="level_{{$competition->id}}">
                                               @foreach ($competition->levels as $iter)
-                                                                                      <option value="{{ $iter->level }}">{{ $iter->level }}</option>">
+                                                                                      <option value="{{ $iter->level }}">{{ $iter->level }}</option>
                                                                                   @endforeach
                                                                                   </select>
                                           </div>
@@ -65,7 +65,7 @@
           <div class="mad-custom-select">
                   <select name='category' id="category_{{$competition->id}}">
                 @foreach ($competition->categories as $iter)
-                  <option value="{{ $iter->category }}">{{ $iter->category }}</option>">
+                  <option value="{{ $iter->category }}">{{ $iter->category }}</option>
                 @endforeach
             </select>
                           </div>
@@ -81,11 +81,52 @@
                   <!--{!!Form::button(trans("Public_ViewEvent.add_to_cart"), ['class' => 'btn btn-lg btn-primary pull-right'])!!}-->
          </td>
       </tr>
+ 
         {!! Form::hidden('is_embedded', $is_embedded) !!}
                              <!--   {!! Form::close() !!}-->
                                 @endforeach
+<<<<<<< HEAD
                                 <span> &nbsp; &nbsp;</span>
                                 <span> &nbsp; &nbsp;</span>
+=======
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+
+                                <tr><td colspan=6>
+                                <span>
+                                <button class="btn btn-primary btn-lg active" type="submit">
+                                  <a href = "{{route('showCart', ['event_id' => $event->id])}}">{{trans("Public_ViewEvent.proceed")}}</a>
+                                  </span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+
+>>>>>>> 9a557f1918cfcf4eb3cc55f9b7f65bcadc802e39
     </tbody>
     <span> &nbsp; &nbsp;</span>
     <span> &nbsp; &nbsp;</span>
@@ -95,12 +136,17 @@
 </div>
 <span> &nbsp; &nbsp;</span>
     </div>
+<<<<<<< HEAD
 
 
 
+=======
+     </div>
+<!--
+>>>>>>> 9a557f1918cfcf4eb3cc55f9b7f65bcadc802e39
      <div class="align-center">
           <button class="btn btn-primary btn-lg active" type="submit">
        <a href = "{{route('showCart', ['event_id' => $event->id])}}">{{trans("Public_ViewEvent.proceed")}}</a>
        </button>
-       </div>
+       </div>-->
 </div>
