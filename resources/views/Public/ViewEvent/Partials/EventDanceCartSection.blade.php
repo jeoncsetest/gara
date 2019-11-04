@@ -6,10 +6,10 @@
 {!! Form::open(['url' => route('postValidateCartItems', ['event_id' => $event->id]), 'class' => 'ajax gf',  'enctype'=>'multipart/form-data']) !!}
 <div class="row" id="div_event_dance_cart">
 	<table class="table-type-1" id="competition_table">
-      <thead>
+    <thead style="text-align:left">
           <tr>
-              <th>Identificativo</th>
-              <th>Descrizione di ballo</th>
+              <th>Id</th>
+              <th>Descrizione</th>
               <th>tipo</th>
               <th>Livello</th>
               <th>Categoria</th>
@@ -33,7 +33,7 @@
         <td>  <label class="form-control" id="typedance">{{($row->options->has('type') ? $row->options->type : '')}}</label></td>
         <td>  <label class="form-control" id="description">{{($row->options->has('level') ? $row->options->level : '')}}</label></td>
         <td>   <label class="form-control" id="Category" >{{($row->options->has('category') ? $row->options->category : '')}}</label>
-        <td>   <label class="form-control" id="price" >{{money($row->price, $event->currency)}} </label></td>
+        <td>   <label class="form-control" id="price_" >{{money($row->price, $event->currency)}} </label></td>
         <td>
             <div class="input-group">
             <div class="custom-file">
@@ -219,7 +219,9 @@
           <td></td>
           <td></td>
           <td>
+          <!--
               {!!Form::submit(trans("Public_ViewEvent.register"), ['class' => 'btn btn-lg btn-primary pull-right'])!!}
+              -->
           </td>
         </tr>
       </tfoot>
@@ -258,6 +260,12 @@
   </div>
   </div>
   </div>
+     
+  <div style="" class="align-center">
+              <button class="align-center btn btn-primary btn-lg active" type="submit">
+                {{trans("Public_ViewEvent.register")}}
+              </button>
+              </div>
 {!! Form::close() !!}
 @endif
 </div>
