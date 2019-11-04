@@ -4,10 +4,10 @@
 {!! Form::open(['url' => route('postValidateCartItems', ['event_id' => $event->id]), 'class' => 'ajax gf',  'enctype'=>'multipart/form-data']) !!}
 <div class="row" id="div_event_dance_cart">
 	<table class="table table-striped table-light" id="competition_table">
-      <thead>
+      <thead style="text-align:left">
           <tr>
-              <th>Identificativo</th>
-              <th>Descrizione di ballo</th>
+              <th>Id</th>
+              <th>Descrizione</th>
               <th>tipo</th>
               <th>Livello</th>
               <th>Categoria</th>
@@ -30,7 +30,7 @@
         <td>  <label class="form-control" id="typedance">{{($row->options->has('type') ? $row->options->type : '')}}</label></td>
         <td>  <label class="form-control" id="description">{{($row->options->has('level') ? $row->options->level : '')}}</label></td>
         <td>   <label class="form-control" id="Category" >{{($row->options->has('category') ? $row->options->category : '')}}</label>
-        <td>   <label class="form-control" id="price" >{{money($row->price, $event->currency)}} </label></td>
+        <td>   <label class="form-control" id="price_" >{{money($row->price, $event->currency)}} </label></td>
         <td>
             <div class="input-group">
             <div class="custom-file">

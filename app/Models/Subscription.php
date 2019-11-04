@@ -97,4 +97,23 @@ class Subscription extends MyBaseModel
   {
   return $this->hasMany(\App\Models\Participant::class);
   }
+      /**
+     * Get the attendee reference
+     *
+     * @return string
+     */
+    public function getReferenceAttribute()
+    {
+        return $this->order->order_reference . '-' . $this->reference_index;
+    }
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @return array $dates
+     */
+    public function getDates()
+    {
+        return ['created_at', 'updated_at', 'arrival_time'];
+    }
 }

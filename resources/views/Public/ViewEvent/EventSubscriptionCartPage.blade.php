@@ -125,7 +125,6 @@ $(document).on('click', '#add_nuovo_ballerino', function(){
               if(data.status=='error'){
                 alert(data.message);
               }else{
-                alert(data.student_id);
                 html = '';
                 participantName = "participants_"+rowId + "[]";
                 html +=  '<tr><td>';
