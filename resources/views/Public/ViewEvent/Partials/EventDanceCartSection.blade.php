@@ -1,5 +1,7 @@
 <div class="container">
-
+  <div>
+    <p><h1 style="text-align:center">Riepilogo iscrizioni gare</h1></p>
+  </div>
 @if(Cart::count()>0)
 {!! Form::open(['url' => route('postValidateCartItems', ['event_id' => $event->id]), 'class' => 'ajax gf',  'enctype'=>'multipart/form-data']) !!}
 <div class="row" id="div_event_dance_cart">

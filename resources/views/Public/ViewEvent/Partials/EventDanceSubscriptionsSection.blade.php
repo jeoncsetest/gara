@@ -81,18 +81,56 @@
                   <!--{!!Form::button(trans("Public_ViewEvent.add_to_cart"), ['class' => 'btn btn-lg btn-primary pull-right'])!!}-->
          </td>
       </tr>
+ 
         {!! Form::hidden('is_embedded', $is_embedded) !!}
                              <!--   {!! Form::close() !!}-->
                                 @endforeach
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+
+                                <tr><td colspan=6>
+                                <span>
+                                <button class="btn btn-primary btn-lg active" type="submit">
+                                  <a href = "{{route('showCart', ['event_id' => $event->id])}}">{{trans("Public_ViewEvent.proceed")}}</a>
+                                  </span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+                                <tr><td colspan=6><span style="color:white">.</span></td></tr>
+
     </tbody>
   </table>
 <span> &nbsp; &nbsp;</span>
     </div>
      </div>
-
+<!--
      <div class="align-center">
           <button class="btn btn-primary btn-lg active" type="submit">
        <a href = "{{route('showCart', ['event_id' => $event->id])}}">{{trans("Public_ViewEvent.proceed")}}</a>
        </button>
-       </div>
+       </div>-->
 </div>
