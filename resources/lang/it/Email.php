@@ -5,7 +5,7 @@
 
 return array (
   //==================================== Translations ====================================//
-  'attendize_register' => 'Grazie per esserti registrato a DanceMatik',
+  'attendize_register' => 'Grazie per esserti registrato a Dancepass',
   'invite_user' => ':name il nome aggiunto a un :app account.',
   'message_regarding_event' => 'Messaggio relativo a :event',
   'organiser_copy' => '[Organiser Copy]',

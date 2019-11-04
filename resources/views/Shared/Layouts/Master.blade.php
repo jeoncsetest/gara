@@ -4,7 +4,7 @@
 
     <title>
         @section('title')
-            Attendize -
+            Dancepass -
         @show
     </title>
 

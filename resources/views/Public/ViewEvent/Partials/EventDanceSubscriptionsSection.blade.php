@@ -14,7 +14,7 @@
   <div class="form-group text-center">
 
     <p><h1>  Seleziona la tua gara </h1></p>
-    
+
     @foreach($disciplines as $discipline)
     <a href="{{route('showSubscriptionPage', array('event_id'=>$event->id, 'discipline_id'=>$discipline->id))}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">{{$discipline->discipline_name}}</a>
 
@@ -23,11 +23,11 @@
   </div>
 </div>
  </div>
-<span> &nbsp; &nbsp;</span>
+ <span> &nbsp; &nbsp;</span>
 
  <div class="content-element">
-  <div class="row" id="div_event_dance_cart">
-	<table class="table-type-1" id="competition_table">
+    <div class="row" id="div_event_dance_cart">
+      	<table class="table-type-1" id="competition_table">
     <thead>
       <tr>
       <!--  <th scope="col"> </th> -->
@@ -63,12 +63,12 @@
   </td>
         <td>
           <div class="mad-custom-select">
-            <select name='category' id="category_{{$competition->id}}">
+                  <select name='category' id="category_{{$competition->id}}">
                 @foreach ($competition->categories as $iter)
                   <option value="{{ $iter->category }}">{{ $iter->category }}</option>">
                 @endforeach
             </select>
-          </div>
+                          </div>
         </td>
                                                                <!-- {!! Form::hidden('type', $competition->type) !!}
                                                     {!! Form::hidden('title', $competition->title) !!}-->
@@ -84,11 +84,19 @@
         {!! Form::hidden('is_embedded', $is_embedded) !!}
                              <!--   {!! Form::close() !!}-->
                                 @endforeach
+                                <span> &nbsp; &nbsp;</span>
+                                <span> &nbsp; &nbsp;</span>
     </tbody>
+    <span> &nbsp; &nbsp;</span>
+    <span> &nbsp; &nbsp;</span>
   </table>
+  <span> &nbsp; &nbsp;</span>
+  <span> &nbsp; &nbsp;</span>
+</div>
 <span> &nbsp; &nbsp;</span>
     </div>
-     </div>
+
+
 
      <div class="align-center">
           <button class="btn btn-primary btn-lg active" type="submit">

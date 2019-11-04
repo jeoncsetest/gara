@@ -3,7 +3,7 @@
 @if(Cart::count()>0)
 {!! Form::open(['url' => route('postValidateCartItems', ['event_id' => $event->id]), 'class' => 'ajax gf',  'enctype'=>'multipart/form-data']) !!}
 <div class="row" id="div_event_dance_cart">
-	<table class="table table-striped table-light" id="competition_table">
+	<table class="table-type-1" id="competition_table">
       <thead>
           <tr>
               <th>Identificativo</th>
@@ -13,6 +13,7 @@
               <th>Categoria</th>
               <th>Prezzo</th>
               <th>Scegli file Mp3</th>
+							<th></th>
               <th>{{trans("Competition.participant")}}</th>
               <th></th>
           </tr>

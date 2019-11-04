@@ -10,7 +10,7 @@
         <div class="info-box" data-bg="{{ asset('/bootstrap/4.3.1/images/480x338_bg1.jpg') }}">
 
           <h3 class="box-title"><a href="{{ route('showEventListPage') }}">Gare</a></h3>
-          <p> <span> &nbsp; &nbsp;</span> <br> </p>
+          <p> <span> &nbsp; &nbsp;</span>  </p>
           <a href="{{ route('showEventListPage') }}" class="btn btn-style-2">Visualizza</a>
 
         </div>
