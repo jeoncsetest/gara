@@ -137,8 +137,7 @@
                                 {{$event->venue_name}}
                                     <h4>@lang("Ticket.start_date_time")</h4>
                                     {{$event->startDateFormatted()}}
-                                    <h4>@lang("Ticket.end_date_time")</h4>
-                                    {{$event->endDateFormatted()}}
+                               
                             </div>
 
                             <div class="attendee_details">
@@ -148,6 +147,8 @@
                                 {{$order->order_reference}}
                                     <h4>@lang("Ticket.attendee_ref")</h4>
                                 {{$subscription->reference}}
+                                <h4>@lang("Ticket.end_date_time")</h4>
+                                    {{$event->endDateFormatted()}}
                                 </div>
                             </div>
                             <div class="barcode">
