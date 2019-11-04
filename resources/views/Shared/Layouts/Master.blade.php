@@ -4,7 +4,7 @@
 
     <title>
         @section('title')
-            Dancepass -
+            Dancepass:
         @show
     </title>
 
