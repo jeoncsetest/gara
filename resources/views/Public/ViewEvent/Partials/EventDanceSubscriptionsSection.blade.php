@@ -56,7 +56,7 @@
 
                                               <select name='level' id="level_{{$competition->id}}">
                                               @foreach ($competition->levels as $iter)
-                                                                                      <option value="{{ $iter->level }}">{{ $iter->level }}</option>">
+                                                                                      <option value="{{ $iter->level }}">{{ $iter->level }}</option>
                                                                                   @endforeach
                                                                                   </select>
                                           </div>
@@ -65,7 +65,7 @@
           <div class="mad-custom-select">
             <select name='category' id="category_{{$competition->id}}">
                 @foreach ($competition->categories as $iter)
-                  <option value="{{ $iter->category }}">{{ $iter->category }}</option>">
+                  <option value="{{ $iter->category }}">{{ $iter->category }}</option>
                 @endforeach
             </select>
           </div>
