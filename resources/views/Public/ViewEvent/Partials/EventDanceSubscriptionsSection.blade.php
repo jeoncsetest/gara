@@ -85,10 +85,6 @@
         {!! Form::hidden('is_embedded', $is_embedded) !!}
                              <!--   {!! Form::close() !!}-->
                                 @endforeach
-<<<<<<< HEAD
-                                <span> &nbsp; &nbsp;</span>
-                                <span> &nbsp; &nbsp;</span>
-=======
                                 <tr><td colspan=6><span style="color:white">.</span></td></tr>
                                 <tr><td colspan=6><span style="color:white">.</span></td></tr>
 
@@ -126,7 +122,6 @@
                                 <tr><td colspan=6><span style="color:white">.</span></td></tr>
                                 <tr><td colspan=6><span style="color:white">.</span></td></tr>
 
->>>>>>> 9a557f1918cfcf4eb3cc55f9b7f65bcadc802e39
     </tbody>
     <span> &nbsp; &nbsp;</span>
     <span> &nbsp; &nbsp;</span>
@@ -136,11 +131,6 @@
 </div>
 <span> &nbsp; &nbsp;</span>
     </div>
-<<<<<<< HEAD
-
-
-
-=======
      </div>
 <!--
 >>>>>>> 9a557f1918cfcf4eb3cc55f9b7f65bcadc802e39
