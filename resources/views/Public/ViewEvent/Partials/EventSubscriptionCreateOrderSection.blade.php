@@ -88,6 +88,7 @@
                     </div>
                 </div>
                 <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                <!--
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -211,6 +212,7 @@
                         </div>
                     </div>
                 </div>
+                -->
 
                 <style>
                     .offline_payment_toggle {

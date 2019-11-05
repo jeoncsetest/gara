@@ -23,7 +23,7 @@ class DescriptionsOrderController extends Controller
     //
     public function descriptionOrders()
     {
-        $orders = DB::table('Orders')
+        $orders = DB::table('orders')
         ->where('orders.user_id', '=', Auth::user()->id)
         ->get();
         Log::debug('total:' . $orders->count());
