@@ -11,7 +11,14 @@ class OrderMailer
 {
     public function sendOrderNotification(Order $order)
     {
+        /*
         $orderService = new OrderService($order->amount, $order->organiser_booking_fee, $order->event);
+        */
+        if(!empty($order->order_type) && $order->order_type == 'SUBSCRIPTION'){
+            $orderService = new OrderService($order->cart_amount, $order->organiser_booking_fee, $order->event);
+        }else{
+            $orderService = new OrderService($order->amount, $order->organiser_booking_fee, $order->event);
+        }
         $orderService->calculateFinalCosts();
 
         $data = [
@@ -28,7 +35,14 @@ class OrderMailer
 
     public function sendOrderTickets(Order $order)
     {
+        /*
         $orderService = new OrderService($order->amount, $order->organiser_booking_fee, $order->event);
+        */
+        if(!empty($order->order_type) && $order->order_type == 'SUBSCRIPTION'){
+            $orderService = new OrderService($order->cart_amount, $order->organiser_booking_fee, $order->event);
+        }else{
+            $orderService = new OrderService($order->amount, $order->organiser_booking_fee, $order->event);
+        }
         $orderService->calculateFinalCosts();
 
         Log::info("Sending ticket to: " . $order->email);

@@ -1,13 +1,10 @@
 <?php
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-
     /*
       Attendize.com   - Event Management & Ticketing
      */
-
 /**
  * Description of Subscriptions.
  *
@@ -29,14 +26,12 @@ class Subscription extends MyBaseModel
 		'session_id'	=> ['required'],
 		
     ];
-
   	 /**
      * The validation error messages.
      *
      * @var array $messages
      */
     protected $messages = [];
-
     /**
      * The attributes that are mass assignable.
      *
@@ -52,7 +47,6 @@ class Subscription extends MyBaseModel
 		    'expires',
 		    'session_id'
     ];
-
     
      /**
      * Generate a private reference number for the attendee. Use for checking in the attendee.
@@ -61,18 +55,14 @@ class Subscription extends MyBaseModel
     public static function boot()
     {
         parent::boot();
-
         static::creating(function ($order) {
-
             do {
                 //generate a random string using Laravel's str_random helper
                 $token = Str::Random(15);
             } //check if the token already exists and if it does, try again
-
             while (Attendee::where('private_reference_number', $token)->first() || Subscription::where('private_reference_number', $token)->first());
             $order->private_reference_number = $token;
         });
-
     }
 	
 	public function competition()
@@ -97,4 +87,22 @@ class Subscription extends MyBaseModel
   {
   return $this->hasMany(\App\Models\Participant::class);
   }
+      /**
+     * Get the attendee reference
+     *
+     * @return string
+     */
+    public function getReferenceAttribute()
+    {
+        return $this->order->order_reference . '-' . $this->reference_index;
+    }
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @return array $dates
+     */
+    public function getDates()
+    {
+        return ['created_at', 'updated_at', 'arrival_time'];
+    }
 }

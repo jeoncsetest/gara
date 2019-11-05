@@ -729,13 +729,7 @@ class EventCheckoutController extends Controller
             $order->rules = $order->rules + $businessRules;
             $order->messages = $order->messages + $businessMessages;
         }
-        Log::debug('step 2');
-        foreach($order->rules as $rule_val){
-            Log::debug($rule_val);
-        }
-        foreach($order->messages as $rule_val){
-            Log::debug($rule_val);
-        }
+     
         if (!$order->validate($request->all())) {
             return response()->json([
                 'status'   => 'error',
@@ -1708,7 +1702,11 @@ class EventCheckoutController extends Controller
             abort(404);
         }
 
-        $orderService = new OrderService($order->amount, $order->organiser_booking_fee, $order->event);
+        if(!empty($order->order_type) && $order->order_type == 'SUBSCRIPTION'){
+            $orderService = new OrderService($order->cart_amount, $order->organiser_booking_fee, $order->event);
+        }else{
+            $orderService = new OrderService($order->amount, $order->organiser_booking_fee, $order->event);
+        }
         $orderService->calculateFinalCosts();
 
         $data = [
@@ -1751,6 +1749,7 @@ class EventCheckoutController extends Controller
             'event'     => $order->event,
             'tickets'   => $order->event->tickets,
             'attendees' => $order->attendees,
+            'subscriptions' => $order->subscriptions,
             'css'       => file_get_contents(public_path('assets/stylesheet/ticket.css')),
             'image'     => base64_encode(file_get_contents(public_path($order->event->organiser->full_logo_path))),
             'images'    => $images,
