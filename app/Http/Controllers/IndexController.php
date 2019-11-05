@@ -19,6 +19,6 @@ class IndexController extends Controller
     */
     public function showIndex(Request $request)
     {
-        return view('Public.ViewEvent.UnderConstructionPage');
+        return view('Public.ViewEvent.HomePage');
     }
 }

@@ -1045,12 +1045,9 @@ class EventCheckoutController extends Controller
                 case config('attendize.payment_gateway_stripe'):
                     Log::debug('gateway stripe: ' .config('attendize.payment_gateway_stripe'));
                     $token = $request->get('stripeToken');
-                    Log::debug('user_email: ' .$user_email);
-                    $user_email = 'jeoncsetest@gmail.com';
-                    Log::debug('user_email modified to : ' .$user_email);
                     $transaction_data += [
                         'token'         => $token,
-                        'receipt_email' => $user_email,
+                        'receipt_email' => $request->get('order_email'),
                     ];
                     break;
                 default:
