@@ -5,11 +5,7 @@
 @stop
 
 @section('content')
-
-    @include('Public.ViewEvent.Partials.EventHeaderSection')
-
     @include('Public.ViewEvent.Partials.EventSubscriptionCreateOrderSection')
     <script>var OrderExpires = {{strtotime($expires)}};</script>
-   @include('Public.ViewEvent.Partials.EventFooterSection')
 @stop
 

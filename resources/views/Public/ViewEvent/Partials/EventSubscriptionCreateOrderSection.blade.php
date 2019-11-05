@@ -52,9 +52,11 @@
                 @endif
 
             </div>
+            <!--
             <div class="help-block">
                 {!! @trans("Public_ViewEvent.time", ["time"=>"<span id='countdown'></span>"]) !!}
             </div>
+            -->
         </div>
         <div class="col-md-8 col-md-pull-4">
             <div class="event_order_form">

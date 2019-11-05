@@ -89,5 +89,5 @@ return [
   'your_information' => 'Le tue informazioni',
   'your_message' => 'I tuoi messaggi',
   'your_name' => 'Il tuo nome',
-  'your' => 'Tuo'
+  'your' => 'Il tuo'
 ];
