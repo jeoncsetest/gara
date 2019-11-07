@@ -122,7 +122,7 @@ class UserSignupController extends Controller
 
         if($signupType == config('attendize.signup_type_school')){
             $validation_rules_signup_school =[
-                'eps'   => 'required|unique:schools',
+                'eps'   => 'required',
                 'name'   => 'required|unique:schools',
                 'phone'   => 'required|unique:schools',
                 'city'   => 'required',
@@ -181,8 +181,17 @@ class UserSignupController extends Controller
                 $student_data['user_id'] =$user->id;
                 $student = Student::create($student_data);
             }elseif($signupType == config('attendize.signup_type_school')){
+                $schools = DB::table('schools')
+                ->where('eps', '=', $request->get('eps'))
+                ->get();
+                $eps = $request->get('eps');
+                if($schools->count()>0){
+                    $eps = $eps . '_' .($schools->count()+1);
+                    Log::debug($request->get('eps') . ' exits, eps is changed to ' . $eps);
+                }
                 $school = new School();
-                $school_data = $request->only(['email', 'name', 'phone', 'eps', 'address', 'city', 'place']);
+                $school_data = $request->only(['email', 'name', 'phone', 'address', 'city', 'place']);
+                $school_data['eps'] =$eps;
                 $school_data['user_id'] =$user->id;
                 $school = School::create($school_data);
             }
