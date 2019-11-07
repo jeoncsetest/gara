@@ -28,7 +28,7 @@ function tempAlert(msg,duration)
 {
  //var el = document.createElement("div");
  var el = document.createElement("div");
- el.setAttribute("style","position:absolute;top:40%;left:20%;background-color:white;");
+ el.setAttribute("style","position:absolute;top:10%;left:30%;background-color:white;");
  el.innerHTML = msg;
  setTimeout(function(){
   el.parentNode.removeChild(el);
@@ -36,7 +36,7 @@ function tempAlert(msg,duration)
  document.body.appendChild(el);
 }
 /**add to cart */
-$(document).on('click', '#add_cart_item', function(){
+$(document).on('click', '.add_cart_item', function(){
         /**chiamata ajax per eliminare item dal carello */
 
         var rowTobeAdded = $(this).closest("tr").attr('id');
@@ -66,6 +66,8 @@ $(document).on('click', '#add_cart_item', function(){
             success:function(data){
                 tempAlert(data.message,1000);
                 $(".section_head_carello").text(' ' + data.cartCount);
+                console.info('row id:' + rowTobeAdded);
+                $("#add_cart_item_" + rowTobeAdded).removeClass( "btn-style-6" ).addClass( "btn-style-1" );
 
                // alert(data.message);
 

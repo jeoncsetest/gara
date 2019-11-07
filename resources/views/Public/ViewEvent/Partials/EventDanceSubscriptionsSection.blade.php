@@ -76,7 +76,23 @@
                 {!! Form::hidden('competition_id', $competition->id) !!}
          <input type="hidden" name="type" id="type_{{$competition->id}}" value="{{$competition->type}}">
          <input type="hidden" name="title" id="title_{{$competition->id}}" value="{{$competition->title}}">
-                  <button class='btn btn-small btn-style-6' id="add_cart_item"> <i class="fas fa-cart-plus"></i> </button>
+         <?php
+          $gara_incarello = null;
+          foreach(Cart::content() as $row){
+          if($row->options->has('competition_id') && $row->options->competition_id==$competition->id){
+            $gara_incarello = 'true';
+            break;
+            }
+          }
+          if(empty($gara_incarello)){
+            echo "<button class='add_cart_item btn btn-small btn-style-6'  id='add_cart_item_{$competition->id}'> <i class='fas fa-cart-plus'></i> </button>";
+          }else{
+            echo "<button class='add_cart_item btn btn-small btn-style-1'  id='add_cart_item_{$competition->id}'> <i class='fas fa-cart-plus'></i> </button>";
+          }
+         ?>
+
+        
+       
                   <!-- {{trans("Public_ViewEvent.add_to_cart")}} -->
                   <!--{!!Form::button(trans("Public_ViewEvent.add_to_cart"), ['class' => 'btn btn-lg btn-primary pull-right'])!!}-->
          </td>
