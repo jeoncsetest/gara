@@ -381,6 +381,12 @@ class EventCheckoutController extends Controller
             $groupName = $request->get('grp_name_' . $cardId);
 
             $rowId = $cartItem->rowId;
+            if(empty($participants)){
+                return response()->json([
+                    'status'   => 'error',
+                    'message' => 'La scelta del ballerino è obbligatoira',
+                ]);
+            }
             Log::debug('row id of the cart item: ' .$rowId .' total participants : '. count( $participants));
             Log::debug('first participants : '. $participants[0]);
 
