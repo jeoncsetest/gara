@@ -93,6 +93,9 @@ $(document).on('click', '#remove_cart_item', function(){
               console.info('total:' + data.total);
               $("#cartTotal").text(data.total);
               $('#' + rowTobeEliminated).closest("tr").remove();
+              if(data.cartCount == 0 || data.cartCount == '0'){
+                location.reload();
+              }
                 //alert(data.message);
             }
         });         

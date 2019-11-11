@@ -192,6 +192,9 @@ class EventSubscriptionController extends Controller
         $currency = $event->currency;
         Log::debug('$currency :' .$currency);
         $moneyee = money(Cart::subtotal(), $currency);
+        if( Cart::count() == 0){
+            $request->session()->forget('current_event_id'); 
+        }
         return response()->json([
             'status'  => 'success',
             'cartCount' => Cart::count(),

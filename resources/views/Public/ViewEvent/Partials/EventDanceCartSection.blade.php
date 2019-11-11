@@ -1,23 +1,32 @@
+<div class="breadcrumbs-wrap no-title">
+   <div class="container">
+     <ul class="breadcrumbs">
+       <li>Home</a></li>
+       <li>Gare</li>
+       <li>{{ $event->title }}</li>
+       <li>Riepilogo</li>
+     </ul>
+   </div>
 <div class="container">
   <div>
     <p><h1 style="text-align:center">Riepilogo iscrizioni gare</h1></p>
   </div>
 @if(Cart::count()>0)
-{!! Form::open(['url' => route('postValidateCartItems', ['event_id' => $event->id]), 'class' => 'ajax gf',  'enctype'=>'multipart/form-data']) !!}
+{!! Form::open(['url' => route('postValidateCartItems', ['event_id' => $event->id]), 'class' => 'ajax gf',  'enctype'=>'multipart/form-data', 'id'=>'cartCheckoutForm']) !!}
+<div class="content-element">
 <div class="row" id="div_event_dance_cart">
 	<table class="table-type-1" id="competition_table">
-    <thead style="text-align:left">
+    <thead>
           <tr>
-              <th>Id</th>
-              <th>Descrizione</th>
-              <th>tipo</th>
-              <th>Livello</th>
-              <th>Categoria</th>
-              <th>Prezzo</th>
-              <th>Scegli file Mp3</th>
-							<th></th>
-              <th>{{trans("Competition.participant")}}</th>
-              <th></th>
+          <th scope="col"></th>
+          <th scope="col">Descrizione</th>
+          <th scope="col">tipo</th>
+          <th scope="col">Livello</th>
+          <th scope="col">Categoria</th>
+          <th scope="col">Prezzo</th>
+          <th scope="col">Scegli file Mp3</th>
+          <th scope="col">{{trans("Competition.participant")}}</th>
+          <th scope="col"></th>
           </tr>
       </thead>
 
@@ -28,7 +37,26 @@
           {!! Form::hidden('cartIds[]', $row->id) !!}
           <input name="competition_type_{{$row->options->competition_id}}" type="hidden" value="{{$row->options->type}}">
                 <input name="competitionId_{{$row->id}}" type="hidden" value="{{($row->options->has('competition_id') ? $row->options->competition_id : '')}}">
-          <label class="form-control" id="identificativo">{{$row->id}}</label></td>
+         <!-- <label class="form-control" id="identificativo">{{$row->id}}</label>-->
+          <button type="button" class="btn btn-danger" onclick="showPopupRemoveItem('{{$row->rowId}}', {{$row->id}}, '{{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}')" ><i class="fas fa-times-circle"></i></button>
+          <div id="popup-removeCart_{{$row->id}}" class="popup var3">
+          <div class="popup-inner">
+            <button type="button" class="close-popup"></button>
+            <h4 class="title">Eliminare dal carello</h4>
+            <span>
+              {{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}
+            </span>
+            <button type="button" name="{{$row->rowId}}" class="btn btn-primary" id="remove_cart_item" >{{trans("Competition.confirm")}}</button>
+          </div>
+          </div>
+
+
+               <input name="qty_{{$row->id}}" type="hidden" value="{{$row->qty}}">
+
+
+            
+
+        </td>
         <td>  <label class="form-control" id="description">{{($row->options->has('competition_title') ? $row->options->competition_title : '')}}</label></td>
         <td>  <label class="form-control" id="typedance">{{($row->options->has('type') ? $row->options->type : '')}}</label></td>
         <td>  <label class="form-control" id="description">{{($row->options->has('level') ? $row->options->level : '')}}</label></td>
@@ -158,10 +186,10 @@
                 @endif
                 @if(Session::has('school'))
                   <button type="button" class="btn btn-primary" onclick="add_participant({{$row->id}})"><i class="fas fa-plus-circle"></i></button>
-                  <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}}, 'true')"><i class="fas fa-minus-circle"></i></button>
+                  <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}}, 'true')"><i class="fas fa-times-circle"></i></button>
                 @else
                   <button type="button" class="btn btn-danger" onclick="showAddBallerino('{{$row->rowId}}', {{$row->id}}, '{{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}')" >Aggiungi ballerino</button>
-                  <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}}, 'false')">elimina</button>
+                  <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}}, 'false')"><i class="fas fa-times-circle"></i></button>
                 @endif
                   </div>
                   <div  class="ui-widget">
@@ -174,25 +202,7 @@
             @endif
           @endif
         </td>
-        <td>
-          <button type="button" class="btn btn-danger" onclick="showPopupRemoveItem('{{$row->rowId}}', {{$row->id}}, '{{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}')" >Elimina</button>
 
- <div id="popup-removeCart_{{$row->id}}" class="popup var3">
-  <div class="popup-inner">
-    <button type="button" class="close-popup"></button>
-    <h4 class="title">Eliminare dal carello</h4>
-    <span>
-      {{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}
-    </span>
-    <button type="button" name="{{$row->rowId}}" class="btn btn-primary" id="remove_cart_item" >{{trans("Competition.confirm")}}</button>
-  </div>
-  </div>
-
-
-               <input name="qty_{{$row->id}}" type="hidden" value="{{$row->qty}}">
-
-
-               </td>
       </tr>
         @endforeach
       </tbody>

@@ -89,10 +89,10 @@
 
           <li>
                       @if(Session::has('current_event_id'))
-                        <a href= "/showCart?event_id={{Session::get('current_event_id')}}" class="fas fa-shopping-cart"
+                        <a href= "/showCart?event_id={{Session::get('current_event_id')}}" id="clickCart" class="fas fa-shopping-cart"
                           aria-haspopup="true" aria-expanded="false"> |
                       @else
-                        <a href= "#" class="fas fa-shopping-cart"  aria-haspopup="true" aria-expanded="false"> |
+                        <a href= "#" id="clickCart" class="fas fa-shopping-cart"  aria-haspopup="true" aria-expanded="false"> |
                       @endif
 
                       <i class=" text-size-small "><span class="section_head_carello"> {{Cart::count()}}</span> </i> </a>

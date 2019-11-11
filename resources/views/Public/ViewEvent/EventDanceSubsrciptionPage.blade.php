@@ -68,7 +68,9 @@ $(document).on('click', '.add_cart_item', function(){
                 $(".section_head_carello").text(' ' + data.cartCount);
                 console.info('row id:' + rowTobeAdded);
                 $("#add_cart_item_" + rowTobeAdded).removeClass( "btn-style-6" ).addClass( "btn-style-1" );
-
+                if(data.cartCount == 1 || data.cartCount == '1'){
+                location.reload();
+              }
                // alert(data.message);
 
             }
