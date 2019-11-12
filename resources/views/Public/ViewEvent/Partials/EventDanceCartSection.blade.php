@@ -7,10 +7,13 @@
        <li>Riepilogo</li>
      </ul>
    </div>
+   <div>
+     <p><h1 style="text-align:center">Riepilogo iscrizioni gare</h1></p>
+   </div>
+
+     <div id="content" class="page-content-wrap">
 <div class="container">
-  <div>
-    <p><h1 style="text-align:center">Riepilogo iscrizioni gare</h1></p>
-  </div>
+
 @if(Cart::count()>0)
 {!! Form::open(['url' => route('postValidateCartItems', ['event_id' => $event->id]), 'class' => 'ajax gf',  'enctype'=>'multipart/form-data', 'id'=>'cartCheckoutForm']) !!}
 <div class="content-element">
@@ -42,7 +45,7 @@
           <div id="popup-removeCart_{{$row->id}}" class="popup var3">
           <div class="popup-inner">
             <button type="button" class="close-popup"></button>
-            <h4 class="title">Eliminare dal carello</h4>
+            <h4 class="title">Eliminare dal carrello</h4>
             <span>
               {{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}
             </span>
@@ -54,7 +57,7 @@
                <input name="qty_{{$row->id}}" type="hidden" value="{{$row->qty}}">
 
 
-            
+
 
         </td>
         <td>  <label class="form-control" id="description">{{($row->options->has('competition_title') ? $row->options->competition_title : '')}}</label></td>
@@ -270,7 +273,8 @@
   </div>
   </div>
   </div>
-     
+  <span> &nbsp; &nbsp;</span>
+
   <div style="" class="align-center">
               <button class="align-center btn btn-primary btn-lg active" type="submit">
                 {{trans("Public_ViewEvent.register")}}
@@ -278,4 +282,8 @@
               </div>
 {!! Form::close() !!}
 @endif
+</div>
+</div>
+<span> &nbsp; &nbsp;</span>
+<span> &nbsp; &nbsp;</span>
 </div>
