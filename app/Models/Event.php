@@ -449,4 +449,9 @@ ICSTemplate;
     {
 		return $this->hasMany(\App\Models\Compettiton::class);
     }
+	
+	 public function subscriptions()
+    {
+		return $this->hasMany(\App\Models\Subscription::class);
+    }
 }

@@ -35,6 +35,12 @@
                     <span class="text">@lang("basic.attendees")</span>
                 </a>
             </li>
+            <li class="{{ Request::is('*attendees*') ? 'active' : '' }}">
+                <a href="{{route('showIscritti', array('event_id' => $event->id))}}">
+                    <span class="figure"><i class="ico-user"></i></span>
+                    <span class="text">@lang("basic.subscriptions")</span>
+                </a>
+            </li>
 			<li class="{{ Request::is('*competitions*') ? 'active' : '' }}">
                 <a href="{{route('showEventCompetitions', array('event_id' => $event->id))}}">
                     <span class="figure"><i class="ico-ticket"></i></span>

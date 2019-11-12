@@ -677,4 +677,23 @@ class EventSubscriptionController extends Controller
             'message' => trans("Competition.mp3_uploaded_successfully"),
         ]);
     }
+             /**
+     * @param $event_id
+     * @param $subscription_id
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function downloadMp3(Request $request, $event_id, $subscription_id, $slug = '', $preview = false)
+    {
+        Log::info(' mp3 path :' .$subscription_id);
+        Config::set('queue.default', 'sync');
+        $subscription = Subscription::findOrFail($subscription_id);
+        Log::info(' mp3 path :' .$subscription->mp3_path);
+        
+   
+        $mp3_file = $subscription->mp3_path;
+       /* $pdf_file = 'user_content/event_pdfs/event_pdf-fa180de9a92f290576835ed9c271d884.pdf';*/
+
+
+        return response()->download($mp3_file);
+    }
 }

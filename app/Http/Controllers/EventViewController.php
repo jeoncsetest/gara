@@ -8,6 +8,7 @@ use App\Models\Event;
 use App\Models\EventAccessCodes;
 use App\Models\EventStats;
 use Carbon\Carbon;
+use App\Models\Subscription;
 use DB;
 use Auth;
 use Cookie;
@@ -279,5 +280,28 @@ class EventViewController extends Controller
 
         return response()->download($pdf_file);
     }
+
+         /**
+     * @param $event_id
+     * @param $attendee_id
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function downloadMp3(Request $request, $event_id, $slug = '', $preview = false)
+    {
+        $subscription_id = $request->get('subscription_id');
+        Config::set('queue.default', 'sync');
+        $subscription = Subscription::findOrFail($subscription_id);
+        Log::info(' mp3 path :' .$subscription->mp3_path);
+        $mp3_file = $subscription->mp3_path;
+        if(empty($mp3_file)){
+            return response()->json([
+                'status' => 'error',
+                'message' => trans('AccessCodes.no_tickets_matched'),
+            ]);
+        }
+       /* $pdf_file = 'user_content/event_pdfs/event_pdf-fa180de9a92f290576835ed9c271d884.pdf';*/
+        return response()->download('user_content/audio_mp3/' .$mp3_file);
+    }
+    
 
 }

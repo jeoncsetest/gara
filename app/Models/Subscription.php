@@ -74,15 +74,26 @@ class Subscription extends MyBaseModel
 	{
 		return $this->belongsTo(Order::class, 'order_id', 'id');
 	}
+	
+	 /**
+     * The event associated with the subscription.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function event()
+    {
+        return $this->belongsTo(\App\Models\Event::class);
+    }
   
 	public function user()
 	{
 		return $this->belongsTo(User::class, 'user_id', 'id');
 	}
+	/*
 	public function event()
 	{
 		return $this->belongsTo(Event::class, 'event_id', 'id');
-	}
+	}*/
   public function participants()
   {
   return $this->hasMany(\App\Models\Participant::class);

@@ -137,6 +137,11 @@ Route::group(
             'as'   => 'showAgreement',
             'uses' => 'EventViewController@showAgreement',
         ]);
+
+        Route::get('/{event_id}/downloadMp3', [
+            'as'   => 'downloadMp3',
+            'uses' => 'EventViewController@downloadMp3',
+        ]);
         /*
         Route::get('{event_id}/getSubscriptionCart', [
             'as'   => 'getSubscriptionCart',
@@ -590,6 +595,17 @@ Route::group(
                 'uses' => 'EventAttendeesController@showAttendees',
             ]);
 
+             /*
+             * -------
+             * Subscriptions
+             * -------
+             */
+            Route::get('{event_id}/iscritti/', [
+                'as'   => 'showIscritti',
+                'uses' => 'EventIscrittiController@showIscritti',
+            ]);
+            
+
             Route::get('{event_id}/attendees/message', [
                 'as'   => 'showMessageAttendees',
                 'uses' => 'EventAttendeesController@showMessageAttendees',
@@ -661,6 +677,10 @@ Route::group(
                 'as'   => 'showExportAttendees',
                 'uses' => 'EventAttendeesController@showExportAttendees',
             ]);
+            Route::get('{event_id}/subscriptions/export/{export_as?}', [
+                'as'   => 'showExportSubscriptions',
+                'uses' => 'EventIscrittiController@showExportSubscriptions',
+            ]);
 
             Route::get('{event_id}/attendees/{attendee_id}/edit', [
                 'as'   => 'showEditAttendee',
@@ -678,6 +698,14 @@ Route::group(
             Route::post('{event_id}/attendees/{attendee_id}/cancel', [
                 'as'   => 'postCancelAttendee',
                 'uses' => 'EventAttendeesController@postCancelAttendee',
+            ]);
+            Route::get('{event_id}/Subscriptions/{attendee_id}/cancel', [
+                'as'   => 'showCancelSubscription',
+                'uses' => 'EventIscrittiController@showCancelSubscription',
+            ]);
+            Route::post('{event_id}/Subscriptions/{attendee_id}/cancel', [
+                'as'   => 'postCancelSubscription',
+                'uses' => 'EventIscrittiController@postCancelSubscription',
             ]);
 
             /*
