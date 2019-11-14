@@ -46,23 +46,6 @@ class EventIscrittiController extends MyBaseController
 
         Log::debug('iscritti' .$event->subscriptions()->count() .'        $searchQuery ' .$searchQuery);
         if ($searchQuery) {
-            /*
-                     ->where('subscriptions.event_id', '=', $event_id)
-                    ->where('subscriptions.is_cancelled', '=', 0)
-                    ->where('subscriptions.account_id', '=', Auth::user()->account_id)
-                    ->join('events', 'events.id', '=', 'subscriptions.event_id')
-                    ->join('orders', 'orders.id', '=', 'subscriptions.order_id')
-                    ->join('competitions', 'competitions.id', '=', 'subscriptions.competition_id')
-                    ->join('participants', 'participants.subscription_id', '=', 'subscriptions.id')
-                    ->join('students', 'students.id', '=', 'participants.student_id')
-                    ->select([
-                        'students.name',
-                        'students.surname',
-                        'students.email',
-			            'subscriptions.private_reference_number',
-                        'orders.order_reference',
-                        'competitions.title',
-            */
             $subscriptions = $event->subscriptions()
                 ->join('orders', 'orders.id', '=', 'subscriptions.order_id')
                 ->join('competitions', 'competitions.id', '=', 'subscriptions.competition_id')
@@ -78,7 +61,9 @@ class EventIscrittiController extends MyBaseController
                         ->orWhere('students.surname', 'like', $searchQuery . '%');
                 })
                 ->orderBy($sort_by, $sort_order)
-                ->select('subscriptions.*','students.email as bal_email', 'students.name as bal_name', 'students.surname as bal_surname', 'orders.order_reference')
+                ->select('subscriptions.*','students.email as bal_email', 'students.name as bal_name',
+                 'students.surname as bal_surname',
+                 'students.phone as bal_phone', 'students.fiscal_code as bal_fiscalCode','orders.order_reference')
                 ->paginate();
         } else {
             $subscriptions = $event->subscriptions()
@@ -89,7 +74,9 @@ class EventIscrittiController extends MyBaseController
                 ->join('students', 'students.id', '=', 'participants.student_id')
                 ->where('subscriptions.event_id', '=', $event_id)
                 ->orderBy($sort_by, $sort_order)
-                ->select('subscriptions.*', 'students.email as bal_email', 'students.name as bal_name', 'students.surname as bal_surname', 'orders.order_reference')
+                ->select('subscriptions.*', 'students.email as bal_email', 'students.name as bal_name',
+                 'students.surname as bal_surname','students.phone as bal_phone',
+                  'students.fiscal_code as bal_fiscalCode', 'orders.order_reference')
                 ->paginate();
         }
 
@@ -136,9 +123,13 @@ class EventIscrittiController extends MyBaseController
                         'students.name',
                         'students.surname',
                         'students.email',
-			            'subscriptions.private_reference_number',
-                        'orders.order_reference',
+			            'students.phone',
+                        'students.fiscal_code',
                         'competitions.title',
+                        'subscriptions.group_name',
+                        'subscriptions.level',
+                        'subscriptions.category',
+                         DB::raw("(CASE WHEN competitions.type='D' THEN 'Doppio'  WHEN competitions.type='G' THEN 'Gruppo' WHEN competitions.type='S' THEN 'Single' END) AS competitions_type"),
                         'orders.created_at',
                         DB::raw("(CASE WHEN subscriptions.has_arrived THEN 'YES' ELSE 'NO' END) AS has_arrived"),
                         'subscriptions.arrival_time',
@@ -153,9 +144,13 @@ class EventIscrittiController extends MyBaseController
                     'First Name',
                     'Last Name',
                     'Email',
-		            'Subscription ID',
-                    'Order Reference',
-                    'Competition',
+		            'Telefono',
+                    'Codice Fiscale',
+                    'Gara',
+                    'Nome Gruppo',
+                    'Livello',
+                    'Categoria',
+                    'Tipo',
                     'Purchase Date',
                     'Has Arrived',
                     'Arrival Time',
