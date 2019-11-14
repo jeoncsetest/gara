@@ -31,6 +31,7 @@ return array (
   'fiscal_code'  => 'Codice Fiscale',
   'name'  => 'Nome Scuola',
   'phone'  => 'Numero di telefono',
+  'telefono'  => 'telefono',
   'birth_date'  => 'Data di nascita',
   'birth_place'  => 'Luogo di nascita',
   'eps'  => 'EPS  (Ente di promozione sportiva)',

@@ -230,7 +230,6 @@ class EventController extends MyBaseController
     public function postEditEvent(Request $request, $event_id)
     {
         $event = Event::scope()->findOrFail($event_id);
-
         if (!$event->validate($request->all())) {
             return response()->json([
                 'status'   => 'error',
@@ -318,6 +317,23 @@ class EventController extends MyBaseController
             $eventImage->image_path = config('attendize.event_images_path') . '/' . $filename;
             $eventImage->event_id = $event->id;
             $eventImage->save();
+        }
+
+        if ($request->hasFile('event_pdf')) {
+            EventPdf::where('event_id', '=', $event->id)->delete();
+            $path = public_path() . '/' . config('attendize.event_pdfs_path');
+            $filename = 'event_pdf-' . md5(time() . $event->id) . '.' . strtolower($request->file('event_pdf')->getClientOriginalExtension());
+
+            $file_full_path = $path . '/' . $filename;
+            $request->file('event_pdf')->move($path, $filename);
+
+            /* Upload to s3 */
+            \Storage::put(config('attendize.event_pdfs_path') . '/' . $filename, file_get_contents($file_full_path));
+
+            $eventPdf = EventPdf::createNew();
+            $eventPdf->pdf_path = config('attendize.event_pdfs_path') . '/' . $filename;
+            $eventPdf->event_id = $event->id;
+            $eventPdf->save();
         }
 
         return response()->json([

@@ -155,7 +155,11 @@
                    {!! Form::label('event_image', trans("Event.event_flyer"), array('class'=>'control-label ')) !!}
                    {!! Form::styledFile('event_image', 1) !!}
                 </div>
+                <div class="form-group">
+                            {!! Form::label('event_pdf', trans("Event.event_pdf"), array('class'=>'control-label ')) !!}
+                            {!! Form::styledFile('event_pdf',1) !!}
 
+                </div>
                 @if($event->images->count())
                     <div class="form-group">
                         {!! Form::label('event_image_position', trans("Event.event_image_position"), array('class'=>'control-label')) !!}

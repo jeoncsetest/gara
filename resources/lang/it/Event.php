@@ -20,6 +20,7 @@ return array (
   'event_description' => 'Descrizione evento',
   'event_end_date' => 'Data fine evento',
   'event_flyer' => 'Volantino Evento',
+  'event_pdf'  => 'Regolamento',
   'event_image' => 'Immagine evento (Flyer or Graphic etc.)',
   'event_image_position' => 'Posizione immagine evento',
   'event_image_position_hide' => 'Nascosto',
