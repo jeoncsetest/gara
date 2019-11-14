@@ -66,44 +66,77 @@
                     <thead>
                         <tr>
                             <th>
-                               {!!Html::sortable_link(trans("basic.dancer"), $sort_by, 'students.surname', $sort_order, ['q' => $q , 'page' => $subscriptions->currentPage()])!!}
+                               {!!Html::sortable_link(trans("User.first_name"), $sort_by, 'students.name', $sort_order, ['q' => $q , 'page' => $subscriptions->currentPage()])!!}
+                            </th>
+                            <th>
+                               {!!Html::sortable_link(trans("User.last_name"), $sort_by, 'students.surname', $sort_order, ['q' => $q , 'page' => $subscriptions->currentPage()])!!}
                             </th>
                             <th>
                                {!!Html::sortable_link(trans("Attendee.email"), $sort_by, 'students.email', $sort_order, ['q' => $q , 'page' => $subscriptions->currentPage()])!!}
                             </th>
                             <th>
-                               {!!Html::sortable_link(trans("basic.competition"), $sort_by, 'subscriptions.competition_id', $sort_order, ['q' => $q , 'page' => $subscriptions->currentPage()])!!}
+                               {{trans("User.telefono")}}
                             </th>
+                            <th>
+                               {{trans("User.fiscal_code")}}
+                            </th>
+                            <th>
+                               {{trans("basic.competition")}}
+                            </th>
+                            <th>
+                               {{trans("competition.group_name")}}
+                            </th>
+                            <th>
+                               {{trans("Competition.competition_level")}}
+                            </th>
+                            <th>
+                               {{trans("Competition.competition_category")}}
+                            </th>
+                            <th>
+                               {{trans("Competition.competition_type")}}
+                            </th>
+                            <!--
                             <th>
                                {!!Html::sortable_link(trans("basic.ref_order"), $sort_by, 'orders.order_reference', $sort_order, ['q' => $q , 'page' => $subscriptions->currentPage()])!!}
                             </th>
                             <th>
                                {!!Html::sortable_link(trans("basic.ref_competition"), $sort_by, 'subscriptions.private_reference_number', $sort_order, ['q' => $q , 'page' => $subscriptions->currentPage()])!!}
-                            </th>
+                            </th>-->
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($subscriptions as $subscription)
                         <tr class="attendee_{{$subscription->id}} {{$subscription->is_cancelled ? 'danger' : ''}}">
-                            <td>{{$subscription->bal_surname}} {{$subscription->bal_name}}</td>
+                            <td>{{$subscription->bal_name}}</td>
+                            <td>{{$subscription->bal_surname}}</td>
                             <td>
                                 <a data-modal-id="MessageAttendee" href="javascript:void(0);" class="loadModal"
                                     data-href="{{route('showMessageAttendee', ['attendee_id'=>$subscription->id])}}"
                                     > {{$subscription->bal_email}}</a>
                             </td>
+                            <td>{{$subscription->bal_phone}}</td>
+                            <td>{{$subscription->bal_fiscalCode}}</td>
                             <td>
                                 {{{$subscription->competition->title}}}
                             </td>
                             <td>
-                                <!--<a href="javascript:void(0);" data-modal-id="view-order-{{ $subscription->order->id }}" data-href="{{route('showManageOrder', ['order_id'=>$subscription->order->id])}}" title="View Order #{{$subscription->order->order_reference}}" class="loadModal">-->
-                                    {{$subscription->order->order_reference}}
-                                <!--</a>-->
+                                {{{$subscription->group_name}}}
                             </td>
                             <td>
-                                <!--<a href="javascript:void(0);" data-modal-id="view-order-{{ $subscription->order->id }}" data-href="{{route('showManageOrder', ['order_id'=>$subscription->order->id])}}" title="View Order #{{$subscription->order->order_reference}}" class="loadModal">-->
-                                    {{$subscription->private_reference_number}}
-                                <!--</a>-->
+                                {{{$subscription->level}}}
+                            </td>
+                            <td>
+                                {{{$subscription->category}}}
+                            </td>
+                            <td>
+                            @if($subscription->competition->type == 'D')
+                                {{trans("Competition.competition_type_double")}}
+                            @elseif($subscription->competition->type == 'S')
+                                {{trans("Competition.competition_type_single")}}
+                            @elseif($subscription->competition->type == 'G')
+                            {{trans("Competition.competition_type_group")}}
+                            @endif
                             </td>
                             <td class="text-center">
                                 @if(!empty($subscription->mp3_path))
