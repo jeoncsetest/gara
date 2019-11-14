@@ -15,7 +15,7 @@ return array (
   'ref_competition'	=> 'Rif. GARA',
   'ref_order'	=> 'Rif. ORDINE',
   'dancer'	=> 'BALLERINO/A',
-  'download_mp3' => 'scarica audio mp3',
+  'download_mp3' => 'scarica mp3',
   'back_to_login' => 'Torna al login',
   'back_to_page' => 'Torna :page',
   'cancel' => 'Cancella',
