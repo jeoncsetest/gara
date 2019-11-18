@@ -99,6 +99,12 @@ class UserLoginController extends Controller
             return redirect()->to('/loginSimple');
         }else{
             $account = Account::find(Auth::user()->account_id);
+            if($account->is_banned){
+                Log::debug('utente blocccato:' .Auth::user()->first_name .' ' . Auth::user()->last_name );
+                $this->auth->logout();
+                Session::flush();
+                return response('Unauthorized.', 401);
+            }
             if ($account->account_type == config('attendize.default_account_type')) {
                 return redirect()->route('showSelectOrganiser');
             }
@@ -113,7 +119,7 @@ class UserLoginController extends Controller
         $email = $request->get('email');
         $password = $request->get('password');
         $ajaxCall = $request->get('ajaxCall');
-        Log::debug('login successful. ajaxcall:' .$ajaxCall );
+        Log::debug('postSimpleLogin with param ajaxcall:' .$ajaxCall );
         if (empty($email) || empty($password)) {
 
             if (!empty($ajaxCall)) {
@@ -148,6 +154,12 @@ class UserLoginController extends Controller
             return redirect()->to('/loginSimple');
         }else{
             $account = Account::find(Auth::user()->account_id);
+            if($account->is_banned){
+                Log::debug('utente blocccato:' .Auth::user()->first_name .' ' . Auth::user()->last_name );
+                $this->auth->logout();
+                Session::flush();
+                return response('Unauthorized.', 401);
+            }
             if ($account->account_type == config('attendize.default_account_type')) {
                 return redirect()->route('showSelectOrganiser');
             }
@@ -179,7 +191,7 @@ class UserLoginController extends Controller
         $email = $request->get('email');
         $password = $request->get('password');
         $ajaxCall = $request->get('ajaxCall');
-        Log::debug('login successful. ajaxcall:' .$ajaxCall );
+        Log::debug('loginWithLogoutSimple->login successful. ajaxcall:' .$ajaxCall );
         if (empty($email) || empty($password)) {
 
             if (!empty($ajaxCall)) {
@@ -214,6 +226,15 @@ class UserLoginController extends Controller
             return redirect()->to('/loginSimple');
         }else{
             $account = Account::find(Auth::user()->account_id);
+            if($account->is_banned){
+                Log::debug('utente blocccato:' .Auth::user()->first_name .' ' . Auth::user()->last_name );
+                $this->auth->logout();
+                Session::flush();
+                return response()->json([
+                    'status'      => 'error',
+                    'message'      => "L'utente è stato bloccato",
+                ]);
+            }
             if ($account->account_type == config('attendize.default_account_type')) {
                 if (!empty($ajaxCall)) {
                     Log::debug('login successful');
