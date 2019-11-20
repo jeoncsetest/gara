@@ -2,6 +2,7 @@
 /.phpstorm.meta.php
 /node_modules
 /vendor
+/config
 .env
 .idea
 installed

@@ -78,7 +78,6 @@
               <div class="table-type-2">
                 <table>
                     <tr>
-                      <th> </th>
                       <th>@lang("User.first_name")</th>
                       <th>@lang("User.last_name")</th>
                       <th>@lang("User.phone")</th>
@@ -90,7 +89,6 @@
                       @foreach($students as $student)
 
                     <tr>
-                      <td><tr id="{{$student->id}}">  <th scope="row">1</th></td>
                       <td>{{$student->name}}</td>
                       <td>{{$student->surname}}  </td>
                       <td>{{$student->phone}}</td>

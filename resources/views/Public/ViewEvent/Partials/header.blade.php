@@ -80,14 +80,18 @@
               </div>
               @endif
 
+
+                 @if(Session::has('school'))
+                  <a href="{{ asset('/showStudentsPage')}}" class="btn btn-style-3">Aggiungi Ballerini</a>
+                @endif
+
               @if(Session::has('name'))
               <nav id="main-navigation" class="main-navigation">
                      <ul id="menu" class="clearfix">
                            <li><p> <font color="white">{{Session::get('surname')}} {{Session::get('name')}}
               @if((Session::has('account_type') && Session::get('account_type') == 'SIMPLE')  || (Session::has('account_type') && Session::get('account_type') == 'TICKET')) </font></p>
               </li>
-
-          <li>
+                    <li>
                       @if(Session::has('current_event_id'))
                         <a href= "/showCart?event_id={{Session::get('current_event_id')}}" id="clickCart" class="fas fa-shopping-cart"
                           aria-haspopup="true" aria-expanded="false"> |

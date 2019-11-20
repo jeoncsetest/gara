@@ -66,12 +66,14 @@
         <td>   <label class="form-control" id="Category" >{{($row->options->has('category') ? $row->options->category : '')}}</label>
         <td>   <label class="form-control" id="price_" >{{money($row->price, $event->currency)}} </label></td>
         <td>
+            @if($row->options->has('mp3_upload') && $row->options->mp3_upload == 1)
             <div class="input-group">
             <div class="custom-file">
               <input type="hidden" name="mp3_file_name_{{$row->id}}" value="mp3-{{$event->id}}-{{$row->options->competition_id}}-{{$row->id}}">
               <input type="file" name="mp3-{{$event->id}}-{{$row->options->competition_id}}-{{$row->id}}" id="mp3-{{$event->id}}-{{$row->options->competition_id}}-{{$row->id}}" >
             </div>
           </div>
+          @endif
         </td>
         <td>
         @if($row->options->has('type'))
