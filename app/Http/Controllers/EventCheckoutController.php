@@ -347,7 +347,6 @@ class EventCheckoutController extends Controller
             $filename = '';
             $fileNameInput = $request->get('mp3_file_name_' .$cardId);
             Log::debug('$filename :' .$fileNameInput);
-            Log::debug('file' .$request->file($fileNameInput));
             if ($request->hasFile($fileNameInput)) {
                 Log::debug('file' .$request->file($fileNameInput));
                 $path = public_path() . '/' . config('attendize.audio_mp3_path');
