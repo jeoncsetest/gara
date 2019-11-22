@@ -39,4 +39,6 @@ return array (
   'address'  => 'Indirizzo',
   'place'  => 'Paese',
   'add_student'  => 'Iscrivi',
+  'students'  => 'Ballerini',
+  'schools'  => 'scuole',
 );

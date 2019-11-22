@@ -405,6 +405,22 @@ Route::group(
                 'as'   => 'showOrganiserCustomize',
                 'uses' => 'OrganiserCustomizeController@showCustomize',
             ]);
+
+            Route::get('{organiser_id}/coupons', [
+                'as'   => 'showOrganiserCoupons',
+                'uses' => 'CouponController@showOrganiserCoupons',
+            ]);
+            
+            Route::get('{organiser_id}/showAllSchools', [
+                'as'   => 'showAllSchools',
+                'uses' => 'OrganiserCustomizeController@showAllSchools',
+            ]);
+
+            Route::get('{organiser_id}/showAllStudents', [
+                'as'   => 'showAllStudents',
+                'uses' => 'OrganiserCustomizeController@showAllStudents',
+            ]);
+
             Route::post('{organiser_id}/customize', [
                 'as'   => 'postEditOrganiser',
                 'uses' => 'OrganiserCustomizeController@postEditOrganiser',
@@ -605,7 +621,6 @@ Route::group(
                 'uses' => 'EventIscrittiController@showIscritti',
             ]);
             
-
             Route::get('{event_id}/attendees/message', [
                 'as'   => 'showMessageAttendees',
                 'uses' => 'EventAttendeesController@showMessageAttendees',
@@ -680,6 +695,14 @@ Route::group(
             Route::get('{event_id}/subscriptions/export/{export_as?}', [
                 'as'   => 'showExportSubscriptions',
                 'uses' => 'EventIscrittiController@showExportSubscriptions',
+            ]);
+            Route::get('{organiser_id}/showExportSchools/export/{export_as?}', [
+                'as'   => 'showExportSchools',
+                'uses' => 'EventIscrittiController@showExportSchools',
+            ]);
+            Route::get('{organiser_id}/showExportStudents/export/{export_as?}', [
+                'as'   => 'showExportStudents',
+                'uses' => 'EventIscrittiController@showExportStudents',
             ]);
 
             Route::get('{event_id}/attendees/{attendee_id}/edit', [

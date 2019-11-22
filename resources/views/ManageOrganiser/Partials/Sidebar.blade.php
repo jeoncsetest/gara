@@ -15,6 +15,28 @@
                     <span class="text">@lang("Organiser.event")</span>
                 </a>
             </li>
+            <!--
+            <li class="{{ Request::is('*coupons*') ? 'active' : '' }}">
+                <a href="{{route('showOrganiserCoupons', array('organiser_id' => $organiser->id,'organiserId' => $organiser->id, 'sort_by' =>''))}}">
+                    <span class="figure"><i class="ico-gift"></i></span>
+                    <span class="text">@lang("Organiser.coupons")</span>
+                </a>
+            </li>-->
+            @if(!empty($organiser->id) && $organiser->account->id == 28)
+                <li class="{{ Request::is('*schools*') ? 'active' : '' }}">
+                    <a href="{{route('showAllSchools', array('organiser_id' => $organiser->id,'organiserId' => $organiser->id, 'sort_by' =>''))}}">
+                        <span class="figure"><i class="ico-building"></i></span>
+                        <span class="text">@lang("User.schools")</span>
+                    </a>
+                </li>
+
+                <li class="{{ Request::is('*studnts*') ? 'active' : '' }}">
+                    <a href="{{route('showAllStudents', array('organiser_id' => $organiser->id,'organiserId' => $organiser->id, 'sort_by' =>''))}}">
+                        <span class="figure"><i class="ico-users"></i></span>
+                        <span class="text">@lang("User.students")</span>
+                    </a>
+                </li>
+            @endif
 
             <li class="{{ Request::is('*customize*') ? 'active' : '' }}">
                 <a href="{{route('showOrganiserCustomize', array('organiser_id' => $organiser->id))}}">

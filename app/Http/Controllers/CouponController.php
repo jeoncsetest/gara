@@ -13,7 +13,7 @@ use App\Models\Message;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Services\Order as OrderService;
-use App\Models\Ticket;
+use App\Models\Organiser;
 use Auth;
 use Config;
 use DB;
@@ -25,8 +25,59 @@ use Omnipay\Omnipay;
 use PDF;
 use Validator;
 
-class EventIscrittiController extends MyBaseController
+class CouponController extends MyBaseController
 {
+
+        /**
+     * Show coupons
+     *
+     * @param Request $request
+     * @param string $slug
+     * @param bool $preview
+     * @return mixed
+     */
+    public function showOrganiserCoupons(Request $request)
+    {
+        $allowed_sorts = ['code', 'value', 'type'];
+
+        $searchQuery = $request->get('q');
+        $sort_order = $request->get('sort_order') == 'asc' ? 'asc' : 'desc';
+        $sort_by = (in_array($request->get('sort_by'), $allowed_sorts) ? $request->get('sort_by') : 'created_at');
+
+        $organiserId = $request->get('organiserId');
+        Log::debug('organiser id:'.$organiserId);
+        $organiser = Organiser::scope()->find($organiserId);
+
+        Log::debug('coupons' .$organiser->coupons()->count() .'        $searchQuery ' .$searchQuery);
+        if ($searchQuery) {
+            $coupons = $organiser->coupons()
+                ->where('coupons.organiser_id', '=', $organiserId)
+                ->where(function ($query) use ($searchQuery) {
+                    $query->where('coupons.type', 'like', $searchQuery . '%')
+                        ->orWhere('coupons.value', 'like', $searchQuery . '%')
+                      ;
+                })
+                ->orderBy($sort_by, $sort_order)
+                ->select('coupons.*')
+                ->paginate();
+        } else {
+            $coupons = $organiser->coupons()
+                ->where('coupons.organiser_id', '=', $organiserId)
+                ->orderBy($sort_by, $sort_order)
+                ->select('coupons.*')
+                ->paginate();
+        }
+
+        $data = [
+            'coupons'  => $coupons,
+            'organiser' =>$organiser,
+            'sort_by'    => $sort_by,
+            'sort_order' => $sort_order,
+            'q'          => $searchQuery ? $searchQuery : '',
+        ];
+        return view('ManageOrganiser.Coupons', $data);
+    }
+
     /**
      * Show the subscriptions list
      *
@@ -61,9 +112,7 @@ class EventIscrittiController extends MyBaseController
                         ->orWhere('students.surname', 'like', $searchQuery . '%');
                 })
                 ->orderBy($sort_by, $sort_order)
-                ->select('subscriptions.*','students.email as bal_email', 'students.name as bal_name',
-                 'students.surname as bal_surname',
-                 'students.phone as bal_phone', 'students.fiscal_code as bal_fiscalCode','orders.order_reference')
+                ->select('subscriptions.*','students.email as bal_email', 'students.name as bal_name', 'students.surname as bal_surname', 'orders.order_reference')
                 ->paginate();
         } else {
             $subscriptions = $event->subscriptions()
@@ -74,9 +123,7 @@ class EventIscrittiController extends MyBaseController
                 ->join('students', 'students.id', '=', 'participants.student_id')
                 ->where('subscriptions.event_id', '=', $event_id)
                 ->orderBy($sort_by, $sort_order)
-                ->select('subscriptions.*', 'students.email as bal_email', 'students.name as bal_name',
-                 'students.surname as bal_surname','students.phone as bal_phone',
-                  'students.fiscal_code as bal_fiscalCode', 'orders.order_reference')
+                ->select('subscriptions.*', 'students.email as bal_email', 'students.name as bal_name', 'students.surname as bal_surname', 'orders.order_reference')
                 ->paginate();
         }
 
@@ -123,13 +170,9 @@ class EventIscrittiController extends MyBaseController
                         'students.name',
                         'students.surname',
                         'students.email',
-			            'students.phone',
-                        'students.fiscal_code',
+			            'subscriptions.private_reference_number',
+                        'orders.order_reference',
                         'competitions.title',
-                        'subscriptions.group_name',
-                        'subscriptions.level',
-                        'subscriptions.category',
-                         DB::raw("(CASE WHEN competitions.type='D' THEN 'Doppio'  WHEN competitions.type='G' THEN 'Gruppo' WHEN competitions.type='S' THEN 'Single' END) AS competitions_type"),
                         'orders.created_at',
                         DB::raw("(CASE WHEN subscriptions.has_arrived THEN 'YES' ELSE 'NO' END) AS has_arrived"),
                         'subscriptions.arrival_time',
@@ -144,13 +187,9 @@ class EventIscrittiController extends MyBaseController
                     'First Name',
                     'Last Name',
                     'Email',
-		            'Telefono',
-                    'Codice Fiscale',
-                    'Gara',
-                    'Nome Gruppo',
-                    'Livello',
-                    'Categoria',
-                    'Tipo',
+		            'Subscription ID',
+                    'Order Reference',
+                    'Competition',
                     'Purchase Date',
                     'Has Arrived',
                     'Arrival Time',
@@ -165,115 +204,6 @@ class EventIscrittiController extends MyBaseController
     }
 
     
-
-    /**
-     * Downloads an export of attendees
-     *
-     * @param $event_id
-     * @param string $export_as (xlsx, xls, csv, html)
-     */
-    public function showExportSchools($organiser_id, $export_as = 'xls')
-    {
-
-        Excel::create('Schools-as-of-' . date('d-m-Y-g.i.a'), function ($excel) use ($organiser_id) {
-
-            $excel->setTitle('Schools List');
-
-            // Chain the setters
-            $excel->setCreator(config('attendize.app_name'))
-                ->setCompany(config('attendize.app_name'));
-
-            $excel->sheet('schools_sheet_1', function ($sheet) use ($organiser_id) {
-                DB::connection();
-                $data = DB::table('schools')
-                    ->select([
-                        'name',
-                        'email',
-			            'phone',
-                        'eps',
-                        'place',
-                        'city',
-                        'address',
-                    ])->get();
-
-                $data = array_map(function($object) {
-                    return (array)$object;
-                }, $data->toArray());
-
-                $sheet->fromArray($data);
-                $sheet->row(1, [
-                    trans("User.name"),
-                    trans("User.email"),
-                    trans("User.phone"),
-                    trans("User.eps"),
-                    trans("User.place"),
-                    trans("User.city"),
-                    trans("User.address"),
-                ]);
-
-                // Set gray background on first row
-                $sheet->row(1, function ($row) {
-                    $row->setBackground('#f5f5f5');
-                });
-            });
-        })->export($export_as);
-    }
-
-    /**
-     * Downloads an export of attendees
-     *
-     * @param $event_id
-     * @param string $export_as (xlsx, xls, csv, html)
-     */
-    public function showExportStudents($organiser_id, $export_as = 'xls')
-    {
-
-        Excel::create('Students-as-of-' . date('d-m-Y-g.i.a'), function ($excel) use ($organiser_id) {
-
-            $excel->setTitle('Students List');
-
-            // Chain the setters
-            $excel->setCreator(config('attendize.app_name'))
-                ->setCompany(config('attendize.app_name'));
-
-            $excel->sheet('Students_sheet_1', function ($sheet) use ($organiser_id) {
-                DB::connection();
-                $data = DB::table('students')
-                    ->select([
-                        'name',
-                        'surname',
-                        'email',
-                        'phone',
-                        'school_eps',
-                        'birth_date',
-                        'birth_place',
-                        'fiscal_code',
-                    ])->get();
-
-                $data = array_map(function($object) {
-                    return (array)$object;
-                }, $data->toArray());
-
-                $sheet->fromArray($data);
-                $sheet->row(1, [
-                        trans("User.first_name"),
-                        trans("User.last_name"),
-                        trans("User.email"),
-                        trans("User.phone"),
-                        trans("User.eps"),
-                        trans("User.birth_date"),
-                        trans("User.birth_place"),
-                        trans("User.fiscal_code"),
-                ]);
-
-                // Set gray background on first row
-                $sheet->row(1, function ($row) {
-                    $row->setBackground('#f5f5f5');
-                });
-            });
-        })->export($export_as);
-    }
-
 
     /**
      * Shows the 'Cancel Attendee' modal
