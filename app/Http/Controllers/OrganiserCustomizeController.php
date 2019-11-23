@@ -7,6 +7,8 @@ use File;
 use Image;
 use Illuminate\Http\Request;
 use Validator;
+use Log;
+use DB;
 
 class OrganiserCustomizeController extends MyBaseController
 {
@@ -24,6 +26,137 @@ class OrganiserCustomizeController extends MyBaseController
 
         return view('ManageOrganiser.Customize', $data);
     }
+
+   /**
+     * Show all Schools
+     *
+     * @param Request $request
+     * @param string $slug
+     * @param bool $preview
+     * @return mixed
+     */
+    public function showAllSchools(Request $request)
+    {
+        $allowed_sorts = ['name', 'eps', 'city'];
+
+        $searchQuery = $request->get('q');
+        $sort_order = $request->get('sort_order') == 'asc' ? 'asc' : 'desc';
+        $sort_by = (in_array($request->get('sort_by'), $allowed_sorts) ? $request->get('sort_by') : 'created_at');
+
+        $organiserId = $request->get('organiserId');
+        Log::debug('organiser id:'.$organiserId);
+        $organiser = Organiser::scope()->find($organiserId);
+        $schoolList = null;
+        Log::debug('$searchQuery ' .$searchQuery);
+        if ($searchQuery) {
+            $schoolList = DB::table('schools')
+            ->where(function ($query) use ($searchQuery) {
+                $query->where('name', 'like', $searchQuery . '%')
+                    ->orWhere('eps', 'like', $searchQuery . '%')
+                    ->orWhere('place', 'like', $searchQuery . '%')
+                    ->orWhere('city', 'like', $searchQuery . '%')
+                    ->orWhere('address', 'like', $searchQuery . '%')
+                    ->orWhere('email', 'like', $searchQuery . '%')
+                    ->orWhere('phone', 'like', $searchQuery . '%')
+                  ;
+            })
+            ->orderBy($sort_by, $sort_order)
+            ->select('schools.*')
+            ->paginate();
+        } else {
+            $schoolList = DB::table('schools')
+            ->orderBy($sort_by, $sort_order)
+            ->select('schools.*')
+            ->paginate();
+        }
+
+        $data = [
+            'schools'  => $schoolList,
+            'organiser' =>$organiser,
+            'sort_by'    => $sort_by,
+            'sort_order' => $sort_order,
+            'q'          => $searchQuery ? $searchQuery : '',
+        ];
+        return view('ManageOrganiser.AllSchools', $data);
+    }
+
+
+     /**
+     * Show all Students
+     *
+     * @param Request $request
+     * @param string $slug
+     * @param bool $preview
+     * @return mixed
+     */
+    public function showAllStudents(Request $request)
+    {
+        $allowed_sorts = ['name', 'surname', 'email', 'school_eps', 'birth_date', 'birth_place' , 'fiscal_code', 'phone'];
+
+        $searchQuery = $request->get('q');
+        $sort_order = $request->get('sort_order') == 'asc' ? 'asc' : 'desc';
+        $sort_by = (in_array($request->get('sort_by'), $allowed_sorts) ? $request->get('sort_by') : 'created_at');
+
+        $organiserId = $request->get('organiserId');
+        $schoolEps = $request->get('school_eps');
+        Log::debug('organiser id:'.$organiserId . ' $schoolEps : ' .  $schoolEps);
+        $organiser = Organiser::scope()->find($organiserId);
+        $studentList = null;
+        Log::debug('$searchQuery ' .$searchQuery);
+        if ($searchQuery) {
+            $studentList = DB::table('students')
+            ->where(function ($query) use ($searchQuery, $schoolEps) {
+                if(empty($schoolEps)){
+                    $query->where('name', 'like', $searchQuery . '%')
+                    ->orWhere('surname', 'like', $searchQuery . '%')
+                    ->orWhere('birth_place', 'like', $searchQuery . '%')
+                    ->orWhere('birth_date', 'like', $searchQuery . '%')
+                    ->orWhere('email', 'like', $searchQuery . '%')
+                    ->orWhere('phone', 'like', $searchQuery . '%')
+                    ->orWhere('fiscal_code', 'like', $searchQuery . '%')
+                  ;
+                }else{
+                    $query->where('school_eps', '=', $schoolEps)
+                    ->where('name', 'like', $searchQuery . '%')
+                    ->orWhere('surname', 'like', $searchQuery . '%')
+                    ->orWhere('birth_place', 'like', $searchQuery . '%')
+                    ->orWhere('birth_date', 'like', $searchQuery . '%')
+                    ->orWhere('email', 'like', $searchQuery . '%')
+                    ->orWhere('phone', 'like', $searchQuery . '%')
+                    ->orWhere('fiscal_code', 'like', $searchQuery . '%')
+                  ;
+                }
+              
+            })
+            ->orderBy($sort_by, $sort_order)
+            ->select('students.*')
+            ->paginate();
+        } else {
+            if(empty($schoolEps)){
+            $studentList = DB::table('students')
+            ->orderBy($sort_by, $sort_order)
+            ->select('students.*')
+            ->paginate();}
+            else{
+                $studentList = DB::table('students')
+                ->where('school_eps', '=', $schoolEps)
+                ->orderBy($sort_by, $sort_order)
+                ->select('students.*')
+                ->paginate();
+            }
+        }
+        Log::debug('$schoolEps =' . $schoolEps .' students:' . $studentList->count());
+        $data = [
+            'students'  => $studentList,
+            'school_eps'    =>$schoolEps,
+            'organiser' =>$organiser,
+            'sort_by'    => $sort_by,
+            'sort_order' => $sort_order,
+            'q'          => $searchQuery ? $searchQuery : '',
+        ];
+        return view('ManageOrganiser.AllStudents', $data);
+    }
+    
 
     /**
      * Edits organiser settings / design etc.

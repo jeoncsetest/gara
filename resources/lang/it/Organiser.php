@@ -10,6 +10,7 @@ return array (
   //==================================== Translations ====================================//
   'additional_organiser_options' => 'Opzioni organizzatore aggiuntive',
   'background_color' => 'Colore di sfondo',
+  'coupons' =>'coupons',
   'continue_to' => 'Continua con',
   'create_an_organiser' => 'Crea un organizzatore',
   'create_new_organiser' => 'Crea nuovo organizzatore',
@@ -72,4 +73,5 @@ return array (
   'select_organiser' => 'Seleziona Organizzatore',
   'text_color' => 'Colore Text',
   'tickets_sold' => 'Vendita Tickets',
+  'no_record_yet'  => 'Nessun record trovato',
 );
