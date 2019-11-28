@@ -69,7 +69,7 @@
 
                                     <div class="col-md-6">
                                   <div class="form-group {{ ($errors->has('phone')) ? 'has-error' : '' }}">
-                                      {!! Form::label('phone', trans("User.phone"), ['class' => 'control-label required']) !!}
+                                      {!! Form::label('phone', trans("User.phone"), ['class' => 'control-label']) !!}
                                       {!! Form::text('phone', null, ['class' => 'form-control']) !!}
                                       @if($errors->has('phone'))
                                           <p class="help-block">{{ $errors->first('phone') }}</p>
@@ -81,7 +81,7 @@
 
               <div class="col-md-6">
                 <div class="form-group {{ ($errors->has('email')) ? 'has-error' : '' }}">
-                    {!! Form::label('email', trans("User.email"), ['class' => 'control-label required']) !!}
+                    {!! Form::label('email', trans("User.email"), ['class' => 'control-label']) !!}
                     {!! Form::text('email', null, ['class' => 'form-control']) !!}
                     @if($errors->has('email'))
                         <p class="help-block">{{ $errors->first('email') }}</p>
