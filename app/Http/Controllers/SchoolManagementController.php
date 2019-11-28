@@ -137,10 +137,10 @@ class SchoolManagementController extends Controller
         $validation_rules_signup_student = [];
         $validation_rules_signup_school = [];
         $validation_rules_signup = [
-            'email'        => 'required|email|unique:users',
+           /* 'email'        => 'required|email|unique:users',*/
             'first_name'   => 'required',
             'fiscal_code'   => 'required',
-            'phone'   => 'required',
+            /*'phone'   => 'required',*/
             'birth_date'   => 'required',
             'birth_place'   => 'required',
             'terms_agreed' => $is_attendize ? 'required' : '',
