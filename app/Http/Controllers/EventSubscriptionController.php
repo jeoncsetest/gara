@@ -91,6 +91,10 @@ class EventSubscriptionController extends Controller
          ['competition_id'=>$competition_id,'event_id' => $event_id,
           'competition_title' => $title, 'student_id' => $student_id,
           'type' => $type,'category' => $category,'level' => $level, 'mp3_upload' =>$competitionToAdd->mp3_upload ]);
+          
+        $nrd = DB::delete('DELETE FROM shoppingcart WHERE IDENTIFIER =' .Auth::user()->id);
+        Log::debug('cart reomved -> num row :' .$nrd);
+        Cart::store(Auth::user()->id);
 
         $request->session()->put('current_event_id', $event_id);
         /*
