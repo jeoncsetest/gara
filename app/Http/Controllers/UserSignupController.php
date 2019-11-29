@@ -182,7 +182,7 @@ class UserSignupController extends Controller
                 $student = Student::create($student_data);
             }elseif($signupType == config('attendize.signup_type_school')){
                 $schools = DB::table('schools')
-                ->where('eps', '=', $request->get('eps'))
+                ->where('eps', 'like', $request->get('eps') . '%')
                 ->get();
                 $eps = $request->get('eps');
                 if($schools->count()>0){
