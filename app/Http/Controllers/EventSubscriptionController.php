@@ -158,6 +158,9 @@ class EventSubscriptionController extends Controller
         $rowIdCart = $request->get('rowIdCart');
         $cart = Cart::get($rowIdCart);
         Cart::remove($rowIdCart);
+        $nrd = DB::delete('DELETE FROM shoppingcart WHERE IDENTIFIER =' .Auth::user()->id);
+        Log::debug('cart reomved -> num row :' .$nrd);
+        Cart::store(Auth::user()->id);
         $eventId = $request->get('event_id');
         Log::debug('event_id :' .$eventId);
         $event = Event::findOrFail($eventId);
