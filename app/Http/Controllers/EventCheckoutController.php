@@ -980,11 +980,17 @@ class EventCheckoutController extends Controller
 
         if ($orderRequiresPayment && $request->get('pay_offline') && $event->enable_offline_payments) {
             Log::debug('pay_offline : true');
+            Cart::destroy();
+            $nrd = DB::delete('DELETE FROM shoppingcart WHERE IDENTIFIER =' .Auth::user()->id);
+            Log::debug('cart reomved -> num row :' .$nrd);
             return $this->completeSubscriptionOrder($event_id);
         }
 
         if (!$orderRequiresPayment) {
             Log::debug('payment not required : true');
+            Cart::destroy();
+            $nrd = DB::delete('DELETE FROM shoppingcart WHERE IDENTIFIER =' .Auth::user()->id);
+            Log::debug('cart reomved -> num row :' .$nrd);
             return $this->completeSubscriptionOrder($event_id);
         }
 
@@ -1079,7 +1085,9 @@ class EventCheckoutController extends Controller
                 Log::debug('transaction id: '.'competition_order_' . $event_id . '.transaction_id::' .$response->getTransactionReference());
                 session()->push('competition_order_' . $event_id . '.transaction_id',
                     $response->getTransactionReference());
-
+                Cart::destroy();
+                $nrd = DB::delete('DELETE FROM shoppingcart WHERE IDENTIFIER =' .Auth::user()->id);
+                Log::debug('cart reomved -> num row :' .$nrd);
                 return $this->completeSubscriptionOrder($event_id);
 
             } elseif ($response->isRedirect()) {
@@ -1658,7 +1666,6 @@ class EventCheckoutController extends Controller
         }
         //save the order to the database
         DB::commit();
-        Cart::destroy();
         Log::debug('########################end transaction########################');
         //forget the order in the session
         session()->forget('competition_order_' . $event->id);
