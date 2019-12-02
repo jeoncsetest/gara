@@ -123,8 +123,16 @@
                     @endif
                 </div>
                 <div class="form-group {{ ($errors->has('eps')) ? 'has-error' : '' }}">
+                    <!--{!! Form::label('eps', trans("User.eps"), ['class' => 'control-label required']) !!}
+                    {!! Form::text('eps', null, ['class' => 'form-control']) !!}-->
                     {!! Form::label('eps', trans("User.eps"), ['class' => 'control-label required']) !!}
-                    {!! Form::text('eps', null, ['class' => 'form-control']) !!}
+                    <select name='eps' class="combobox form-control">
+                        <option  disabled selected>Seleziona Fed/Ente...</option>
+                        @foreach ($epsList as $eps)
+                          <option value="{{ $eps->eps_code }}">{{$eps->eps_code}}</option>>
+                        @endforeach
+                    </select>
+
                     @if($errors->has('eps'))
                         <p class="help-block">{{ $errors->first('eps') }}</p>
                     @endif

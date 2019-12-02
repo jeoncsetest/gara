@@ -35,7 +35,9 @@ class UserSignupController extends Controller
         $is_attendize = Utils::isAttendize();
         $signupType = $request->get('signupType');
         Log::debug('simple lìsign up:' . $signupType);
-        return view('Public.LoginAndRegister.SignupSimple', compact('is_attendize', 'signupType'));
+        $epsList = DB::table('eps')
+        ->get();
+        return view('Public.LoginAndRegister.SignupSimple', compact('is_attendize', 'signupType', 'epsList'));
     }
 
         

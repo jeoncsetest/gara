@@ -10,6 +10,7 @@ use Redirect;
 use View;
 use Auth;
 use Log;
+use Cart;
 use App\Models\Account;
 
 class UserLoginController extends Controller
@@ -109,6 +110,11 @@ class UserLoginController extends Controller
                 return redirect()->route('showSelectOrganiser');
             }
         }
+        Cart::restore(Auth::user()->id);
+        Cart::store(Auth::user()->id);
+        if(Cart::count()>0){
+            $request->session()->put('current_event_id', Cart::content()->first()->options->event_id);
+        }
         session()->put('name', Auth::user()->first_name );
         session()->put('surname', Auth::user()->last_name);
         session()->put('account_type', $account->account_type);
@@ -163,6 +169,12 @@ class UserLoginController extends Controller
             if ($account->account_type == config('attendize.default_account_type')) {
                 return redirect()->route('showSelectOrganiser');
             }
+        }
+        Cart::restore(Auth::user()->id);
+        Cart::store(Auth::user()->id);
+        Log::debug('restored cart count :' . Cart::count());
+        if(Cart::count()>0){
+            $request->session()->put('current_event_id', Cart::content()->first()->options->event_id);
         }
         session()->put('name', Auth::user()->first_name );
         session()->put('surname', Auth::user()->last_name);
@@ -248,6 +260,12 @@ class UserLoginController extends Controller
                 }
                 
             }
+        }
+        Cart::restore(Auth::user()->id);
+        Cart::store(Auth::user()->id);
+        Log::debug('restored cart count :' . Cart::count());
+        if(Cart::count()>0){
+            $request->session()->put('current_event_id', Cart::content()->first()->options->event_id);
         }
         session()->put('name', Auth::user()->first_name );
         session()->put('surname', Auth::user()->last_name);
