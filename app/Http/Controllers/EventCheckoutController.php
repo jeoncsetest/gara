@@ -329,6 +329,8 @@ class EventCheckoutController extends Controller
 
 
         $competitions = [];
+
+
         $order_total = 0;
         $total_competition_quantity = 0;
         $booking_fee = 0;
@@ -388,7 +390,16 @@ class EventCheckoutController extends Controller
             }
             Log::debug('row id of the cart item: ' .$rowId .' total participants : '. count( $participants));
             Log::debug('first participants : '. $participants[0]);
-
+            $countParticipants = 0;
+            $subscription_name_list = '<table>';
+            foreach ($participants as $participant) {
+                    Log::debug('step 8 participant :' .$participant);
+                    $student = Student::findOrFail((int)$participant);
+                    $subscription_name_list = $subscription_name_list . '<tr><td>' . $student->surname . '  '
+                     . $student->name .'</td></tr>';
+                    $countParticipants = $countParticipants + 1;
+            }
+            $subscription_name_list = $subscription_name_list . '</table>';
             $total_competition_quantity = $total_competition_quantity + $current_competition_quantity;
             /** prendere competition id dal carello  */
             $comptId = (int)$request->get('competitionId_'.$cardId); ;
@@ -449,6 +460,7 @@ class EventCheckoutController extends Controller
                 'groupName'             => $groupName,
                 'cardId'                => $cardId,
                 'participants'          =>$participants,
+                'subscription_name_list' => $subscription_name_list,
                 'qty'                   => $current_competition_quantity,
                 'price'                 => ($current_competition_quantity * $competition->price),
                 'booking_fee'           => $booking_fee,
@@ -980,17 +992,11 @@ class EventCheckoutController extends Controller
 
         if ($orderRequiresPayment && $request->get('pay_offline') && $event->enable_offline_payments) {
             Log::debug('pay_offline : true');
-            Cart::destroy();
-            $nrd = DB::delete('DELETE FROM shoppingcart WHERE IDENTIFIER =' .Auth::user()->id);
-            Log::debug('cart reomved -> num row :' .$nrd);
             return $this->completeSubscriptionOrder($event_id);
         }
 
         if (!$orderRequiresPayment) {
             Log::debug('payment not required : true');
-            Cart::destroy();
-            $nrd = DB::delete('DELETE FROM shoppingcart WHERE IDENTIFIER =' .Auth::user()->id);
-            Log::debug('cart reomved -> num row :' .$nrd);
             return $this->completeSubscriptionOrder($event_id);
         }
 
@@ -1085,9 +1091,6 @@ class EventCheckoutController extends Controller
                 Log::debug('transaction id: '.'competition_order_' . $event_id . '.transaction_id::' .$response->getTransactionReference());
                 session()->push('competition_order_' . $event_id . '.transaction_id',
                     $response->getTransactionReference());
-                Cart::destroy();
-                $nrd = DB::delete('DELETE FROM shoppingcart WHERE IDENTIFIER =' .Auth::user()->id);
-                Log::debug('cart reomved -> num row :' .$nrd);
                 return $this->completeSubscriptionOrder($event_id);
 
             } elseif ($response->isRedirect()) {
@@ -1666,6 +1669,9 @@ class EventCheckoutController extends Controller
         }
         //save the order to the database
         DB::commit();
+        Cart::destroy();
+        $nrd = DB::delete('DELETE FROM shoppingcart WHERE IDENTIFIER =' .Auth::user()->id);
+        Log::debug('cart reomved -> num row :' .$nrd);
         Log::debug('########################end transaction########################');
         //forget the order in the session
         session()->forget('competition_order_' . $event->id);
@@ -1718,8 +1724,18 @@ class EventCheckoutController extends Controller
         }
         $orderService->calculateFinalCosts();
 
+        $subscriptions = null;
+        if(!empty($order->order_type) && $order->order_type == 'SUBSCRIPTION'){
+            $query = $order->subscriptions();
+            $subscriptions = $query->get();
+        }
+        Log::debug('$order->order_type :' .$order->order_type . ' subscriptions_count: ' . $subscriptions->count());
+        if($subscriptions->count()>0){
+            Log::debug('participants : ' .$subscriptions[0]->participants->count());
+        }
         $data = [
             'order'        => $order,
+            'subscriptions' => $subscriptions,
             'orderService' => $orderService,
             'event'        => $order->event,
             'tickets'      => $order->event->competitions,
