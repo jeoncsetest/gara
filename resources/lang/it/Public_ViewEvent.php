@@ -91,4 +91,5 @@ return [
   'your_name' => 'Il tuo nome',
   'your' => 'Il tuo',
   'apply' => 'Applica',
+  'students' => 'Ballerini',
 ];

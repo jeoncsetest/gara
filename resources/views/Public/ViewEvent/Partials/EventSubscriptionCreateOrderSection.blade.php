@@ -21,7 +21,7 @@
                     <table class="table mb0 table-condensed">
                         @foreach($competitions as $competition)
                         <tr>
-                            <td class="pl0">{{{$competition['competition']['title']}}} X <b>{{$competition['qty']}}</b></td>
+                            <td class="pl0">{{$competition['competition']['title']}} X <b>{{$competition['qty']}}</b></td>
                             <td style="text-align: right;">
                                 @if((int)ceil($competition['full_price']) === 0)
                                     @lang("Public_ViewEvent.free")
@@ -30,9 +30,18 @@
                                 @endif
                             </td>
                         </tr>
+            
+                        <tr>
+                            <td>
+                            <?php echo $competition['subscription_name_list'] ?>
+                            </td>
+                        </tr>  
+
+                        
                         @endforeach
                     </table>
                 </div>
+
                 @if($order_total > 0)
                 <div class="panel-footer">
                     <h5>
@@ -89,6 +98,16 @@
                         </div>
                     </div>
                 </div>
+				<!--
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="coupon_code">Codice coupon</label>
+                        <input type="text" name="coupon_code">
+                        <button class='btn btn-success'  id='couponBtn'> <i>Applica</i></button>
+                    </div>
+                </div>
+                  -->
+
                 <div class="row"><div class="col-md-12">&nbsp;</div></div>
                 <!--
                 <div class="row">

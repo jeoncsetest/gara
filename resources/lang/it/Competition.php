@@ -52,4 +52,5 @@ return array (
   'remaining' => 'Rimanente',
   'save_competition' => 'Salva',
   'discipline'	=> 'disciplina',
+  'school_name'  => 'nome scuole',
 );
