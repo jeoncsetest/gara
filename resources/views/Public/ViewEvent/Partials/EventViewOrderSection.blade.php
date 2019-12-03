@@ -155,64 +155,99 @@
                                 <th>
                                     @lang("Public_ViewEvent.ticket")
                                 </th>
+                                @if(!empty($order->subscriptions) && $order->subscriptions->count()>0)
+                                    <th>
+                                        @lang("Public_ViewEvent.students")
+                                    </th>
+                                @endif
                                 <th>
                                     @lang("Public_ViewEvent.quantity_full")
                                 </th>
                                 <th>
                                     @lang("Public_ViewEvent.price")
                                 </th>
-                                <th>
-                                    @lang("Public_ViewEvent.booking_fee")
-                                </th>
+                                @if(empty($order->subscriptions) || $order->subscriptions->count()==0)
+                                    <th>
+                                        @lang("Public_ViewEvent.booking_fee")
+                                    </th>
+                                @endif
                                 <th>
                                     @lang("Public_ViewEvent.total")
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($order->orderItems as $order_item)
-                                <tr>
-                                    <td>
-                                        {{$order_item->title}}
-                                    </td>
-                                    <td>
-                                        {{$order_item->quantity}}
-                                    </td>
-                                    <td>
-                                        @if((int)ceil($order_item->unit_price) == 0)
-                                            @lang("Public_ViewEvent.free")
-                                        @else
-                                       {{money($order_item->unit_price, $order->event->currency)}}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ((int)ceil($order_item->unit_booking_fee) > 0)
+                            @if(empty($order->subscriptions) || $order->subscriptions->count()==0)
+                                @foreach($order->orderItems as $order_item)
+                                    <tr>
+                                        <td>
+                                            {{$order_item->title}}
+                                        </td>
+                                        <td>
+                                            {{$order_item->quantity}}                                  
+                                        </td>
+                                        <td>
                                             @if((int)ceil($order_item->unit_price) == 0)
-                                            -
+                                            FREE
                                             @else
-                                            {{money($order_item->unit_booking_fee, $order->event->currency)}}
+                                        {{money($order_item->unit_price, $order->event->currency)}}
                                             @endif
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if((int)ceil($order_item->unit_price) == 0)
-                                            @lang("Public_ViewEvent.free")
-                                        @else
-                                        {{money(($order_item->unit_price + $order_item->unit_booking_fee) * ($order_item->quantity), $order->event->currency)}}
-                                        @endif
-
-                                    </td>
-                                </tr>
-                            @endforeach
+                                        </td>
+                                        <td>
+                                            @if((int)ceil($order_item->unit_price) == 0)
+                                                -
+                                            @else
+                                                {{money($order_item->unit_booking_fee, $order->event->currency)}}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if((int)ceil($order_item->unit_price) == 0)
+                                                FREE
+                                            @else
+                                                {{money(($order_item->unit_price + $order_item->unit_booking_fee) * ($order_item->quantity), $order->event->currency)}}
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                @foreach($order->subscriptions as $subscription)
+                                    <tr>
+                                        <td>
+                                            {{$subscription->competition->title}}
+                                        </td>
+                                        <td>
+                                            <table>
+                                                @foreach($subscription->participants as $participant)
+                                                    <tr>
+                                                        <td>
+                                                            {{$participant->Student->surname}}  {{$participant->Student->name}}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </table>
+                                        </td>
+                                        <td>1</td>
+                                        <td>
+                                            @if((int)ceil($subscription->competition->price) == 0)
+                                                FREE
+                                            @else
+                                                {{money($subscription->competition->price, $order->event->currency)}}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if((int)ceil($subscription->competition->price) == 0)
+                                                FREE
+                                            @else
+                                                {{money(($subscription->competition->price) * 1, $order->event->currency)}}
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif                            
                             <tr>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td>
                                     <b>@lang("Public_ViewEvent.sub_total")</b>
                                 </td>
@@ -220,29 +255,23 @@
                                     {{ $orderService->getOrderTotalWithBookingFee(true) }}
                                 </td>
                             </tr>
-                            @if($event->organiser->charge_tax)
-                            <tr>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                    <strong>{{$event->organiser->tax_name}}</strong><em>({{$order->event->organiser->tax_value}}%)</em>
-                                </td>
-                                <td colspan="2">
-                                    {{ $orderService->getTaxAmount(true) }}
-                                </td>
-                            </tr>
+                            @if($order->event->organiser->charge_tax)
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <strong>{{$order->event->organiser->tax_name}}</strong><em>({{$order->event->organiser->tax_value}}%)</em>
+                                    </td>
+                                    <td colspan="2">
+                                        {{ $orderService->getTaxAmount(true) }}
+                                    </td>
+                                </tr>
                             @endif
                             <tr>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td>
                                     <b>Total</b>
                                 </td>
@@ -252,12 +281,9 @@
                             </tr>
                             @if($order->is_refunded || $order->is_partially_refunded)
                                 <tr>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td>
                                         <b>@lang("Public_ViewEvent.refunded_amount")</b>
                                     </td>
@@ -266,12 +292,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td>
                                         <b>@lang("Public_ViewEvent.total")</b>
                                     </td>
