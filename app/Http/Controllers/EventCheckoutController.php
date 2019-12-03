@@ -1729,10 +1729,6 @@ class EventCheckoutController extends Controller
             $query = $order->subscriptions();
             $subscriptions = $query->get();
         }
-        Log::debug('$order->order_type :' .$order->order_type . ' subscriptions_count: ' . $subscriptions->count());
-        if($subscriptions->count()>0){
-            Log::debug('participants : ' .$subscriptions[0]->participants->count());
-        }
         $data = [
             'order'        => $order,
             'subscriptions' => $subscriptions,
