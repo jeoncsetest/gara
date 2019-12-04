@@ -85,11 +85,28 @@
                         <p class="help-block">{{ $errors->first('fiscal_code') }}</p>
                     @endif
                 </div>
+                <!--
                 <div class="form-group {{ ($errors->has('school_eps')) ? 'has-error' : '' }}">
                     {!! Form::label('school_eps', trans("User.school_eps"), ['class' => 'control-label']) !!}
                     {!! Form::text('school_eps', null, ['class' => 'form-control']) !!}
                     @if($errors->has('school_eps'))
                         <p class="help-block">{{ $errors->first('school_eps') }}</p>
+                    @endif
+                </div>-->
+
+                <div class="form-group {{ ($errors->has('school_eps')) ? 'has-error' : '' }}">
+                    <!--{!! Form::label('eps', trans("User.eps"), ['class' => 'control-label required']) !!}
+                    {!! Form::text('eps', null, ['class' => 'form-control']) !!}-->
+                    {!! Form::label('school_eps', trans("User.name"), ['class' => 'control-label']) !!}
+                    <select name='school_eps' class="combobox form-control">
+                        <option  disabled selected>Seleziona scuola...</option>
+                        @foreach ($schools as $school)
+                          <option value="{{ $school->eps }}">{{$school->name}}</option>>
+                        @endforeach
+                    </select>
+
+                    @if($errors->has('eps'))
+                        <p class="help-block">{{ $errors->first('eps') }}</p>
                     @endif
                 </div>
                 <div class="form-group {{ ($errors->has('phone')) ? 'has-error' : '' }}">

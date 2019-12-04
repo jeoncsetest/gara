@@ -37,7 +37,10 @@ class UserSignupController extends Controller
         Log::debug('simple lìsign up:' . $signupType);
         $epsList = DB::table('eps')
         ->get();
-        return view('Public.LoginAndRegister.SignupSimple', compact('is_attendize', 'signupType', 'epsList'));
+        $schools = DB::table('schools')
+        ->where('eps', '!=', 'zxcv1234')
+        ->get();
+        return view('Public.LoginAndRegister.SignupSimple', compact('is_attendize', 'signupType', 'epsList', 'schools'));
     }
 
         
@@ -163,23 +166,28 @@ class UserSignupController extends Controller
             $user = User::create($user_data);
 
             if($signupType == config('attendize.signup_type_student')){
-                $schools = DB::table('schools')
-                ->where('eps', '=', 'zxcv1234')
-                ->get();
-                if(empty($schools) || $schools->count()==0){
-                    Log::error('school not found ');
-                    DB::rollBack();
-                    return response()->json([
-                        'status'  => 'error',
-                        'message' => 'Whoops! There was a problem processing your signup. Please try again.'
-                    ]);
+                $school_eps = $request->get('school_eps');
+                if(empty($school_eps)){
+                    $schools = DB::table('schools')
+                    ->where('eps', '=', 'zxcv1234')
+                    ->get();
+                    if(empty($schools) || $schools->count()==0){
+                        Log::error('school not found ');
+                        DB::rollBack();
+                        return response()->json([
+                            'status'  => 'error',
+                            'message' => 'Whoops! There was a problem processing your signup. Please try again.'
+                        ]);
+                    }
+                    $school_eps = $schools->first()->eps;
                 }
+               
                 $student = new Student();
                 $student_data = $request->only(['email', 'phone', 'school_eps',
                 'fiscal_code', 'birth_date', 'birth_place']);
                 $student_data['name'] = $request->get('first_name');
                 $student_data['surname'] = $request->get('last_name');
-                $student_data['school_eps'] =$schools->first()->eps;
+                $student_data['school_eps'] = $school_eps;
                 $student_data['user_id'] =$user->id;
                 $student = Student::create($student_data);
             }elseif($signupType == config('attendize.signup_type_school')){
