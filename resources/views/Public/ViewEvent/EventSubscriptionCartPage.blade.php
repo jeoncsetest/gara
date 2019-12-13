@@ -13,6 +13,14 @@ Carrello
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 <script>
+  $(document).ready(function(){
+  $(document).ajaxStart(function(){
+    $("#wait").css("display", "block");
+  });
+  $(document).ajaxComplete(function(){
+    $("#wait").css("display", "none");
+  });
+});
 /*
 	$('.popup-btn-removeCart').on('click', function() {
 		      $('#popup-removeCart').fadeIn("slow");
@@ -78,7 +86,7 @@ function uploadMp3(rowId){
             processData: false,
             contentType: false,
             data: formData,
-            async: false,
+           /* async: false,*/
             success: function(data) {
               if (data.status == 'success'){
                 /*alert('success : ' + data.itemRowId);*/
