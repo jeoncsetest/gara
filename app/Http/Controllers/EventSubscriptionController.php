@@ -19,6 +19,7 @@ use Cart;
 use App\Models\Account;
 use App\Models\Competition;
 use App\Models\User;
+use App\Models\Student;
 use Illuminate\Support\Facades\Session;
 
 
@@ -87,7 +88,10 @@ class EventSubscriptionController extends Controller
         */
         $cartCount =  ''.Cart::count()+1;
         $cartId = $competition_id . '-' .$cartCount;
-        Cart::add($cartCount,$cartId, 1, $request->get('price'), 1,
+        $name = new \stdClass();
+        $name->mp3 = '';
+        $name->participants = [];
+        Cart::add($cartCount, json_encode($name), 1, $request->get('price'), 1,
          ['competition_id'=>$competition_id,'event_id' => $event_id,
           'competition_title' => $title, 'student_id' => $student_id,
           'type' => $type,'category' => $category,'level' => $level, 'mp3_upload' =>$competitionToAdd->mp3_upload ]);
@@ -157,47 +161,17 @@ class EventSubscriptionController extends Controller
         }
         $rowIdCart = $request->get('rowIdCart');
         $cart = Cart::get($rowIdCart);
+        
         Cart::remove($rowIdCart);
         $nrd = DB::delete('DELETE FROM shoppingcart WHERE IDENTIFIER =' .Auth::user()->id);
         Log::debug('cart reomved -> num row :' .$nrd);
+    
         Cart::store(Auth::user()->id);
         $eventId = $request->get('event_id');
         Log::debug('event_id :' .$eventId);
         $event = Event::findOrFail($eventId);
         Log::debug('event_id :' .$event->description);
-        /*
-        $rules = [
-            'social_share_text'      => ['max:3000'],
-            'social_show_facebook'   => ['boolean'],
-            'social_show_twitter'    => ['boolean'],
-            'social_show_linkedin'   => ['boolean'],
-            'social_show_email'      => ['boolean'],
-            'social_show_googleplus' => ['boolean'],
-        ];
 
-        $messages = [
-            'social_share_text.max' => 'Please keep the text under 3000 characters.',
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $messages);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status'   => 'error',
-                'messages' => $validator->messages()->toArray(),
-            ]);
-        }
-        
-
-        $event->social_share_text = $request->get('social_share_text');
-        $event->social_show_facebook = $request->get('social_show_facebook');
-        $event->social_show_linkedin = $request->get('social_show_linkedin');
-        $event->social_show_twitter = $request->get('social_show_twitter');
-        $event->social_show_email = $request->get('social_show_email');
-        $event->social_show_googleplus = $request->get('social_show_googleplus');
-        $event->social_show_whatsapp = $request->get('social_show_whatsapp');
-        $event->save();
-        */
         $currency = $event->currency;
         Log::debug('$currency :' .$currency);
         $moneyee = money(Cart::subtotal(), $currency);
@@ -213,7 +187,152 @@ class EventSubscriptionController extends Controller
 
     }
 
+ /**
+     * eliminare ballerino al carello
+     *
+     * @param Request $request
+     * @param $event_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postRemoveBallerinoDalCarello(Request $request)
+    {
+        $session_usr_name = $request->session()->get('name');
+        Log::debug('session_usr_name :' .$session_usr_name);
+        if (empty(Auth::user()) || empty($session_usr_name)) {
+            Auth::logout();
+            Session::flush();
+            return redirect()->to('/eventList?logged_out=yup');
+        }
+        $rowIdCart = $request->get('item_row_id');
+        $idBallerino = $request->get('idBallerino');
+        Log::debug('rowIdCart :' .$rowIdCart);
+        Log::debug('idBallerino :' .$idBallerino);
+        if(empty($idBallerino) || empty($rowIdCart)){
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Sì è verificato un errore',
+            ]);
+    
+        }
 
+        $cart = Cart::get($rowIdCart);
+        if(empty($cart)){
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Sì è verificato un errore',
+            ]);
+    
+        }
+
+        $data = json_decode($cart->name, true);
+        Log::debug($data);
+
+      
+        $i=0;
+        
+        foreach($data['participants'] as $key => $element) {
+            if ($element["id"] == $idBallerino) {
+                unset($data['participants'][$key]);
+           }
+        }
+
+        Cart::update($rowIdCart, ['name' => json_encode($data)]);
+    
+        $nrd = DB::delete('DELETE FROM shoppingcart WHERE IDENTIFIER =' .Auth::user()->id);
+        Cart::store(Auth::user()->id);
+        return response()->json([
+            'status'  => 'success',
+            'message' => trans("Competition.cart_item_removed_successfully", ['competitionTitle' =>($cart->options->has('competition_title') ? $cart->options->competition_title : '')]),
+        ]);
+
+    }
+
+    /**
+     * aggiungere ballerino al carello
+     *
+     * @param Request $request
+     * @param $event_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postaddBallerinoAlCarello(Request $request)
+    {
+        $session_usr_name = $request->session()->get('name');
+        Log::debug('session_usr_name :' .$session_usr_name);
+        if (empty(Auth::user()) || empty($session_usr_name)) {
+            Auth::logout();
+            Session::flush();
+            return redirect()->to('/eventList?logged_out=yup');
+        }
+        $rowIdCart = $request->get('item_row_id');
+        $idBallerino = $request->get('idBallerino');
+        Log::debug('rowIdCart :' .$rowIdCart);
+        Log::debug('idBallerino :' .$idBallerino);
+        if(empty($idBallerino) || empty($rowIdCart)){
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Sì è verificato un errore',
+            ]);
+    
+        }
+
+        $ballerino = Student::find($idBallerino);
+        $cart = Cart::get($rowIdCart);
+        if(empty($ballerino) || empty($cart)){
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Sì è verificato un errore',
+            ]);
+    
+        }
+
+        $data = json_decode($cart->name, true);
+        Log::debug($data);
+
+        
+        $type = $cart->options->has('type') ? $cart->options->type : '';
+        Log::debug('type : '.$type);
+        Log::debug('count:' .count($data['participants']));
+        if(($type == 'S' && count($data['participants'])>0) || ($type == 'D' && count($data['participants']) >2)){
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'non puoì aggiungere altro ballerino per questa gara',
+            ]);
+        }
+       
+        foreach($data['participants'] as $key => $element) {
+            if ($element["id"] == $idBallerino) {
+                return response()->json([
+                    'status'  => 'error',
+                    'message' => 'il ballerino è già associato',
+                ]);
+           }
+        }
+ 
+        $participant = new \stdClass();
+        $participant->id = $ballerino->id;
+        $participant->name = $ballerino->name;;
+        $participant->surname = $ballerino->surname;;
+        $participants = $participant;
+       
+        
+
+        $data['participants'][] =  json_decode(json_encode($participant), true); 
+      
+
+        Cart::update($rowIdCart, ['name' => json_encode($data)]);
+    
+        $nrd = DB::delete('DELETE FROM shoppingcart WHERE IDENTIFIER =' .Auth::user()->id);
+        Cart::store(Auth::user()->id);
+    
+        return response()->json([
+            'status'  => 'success',
+            'studentId' => $ballerino->id,
+            'studentName' => $ballerino->name,
+            'studentSurname' => $ballerino->surname,
+            'message' => trans("Competition.cart_item_removed_successfully", ['competitionTitle' =>($cart->options->has('competition_title') ? $cart->options->competition_title : '')]),
+        ]);
+
+    }
 
 
 
@@ -630,59 +749,72 @@ class EventSubscriptionController extends Controller
 /**
      * upload mpo3
      */
-    public function postUploadMp3(Request $request,$event_id)
+    public function postUploadMp3(Request $request)
     {
         Log::debug('entered');
         $event_id = $request->get('event_id');
-        Log::debug('event-ID:' .$event_id);
-        
-        if ($request->hasFile('mp3_file')) {
-            Log::debug('FILE FOUND');
-            $path = public_path() . '/' . config('attendize.audio_mp3_path');
-            $filename = 'mp3_file-' . md5(time() . $event_id) . '.' . strtolower($request->file('mp3_file')->getClientOriginalExtension());
+        $itemRowId = $request->get('item_row_id');
+        Log::debug('event-ID:' .$event_id .' item_row_id:' . $itemRowId);
 
-            $file_full_path = $path . '/' . $filename;
+        $filename = '';
+            $fileNameInput = 'mp3_file_' .$itemRowId;
+            Log::debug('$filename :' .$fileNameInput);
+            if ($request->hasFile($fileNameInput)) {
+                Log::debug('file' .$request->file($fileNameInput));
+                $path = public_path() . '/' . config('attendize.audio_mp3_path');
+                $filename = 'mp3_file-' . md5(time() . $event_id) . '.' . strtolower($request->file($fileNameInput)->getClientOriginalExtension());
+                Log::debug(' $filename :' .$filename);
+                $file_full_path = $path . '/' . $filename;
+                Log::debug(' $file_full_path :' .$file_full_path);
+                
+                $request->file($fileNameInput)->move($path, $filename);
+    
+                
+                \Storage::put(config('attendize.audio_mp3_path') . '/' . $filename, file_get_contents($file_full_path));
+    
+                $cart = Cart::get($itemRowId);
 
-            $request->file('event_image')->move($path, $filename);
+                $data = json_decode($cart->name, true);
+                Log::debug($data);
 
-            $img = Image::make($file_full_path);
+                $data['mp3'] = $filename;
 
-            $img->resize(800, null, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
-
-            $img->save($file_full_path);
-
-            /* Upload to s3 */
-            \Storage::put(config('attendize.audio_mp3_path') . '/' . $filename, file_get_contents($file_full_path));
-
-            /*
-            $eventImage = EventImage::createNew();
-            $eventImage->image_path = config('attendize.audio_mp3_path') . '/' . $filename;
-            $eventImage->event_id = $event->id;
-            $eventImage->save();*/
-        }
-/*
-        if ($request->hasFile('event_pdf')) {
-            $path = public_path() . '/' . config('attendize.event_pdfs_path');
-            $filename = 'event_pdf-' . md5(time() . $event->id) . '.' . strtolower($request->file('event_pdf')->getClientOriginalExtension());
-
-            $file_full_path = $path . '/' . $filename;
-
-            $request->file('event_pdf')->move($path, $filename);
-
-            
-            \Storage::put(config('attendize.event_pdfs_path') . '/' . $filename, file_get_contents($file_full_path));
-
-            $eventPdf = EventPdf::createNew();
-            $eventPdf->pdf_path = config('attendize.event_pdfs_path') . '/' . $filename;
-            $eventPdf->event_id = $event->id;
-            $eventPdf->save();
-        }*/
+                Cart::update($itemRowId, ['name' => json_encode($data)]);
+               
+                $nrd = DB::delete('DELETE FROM shoppingcart WHERE IDENTIFIER =' .Auth::user()->id);
+                Cart::store(Auth::user()->id);
+            }
 
         return response()->json([
             'status'  => 'success',
+            'itemRowId' => $itemRowId,
+            'message' => trans("Competition.mp3_uploaded_successfully"),
+        ]);
+    }
+
+    /**
+     * upload mpo3
+     */
+    public function postRemoveMp3(Request $request)
+    {
+        Log::debug('remove mp3 uploaded');
+        $itemRowId = $request->get('item_row_id');
+        Log::debug('itemRowId : ' . $itemRowId);
+        $cart = Cart::get($itemRowId);
+
+        $data = json_decode($cart->name, true);
+        Log::debug($data);
+
+        $data['mp3'] = "";
+
+        Cart::update($itemRowId, ['name' => json_encode($data)]);
+       
+        $nrd = DB::delete('DELETE FROM shoppingcart WHERE IDENTIFIER =' .Auth::user()->id);
+        Cart::store(Auth::user()->id);
+
+        return response()->json([
+            'status'  => 'success',
+            'itemRowId' => $itemRowId,
             'message' => trans("Competition.mp3_uploaded_successfully"),
         ]);
     }

@@ -191,7 +191,7 @@ class SchoolManagementController extends Controller
      */
     public function postAddBallerino(Request $request)
     {
-       
+        Log::debug('postAddBallerino');
         if (empty(Auth::user())) {
             Log::debug('redirect to login page');
            /* return new RedirectResponse(route('loginSimple'));*/
@@ -238,14 +238,58 @@ class SchoolManagementController extends Controller
                 'message' => 'Whoops! There was a problem processing your signup. Please try again.'
             ]);
         }
+        $rowIdCart = $request->get('item_rowId');
 
+        if(empty($rowIdCart)){
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Sì è verificato un errore',
+            ]);
+    
+        }
+
+        $cart = Cart::get($rowIdCart);
+        if(empty($cart)){
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Sì è verificato un errore',
+            ]);
+    
+        }
+
+        $data = json_decode($cart->name, true);
+        Log::debug($data);
+
+        
+        $type = $cart->options->has('type') ? $cart->options->type : '';
+        Log::debug('type : '.$type);
+        Log::debug('count:' .count($data['participants']));
+        if(($type == 'S' && count($data['participants'])>0) || ($type == 'D' && count($data['participants']) >2)){
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'non puoì aggiungere altro ballerino per questa gara',
+            ]);
+        }        
+        $type = $cart->options->has('type') ? $cart->options->type : '';
+        Log::debug('type : '.$type);
+        Log::debug('count:' .count($data['participants']));
+        if(($type == 'S' && count($data['participants'])>0) || ($type == 'D' && count($data['participants']) >2)){
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'non puoì aggiungere altro ballerino per questa gara',
+            ]);
+        }
         $students = DB::table('students')
                 ->where('fiscal_code', '=', $request->get('fiscal_code'))
                 ->get();
         if(!empty($students) && $students->count() >0){
             return response()->json([
                 'status'  => 'error',
-                'message' => 'Whoops! un ballerino con stesso codice fiscale presente già, prova con un altro codice fiscale'
+                'studentExists' => 'true',
+                'studentId' => $students[0]->id,
+                'studentName' => $students[0]->name,
+                'studentSurname' => $students[0]->surname,
+                'message' => 'Whoops! un ballerino con stesso codice fiscale' . $students[0]->fiscal_code . 'presente già, voui aggiungere comunque?'
             ]);
         }
 
@@ -282,6 +326,9 @@ class SchoolManagementController extends Controller
             'status'  => 'success',
             'message' => 'The student has been added successfully.',
             'student_id' => $student->id,
+            'studentId' => $student->id,
+            'studentName' => $student->name,
+            'studentSurname' => $student->surname,
         ]);
     }     
     }
