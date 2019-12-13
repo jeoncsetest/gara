@@ -346,6 +346,7 @@ class EventCheckoutController extends Controller
             $cardId = $cartItem->id;
             
             /* start upload mp3 */
+            /*
             $filename = '';
             $fileNameInput = $request->get('mp3_file_name_' .$cardId);
             Log::debug('$filename :' .$fileNameInput);
@@ -361,23 +362,30 @@ class EventCheckoutController extends Controller
     
                 
                 \Storage::put(config('attendize.audio_mp3_path') . '/' . $filename, file_get_contents($file_full_path));
-    
-                /*
-                $eventImage = EventImage::createNew();
-                $eventImage->image_path = config('attendize.audio_mp3_path') . '/' . $filename;
-                $eventImage->event_id = $event->id;
-                $eventImage->save();*/
             }
-            /* start upload mp3 */
+           */
 
             /* foreach ($cartIds as $cardId) {*/
+            $data = json_decode($cartItem->name, true);
+            $filename = $data['mp3'];
             Log::debug('item id:' .$cardId);
             $current_competition_quantity = (int)$request->get('qty_'.$cardId);
             Log::debug('qty: ' .$current_competition_quantity);
             if ($current_competition_quantity < 1) {
                 continue;
             }
-            $participants = $request->get('participants_' . $cardId);
+            /*$participants = $request->get('participants_' . $cardId);*/
+            $participants = [];
+            $countParticipants = 0;
+            $subscription_name_list = '<table>';
+            foreach($data['participants'] as $key => $element) {
+                Log::debug('step 8 participant :' .$element["id"]);
+                    $student = Student::findOrFail($element["id"]);
+                    $participants[]=$element["id"];
+                    $subscription_name_list = $subscription_name_list . '<tr><td>' . $element["surname"] . '  '
+                     . $element["name"] .'</td></tr>';
+                    $countParticipants = $countParticipants + 1;
+            }
 
             $groupName = $request->get('grp_name_' . $cardId);
 
@@ -390,15 +398,15 @@ class EventCheckoutController extends Controller
             }
             Log::debug('row id of the cart item: ' .$rowId .' total participants : '. count( $participants));
             Log::debug('first participants : '. $participants[0]);
-            $countParticipants = 0;
-            $subscription_name_list = '<table>';
+          
+            /*
             foreach ($participants as $participant) {
                     Log::debug('step 8 participant :' .$participant);
                     $student = Student::findOrFail((int)$participant);
                     $subscription_name_list = $subscription_name_list . '<tr><td>' . $student->surname . '  '
                      . $student->name .'</td></tr>';
                     $countParticipants = $countParticipants + 1;
-            }
+            }*/
             $subscription_name_list = $subscription_name_list . '</table>';
             $total_competition_quantity = $total_competition_quantity + $current_competition_quantity;
             /** prendere competition id dal carello  */
@@ -851,7 +859,6 @@ class EventCheckoutController extends Controller
             $transaction = $gateway->purchase($transaction_data);
             Log::debug('transaction gateway ok');
             $response = $transaction->send();
-            Log::debug('transaction executed');
             if ($response->isSuccessful()) {
                 Log::debug('transaction ok');
                 session()->push('ticket_order_' . $event_id . '.transaction_id',
@@ -883,6 +890,7 @@ class EventCheckoutController extends Controller
 
             } else {
                 // display error to customer
+                Log::debug('transaction KO :' .$response->getMessage());
                 return response()->json([
                     'status'  => 'error',
                     'message' => $response->getMessage(),

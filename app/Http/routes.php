@@ -169,6 +169,24 @@ Route::group(
         ]);
 
 
+        Route::post('/postaddBallerinoAlCarello', [
+            'as'   => 'postaddBallerinoAlCarello',
+            'uses' => 'EventSubscriptionController@postaddBallerinoAlCarello',
+        ]);
+        
+
+        Route::post('/postRemoveBallerinoDalCarello', [
+            'as'   => 'postRemoveBallerinoDalCarello',
+            'uses' => 'EventSubscriptionController@postRemoveBallerinoDalCarello',
+        ]);
+
+        Route::post('/postRemoveMp3', [
+            'as'   => 'postRemoveMp3',
+            'uses' => 'EventSubscriptionController@postRemoveMp3',
+        ]);
+        
+
+
         Route::get('{event_id}/checkout_subscription/create', [
             'as'   => 'showEventSubscriptionCheckout',
             'uses' => 'EventCheckoutController@showEventSubscriptionCheckout',

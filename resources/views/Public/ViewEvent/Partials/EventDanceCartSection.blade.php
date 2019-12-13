@@ -69,143 +69,95 @@
             @if($row->options->has('mp3_upload') && $row->options->mp3_upload == 1)
             <div class="input-group">
             <div class="custom-file">
-              <input type="hidden" name="mp3_file_name_{{$row->id}}" value="mp3-{{$event->id}}-{{$row->options->competition_id}}-{{$row->id}}">
-              <input type="file" name="mp3-{{$event->id}}-{{$row->options->competition_id}}-{{$row->id}}" id="mp3-{{$event->id}}-{{$row->options->competition_id}}-{{$row->id}}" >
+            {!! Form::open(['url' => route('postRemoveMp3', ['event_id' => $event->id]), 'class' => 'ajax gf',  'enctype'=>'multipart/form-data', 'id'=>'formRemovedMp3']) !!}
+           
+            {!! Form::close() !!}
+            </div>
+          </div>
+          <div class="input-group">
+            <div class="custom-file">
+            {!! Form::open(['url' => route('postUploadMp3', ['event_id' => $event->id]), 'class' => 'ajax gf formUploadMp3',  'enctype'=>'multipart/form-data', 'id'=>'formUploadMp3'.$row->rowId]) !!}
+            <?php
+              $obj = json_decode($row->name);
+              if(empty($obj->{'mp3'})){
+                  echo "<input type='file'" . " name='mp3_file_". $row->rowId  ."' id='mp3_file_". $row->rowId ."'>";
+                  echo "<input type='hidden'" . " name='item_row_id' value=". $row->rowId  ." id='item_row_id-' ". $row->rowId .'>';
+                  echo "<button type='button' disabled='disabled' id='btn_mp3_file_". $row->rowId ."' onclick=uploadMp3('" . $row->rowId ."') class='btn btn-danger btnUploadMp3' ><i class='fas fa-file-upload'></i></button>";    
+              }else{
+                echo "<button type='button' id='btnRemoveMp3" .$row->rowId  ."' onclick=removeMp3('" . $row->rowId   . "') . class='btn btn-danger' ><i class='fas fa-times-circle'></i></button>";
+              }
+            ?>
+             {!! Form::close() !!}
             </div>
           </div>
           @endif
         </td>
         <td>
         @if($row->options->has('type'))
-            @if($row->options->type == trans("Competition.competition_type_single_abbr"))
-              @if(Session::has('school'))
-                <div class="form-group more-options">
-                <table>
-                <tr>
-                  <td>
-                    <div class="ui-widget">
-                      <select name='participants_{{$row->id}}[]' class="combobox">
-                      @foreach ($students as $iter)
-                        <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
-                      @endforeach
-                      </select>
-                    </div>
-                  </td>
-                </tr>
-                </table>
+          @if(Session::has('school'))
+            <div class="form-group more-options">
+            <table id="dyn_participants_{{$row->id}}">
+            <?php
+              $obj = json_decode($row->name);
+              if(!empty($obj->{'participants'})){
+                  foreach($obj->{'participants'} as $participant){
+                    echo "<tr id='ballerino_".  $row->rowId . '_' . $participant->{'id'} ."'><td>";
+                    echo "<input type='hidden' name='participants_" .$row->id. '[]' .'value=' .$participant->{'id'}.'>';
+                    echo "<label class='form-control' id='description'>" . $participant->{'surname'} . ' '. $participant->{'name'} .'</label>';
+                    echo "</td><td><button type='button' id='btnRemoveBallerinoDalCarello" .$row->rowId . "' onclick=removeBallerinoDalCarello('" . $row->rowId .   "'," .$participant->{'id'}. ") class='btn btn-danger' ><i class='fas fa-times-circle'></i></button>";    
+                    echo '</td></tr>';
+                  }
+              }
+            ?>
+            <tr>
+              <td>
+                <div class="ui-widget">
+                  <select name='participants_{{$row->id}}[]' id='participants_{{$row->id}}' class="combobox">
+                  @foreach ($students as $iter)
+                    <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
+                  @endforeach
+                  </select>
                 </div>
-              @else
-              <div class="form-group more-options">
-                <table>
-                <tr>
-                <td>
-                    <label class="form-control" id="description">{{Session::get('surname')}} {{Session::get('name')}}</label>
-                    <input type="hidden" name='participants_{{$row->id}}[]'  value='{{$row->options->student_id}}'>
-                  </td>
-                </tr>
-                </table>
-                </div>
-              @endif
-            @elseif($row->options->type == trans("Competition.competition_type_double_abbr"))
-              @if(Session::has('school'))
-                <div class="form-group more-options">
-                  <table>
-                  <tr>
-                    <td>
-                      <div class="ui-widget">
-                        <select name='participants_{{$row->id}}[]' class="combobox">
-                        @foreach ($students as $iter)
-                          <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
-                        @endforeach
-                        </select>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                    <div class="ui-widget">
-                        <select name='participants_{{$row->id}}[]' class="combobox">
-                        @foreach ($students as $iter)
-                          <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
-                        @endforeach
-                        </select>
-                      </div>
-                    </td>
-                  </tr>
-                  </table>
-                  </div>
-                @else
-
-                <div class="form-group more-options">
-                <table id="dyn_participants_{{$row->id}}">
-                <tr>
-                <td>
-                    <label class="form-control" id="description">{{Session::get('surname')}} {{Session::get('name')}}</label>
-                    <input type="hidden" name='participants_{{$row->id}}[]'  value='{{$row->options->student_id}}'>
-                  </td>
-                </tr>
-                </table>
-                </div>
-                  <button type="button" class="btn btn-danger" onclick="showAddBallerino('{{$row->rowId}}', {{$row->id}}, '{{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}')" >Aggiungi</button>
-                  <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}}, 'false')">elimina</button>
-                @endif
-            @elseif($row->options->type == trans("Competition.competition_type_group_abbr"))
-              @if(Session::has('school'))
-                <div class="form-group more-options" >
-                  <table id="dyn_participants_{{$row->id}}">
-                  <tr>
-                    <td>
-                      <div class="ui-widget">
-                        <select name='participants_{{$row->id}}[]' class="combobox">
-                        @foreach ($students as $iter)
-                          <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
-                        @endforeach
-                        </select>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                  <td>
-                  <div class="ui-widget">
-                      <select name='participants_{{$row->id}}[]' class="combobox">
-                      @foreach ($students as $iter)
-                        <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
-                      @endforeach
-                      </select>
-                    </div>
-                  </td>
-                  </tr>
-                  </table>
-                  <div  class="ui-widget">
-                  @else
-                  <div class="form-group more-options">
-                  <table id="dyn_participants_{{$row->id}}">
-                <tr>
-                  <td>
-                    <label class="form-control" id="description">{{Session::get('surname')}} {{Session::get('name')}}</label>
-                    <input type="hidden" name='participants_{{$row->id}}[]'  value='{{$row->options->student_id}}'>
-                  </td>
-                </tr>
-                </table>
-                </div>
-                @endif
-                @if(Session::has('school'))
-                  <button type="button" class="btn btn-primary" onclick="add_participant({{$row->id}})"><i class="fas fa-plus-circle"></i></button>
-                  <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}}, 'true')"><i class="fas fa-times-circle"></i></button>
-                @else
-                  <button type="button" class="btn btn-danger" onclick="showAddBallerino('{{$row->rowId}}', {{$row->id}}, '{{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}')" >Aggiungi ballerino</button>
-                  <button type="button" class="btn btn-danger" onclick="remove_participant({{$row->id}}, 'false')"><i class="fas fa-times-circle"></i></button>
-                @endif
-                  </div>
-                  <div  class="ui-widget">
-                  {!! Form::label('participant', trans("Competition.group_name"), array('class'=>'control-label')) !!}
-                  <input name="grp_name_{{$row->id}}" type="text" value="">
-                  </div>
-
-                    <!--<div  class="ui-widget"><a href="#" onclick="add_participant({{$row->id}}, count(participants_{{$row->id}})">add</a></div>-->
-                  </div>
-            @endif
+              </td>
+            </tr>
+            <tr>
+              <td>
+              <button type="button" class="btn btn-danger" onclick="addBallerino('{{$row->rowId}}', '{{$row->id}}')" >Aggiungi</button>
+              </td>
+            </tr>
+            </table>
+            </div>
+          @else
+          <div class="form-group more-options">
+          <table id="dyn_participants_{{$row->id}}">
+            <?php
+              $obj = json_decode($row->name);
+              if(!empty($obj->{'participants'})){
+                  foreach($obj->{'participants'} as $participant){
+                    echo "<tr id='ballerino_'".  $row->rowId . '_' . $participant->{'id'} ."><td>";
+                    echo "<input type='hidden' name='participants_" .$row->id. '[]' .'value=' .$participant->{'id'}.'>';
+                    echo "<label class='form-control' id='description'>" . $participant->{'surname'}. ' ' . $participant->{'name'} .'</label>';
+                    echo "</td><td><button type='button' id='btnRemoveBallerinoDalCarello" .$row->rowId . "' onclick=removeBallerinoDalCarello(" . $row->rowId .   "'," .$participant->{'id'}. ") class='btn btn-danger' ><i class='fas fa-times-circle'></i></button>";    
+                    echo '</td></tr>';
+                  }
+              }
+            ?>
+            <tr>
+              <td>
+              <button type="button" class="btn btn-danger" onclick="showAddBallerino('{{$row->rowId}}', {{$row->id}}, '{{trans('Competition.delete_cart_item_confirmation', ['competitionTitle' => ($row->options->has('competition_title') ? $row->options->competition_title : '')])}}')" >Aggiungi</button>
+              </td>
+            </tr>
+            <!--
+            <tr>
+            <td>
+                <label class="form-control" id="description">{{Session::get('surname')}} {{Session::get('name')}}</label>
+                <input type="hidden" name='participants_{{$row->id}}' id='participants_{{$row->id}}[]'  value='{{$row->options->student_id}}'>
+              </td>
+            </tr>-->
+            </table>
+            </div>
           @endif
+        @endif
         </td>
 
       </tr>
