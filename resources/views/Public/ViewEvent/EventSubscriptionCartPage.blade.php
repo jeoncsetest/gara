@@ -112,8 +112,9 @@ function removeMp3(rowId){
               if (data.status == 'success'){
                 /*alert('success : ' + data.itemRowId);*/
                 $('#btnRemoveMp3'+rowId).remove();
-                html = "<input type='file'" + " name='mp3_file_" + rowId + "' id='mp3_file_"+ rowId +"'>";
-                html += "<button type='button' disabled='disabled' id='btn_mp3_file_" + rowId + "' onclick=uploadMp3('" + rowId  + "') class='btn btn-danger' ><i class='fas fa-file-upload'></i></button>";    
+               
+                html =  "<input type='file'" + " name='mp3_file_"+ rowId  +"' id='mp3_file_"+ rowId +"'>";
+                html += "<button type='button' disabled='disabled' id='btn_mp3_file_" + rowId + "' onclick=uploadMp3('" + rowId  + "') class='btn btn-danger btnUploadMp3' ><i class='fas fa-file-upload btnUploadMp3'></i></button>";    
                 $('#formUploadMp3' + rowId).append(html);
               }else{
                 alert('error : ' + data.message);
@@ -231,20 +232,28 @@ $(document).on('click', '#remove_cart_item', function(){
 
 
 
+$(document).on('change', 'input:file', function(){
+  if ($(this).val()) {
 
+                    $('#btn_mp3_file_' + $(this).closest("tr").attr('id')).attr('disabled',false);
+                    // or, as has been pointed out elsewhere:
+                    // $('input:submit').removeAttr('disabled'); 
+                } 
+});
+/*
 $(document).ready(
     function(){
         $('input:file').change(
             function(){
                 if ($(this).val()) {
-                    alert($(this).val() + ' ' + ' id :' +$(this).closest("tr").attr('id'));
+                  alert('#btn_mp3_file_' + $(this).closest("tr").attr('id'));
                     $('#btn_mp3_file_' + $(this).closest("tr").attr('id')).attr('disabled',false);
                     // or, as has been pointed out elsewhere:
                     // $('input:submit').removeAttr('disabled'); 
                 } 
             }
             );
-    });
+    });*/
 
 $(document).on('click', '#add_nuovo_ballerino', function(){
         /**chiamata ajax per eliminare item dal carello */
