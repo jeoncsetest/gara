@@ -86,7 +86,7 @@ class EventSubscriptionController extends Controller
             'message' => trans("Controllers.fill_email_and_password"),
         ]);
         */
-        $cartCount =  ''.Cart::count()+1;
+        $cartCount =  ('' .Cart::count()) + 1;
         $cartId = $competition_id . '-' .$cartCount;
         $name = new \stdClass();
         $name->mp3 = '';
