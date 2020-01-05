@@ -53,4 +53,5 @@ return array (
   'save_competition' => 'Salva',
   'discipline'	=> 'disciplina',
   'school_name'  => 'nome scuole',
+  'mp3_eliminate_confirmation'	=> 'Vuoi eliminare il file mp3?',
 );
