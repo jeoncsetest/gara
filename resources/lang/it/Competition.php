@@ -54,4 +54,5 @@ return array (
   'discipline'	=> 'disciplina',
   'school_name'  => 'nome scuole',
   'mp3_eliminate_confirmation'	=> 'Vuoi eliminare il file mp3?',
+  'iscrizione_popup_msg'  => 'inserire i ballerini prima di selezionare la competizione:',
 );
