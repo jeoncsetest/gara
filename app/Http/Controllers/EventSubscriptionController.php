@@ -323,13 +323,29 @@ class EventSubscriptionController extends Controller
     
         $nrd = DB::delete('DELETE FROM shoppingcart WHERE IDENTIFIER =' .Auth::user()->id);
         Cart::store(Auth::user()->id);
-    
+        
+        $getData = json_decode($cart->name, true);
+        Log::debug($data);
+
+        
+        $getType = $cart->options->has('type') ? $cart->options->type : '';
+        Log::debug('type : '.$getType);
+        Log::debug('count:' .count($getData['participants']));
+        if(($getType == 'S' && count($getData['participants'])>0) || ($getType == 'D' && count($getData['participants']) >=2)){
+           
+              $check=0;
+           
+        }
+        else{
+            $check=1;
+        }
         return response()->json([
             'status'  => 'success',
             'studentId' => $ballerino->id,
             'studentName' => $ballerino->name,
             'studentSurname' => $ballerino->surname,
             'message' => trans("Competition.cart_item_removed_successfully", ['competitionTitle' =>($cart->options->has('competition_title') ? $cart->options->competition_title : '')]),
+            'check'=>$check
         ]);
 
     }
@@ -468,7 +484,7 @@ class EventSubscriptionController extends Controller
                 Cookie::queue('affiliate_' . $event_id, $affiliate_ref, 60 * 24 * 60);
             }
         }
-
+       
         return view('Public.ViewEvent.EventDanceSubsrciptionPage', $data);
     }
 
@@ -597,7 +613,7 @@ class EventSubscriptionController extends Controller
         session()->put('account_type', $account->account_type);
         return view('Public.ViewEvent.EventSubscriptionCartPage', $data);
     }
-
+    
     /**
      * Show preview of event homepage / used for backend previewing
      *
@@ -751,6 +767,7 @@ class EventSubscriptionController extends Controller
      */
     public function postUploadMp3(Request $request)
     {
+        
         Log::debug('entered');
         $event_id = $request->get('event_id');
         $itemRowId = $request->get('item_row_id');
@@ -789,9 +806,34 @@ class EventSubscriptionController extends Controller
             'status'  => 'success',
             'itemRowId' => $itemRowId,
             'message' => trans("Competition.mp3_uploaded_successfully"),
+            'mp3'=>$data['mp3']
         ]);
     }
 
+
+      public function RemoveMp3($id)
+    {
+        Log::debug('remove mp3 uploaded');
+        $itemRowId = $id;
+        Log::debug('itemRowId : ' . $itemRowId);
+        $cart = Cart::get($itemRowId);
+
+        $data = json_decode($cart->name, true);
+        Log::debug($data);
+
+        $data['mp3'] = "";
+
+        Cart::update($itemRowId, ['name' => json_encode($data)]);
+       
+        $nrd = DB::delete('DELETE FROM shoppingcart WHERE IDENTIFIER =' .Auth::user()->id);
+        Cart::store(Auth::user()->id);
+
+        return response()->json([
+            'status'  => 'success',
+            'itemRowId' => $itemRowId,
+            'message' => trans("Competition.mp3_uploaded_successfully"),
+        ]);
+    }
     /**
      * upload mpo3
      */

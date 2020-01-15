@@ -304,10 +304,11 @@ class EventCheckoutController extends Controller
         $cartIds = $request->get('cartIds');
         Log::debug('num cart items :' . count($cartIds));
         if (!$request->has('cartIds')) {
-            return response()->json([
-                'status'  => 'error',
-                'message' => 'No competition selected',
-            ]);
+            return redirect()->back()->withErrors('No competition selected');
+            // return response()->json([
+            //     'status'  => 'error',
+            //     'message' => 'No competition selected',
+            // ]);
         }
 
         /*
@@ -391,10 +392,12 @@ class EventCheckoutController extends Controller
 
             $rowId = $cartItem->rowId;
             if(empty($participants)){
-                return response()->json([
-                    'status'   => 'error',
-                    'message' => 'La scelta del ballerino è obbligatoira',
-                ]);
+                 return redirect()->back()->withErrors('La scelta del ballerino è obbligatoira');
+                // return response()->json([
+                //     'status'   => 'error',
+                //     'message' => 'La scelta del ballerino è obbligatoira',
+
+                // ]);
             }
             Log::debug('row id of the cart item: ' .$rowId .' total participants : '. count( $participants));
             Log::debug('first participants : '. $participants[0]);
@@ -433,6 +436,7 @@ class EventCheckoutController extends Controller
                 return response()->json([
                     'status'   => 'error',
                     'messages' => $validator->messages()->toArray(),
+
                 ]);
             }
 
@@ -524,6 +528,7 @@ class EventCheckoutController extends Controller
             return response()->json([
                 'status'  => 'error',
                 'message' => 'No competitions selected.',
+
             ]);
         }
 
@@ -535,10 +540,11 @@ class EventCheckoutController extends Controller
             $activeAccountPaymentGateway = $event->account->getGateway($event->account->payment_gateway_id);
             //if no payment gateway configured and no offline pay, don't go to the next step and show user error
             if (empty($activeAccountPaymentGateway) && !$event->enable_offline_payments) {
-                return response()->json([
-                    'status'  => 'error',
-                    'message' => 'No payment gateway configured',
-                ]);
+                // return response()->json([
+                //     'status'  => 'error',
+                //     'message' => 'No payment gateway configured',
+                // ]);
+                return back();
             }
             $paymentGateway = $activeAccountPaymentGateway ? $activeAccountPaymentGateway->payment_gateway : false;
         }
