@@ -31,7 +31,9 @@
   <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/plugins/revolution/css/layers.css') }}">
   <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/plugins/revolution/css/navigation.css') }}">
   <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
-
+  <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}">
+ 
   <!-- CSS theme files
   ============================================ -->
   <link rel="stylesheet" href="{{ asset('bootstrap/4.3.1/css/bootstrap-grid.min.css') }}">
@@ -65,6 +67,9 @@
 
   @yield('content')
 
+<script src="{{ asset('js/jquery-3.4.1.slim.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 
 <!-- JS Libs & Plugins
  ============================================ -->

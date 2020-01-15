@@ -41,7 +41,9 @@
 
             <!-- - - - - - - - - - - - - - Entry attachment - - - - - - - - - - - - - - - - -->
             <div class="thumbnail-attachment">
-            <img src="{{ asset($event->images->first()['image_path']) }}" alt=" ... ">
+            @if(!empty($event->images))
+              <img src="{{ asset($event->images->first()['image_path']) }}" alt=" ... ">
+            @endif
             </div>
 
             <!-- - - - - - - - - - - - - - Entry body - - - - - - - - - - - - - - - - -->

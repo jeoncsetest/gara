@@ -73,8 +73,26 @@
                                              </li>
                                                <li><p >
                                                <div class="align-rigth">
-                                                          <a href="{{route('showSubscriptionPage', array('event_id'=>$event->id))}}" class="btn btn-big btn-style-6">ISCRIZIONE <i class="fas fa-medal"></i></a>
-                                                        </div>
+                                                  <a onclick="showPopupIscrizione()" href="#" class="btn btn-big btn-style-6">ISCRIZIONE <i class="fas fa-medal"></i></a>                                                        
+                                                </div>
+                                                        
+          <div id="popup-iscrizione" class="popup var3">
+          <div class="popup-inner">
+            <button type="button" class="close-popup"></button>
+            <h4 class="title">Iscrizione</h4>
+            <span>
+              {{trans('Competition.iscrizione_popup_msg')}}
+              <br>
+              vuoi inserire i ballerini adesso?
+              <br>
+              <a href = "{{route('showStudentsPage', array('event_id'=>$event->id))}}" class="btn btn-big">{{trans("Competition.confirm")}}</a>
+              <br>
+              <br>
+              <a href = "{{route('showSubscriptionPage', array('event_id'=>$event->id))}}" class="btn btn-big">No</a>
+</span>
+            
+          </div>
+          </div>
                                                         <li><p >
                                  </ul>
                               </div>

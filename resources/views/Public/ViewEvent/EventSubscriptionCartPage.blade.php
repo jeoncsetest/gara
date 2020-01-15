@@ -13,6 +13,8 @@ Carrello
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 <script>
+ 
+
   $(document).ready(function(){
   $(document).ajaxStart(function(){
     $("#wait").css("display", "block");
@@ -72,9 +74,11 @@ function showAddBallerino(rowId, id, message){
 }
 
 function uploadMp3(rowId){
-  /*alert('chiama mp3 upload :' + rowId + $('#formUploadMp3'+rowId).attr('action'));*/
+    removeMp3(rowId)
+ 
       var form = $('#formUploadMp3'+rowId)[0];
         var formData = new FormData(form);
+
         $.ajaxSetup({
             headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -90,10 +94,15 @@ function uploadMp3(rowId){
             success: function(data) {
               if (data.status == 'success'){
                 /*alert('success : ' + data.itemRowId);*/
-                $('#btn_mp3_file_'+rowId).remove();
-                $('#mp3_file_'+rowId).remove();
-                html = "<button type='button' id='btnRemoveMp3" + rowId + "' onclick=removeMp3('" + rowId  + "') class='btn btn-danger' ><i class='fas fa-times-circle'></i></button>";    
-                $('#formUploadMp3' + rowId).append(html);
+                $('#upload'+rowId).remove();
+                $('#btnUpdateMp3'+rowId).show();
+                //$('#mp3_file_1'+rowId).remove();
+
+               // html = "<button type='button' id='btnRemoveMp3" + rowId + "' onclick=removeMp3('" + rowId  + "')  class='btn  btn-sm'  >Modifica</button>";    
+               // $('#formUploadMp3' + rowId).append(html);
+               $('#mp3Name'.rowId).append(data.mp3)
+
+
               }else{
                 alert('error : ' + data.message);
               } 
@@ -103,6 +112,86 @@ function uploadMp3(rowId){
             }
         });
 }
+
+
+function updateMp3(rowId){
+  /*alert('chiama mp3 upload :' + rowId + $('#formUploadMp3'+rowId).attr('action'));*/
+      var form = $('#formUploadMp3'+rowId)[0];
+        var formData = new FormData(form);
+
+        $.ajaxSetup({
+            headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+        });
+        $.ajax({
+            url: $('#formUploadMp3'+rowId).attr('action'),
+            type: 'post',
+            processData: false,
+            contentType: false,
+            data: formData,
+           /* async: false,*/
+            success: function(data) {
+              if (data.status == 'success'){
+                /*alert('success : ' + data.itemRowId);*/
+                $('#btnUpdateMp3'+rowId).remove();
+                $('#btn'+rowId).show();
+                
+               
+              }else{
+                alert('error : ' + data.message);
+              } 
+            },
+            error: function() {
+                alert('There has been an error, please alert us immediately');
+            }
+        });
+}
+
+
+//for update or remove mp3
+var id='';//row id will assign here
+function AssignId(rowId) {
+ id = rowId;
+ $('#item_row_id').val(rowId)
+}
+$('#updatemp3').submit(function(){
+  event.preventDefault();
+  removeMp3(id);
+
+  var form = $('#updatemp3')[0];
+        var formData = new FormData(form);
+        
+        $.ajaxSetup({
+            headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+        });
+        $.ajax({
+            url: $('#formUploadMp3'+id).attr('action'),
+            type: 'post',
+            processData: false,
+            contentType: false,
+            data: formData,
+           /* async: false,*/
+            success: function(data) {
+              if (data.status == 'success'){
+                /*alert('success : ' + data.itemRowId);*/
+                $('#btn_mp3_file_'+id).remove();
+                $('#mp3_file_'+id).remove();
+                html = "<button type='button' id='btnRemoveMp3" + id + "' onclick=removeMp3('" + id  + "')  class='btn  btn-sm'  data-toggle='modal' data-target='#exampleModal'>Modifica</button>";    
+                $('#formUploadMp3' + id).append(html);
+              }else{
+                alert('error : ' + data.message);
+              } 
+            },
+            error: function() {
+                alert('There has been an error, please alert us immediately');
+            }
+        });
+
+
+});
 
 function removeMp3(rowId){
   /*alert('chiama mp3 upload rowId:' + rowId );*/
@@ -121,15 +210,15 @@ function removeMp3(rowId){
                 /*alert('success : ' + data.itemRowId);*/
                 $('#btnRemoveMp3'+rowId).remove();
                
-                html =  "<input type='file'" + " name='mp3_file_"+ rowId  +"' id='mp3_file_"+ rowId +"'>";
-                html += "<button type='button' disabled='disabled' id='btn_mp3_file_" + rowId + "' onclick=uploadMp3('" + rowId  + "') class='btn btn-danger btnUploadMp3' ><i class='fas fa-file-upload btnUploadMp3'></i></button>";    
-                $('#formUploadMp3' + rowId).append(html);
+                // html =  "<input type='file'" + " name='mp3_file_"+ rowId  +"' id='mp3_file_"+ rowId +"'>";
+                // html += "<button type='button' disabled='disabled' id='btn_mp3_file_" + rowId + "' onclick=uploadMp3('" + rowId  + "') class='btn btn-danger btnUploadMp3' ><i class='fas fa-file-upload btnUploadMp3'></i></button>";    
+                // $('#formUploadMp3' + rowId).append(html);
               }else{
-                alert('error : ' + data.message);
+                //alert('error : ' + data.message);
               } 
             },
             error: function() {
-                alert('There has been an error, please alert us immediately');
+                //alert('There has been an error, please alert us immediately');
             }
         });
 }
@@ -159,22 +248,36 @@ function addBallerinoAlCarello(rowIdDelCarello, rowId , id_ballerino){
                 html = "<tr id= " + 'ballerino_' +  rowIdDelCarello + '_' + data.studentId +"><td>";
                 html += "<input type='hidden' name='participants_"  + rowId + '[]'  + 'value=' + data.studentId + '>';
                 html += "<label class='form-control' id='description'>" + data.studentName + ' ' + data.studentSurname  + '</label>';
-                html += "</td><td><button type='button' id='btnRemoveBallerinoDalCarello" + rowIdDelCarello + "' onclick=removeBallerinoDalCarello('" + rowIdDelCarello +   "'," + data.studentId + ") class='btn btn-danger' ><i class='fas fa-times-circle'></i></button>";    
+                html += "</td><td><button style='border: 0px' type='button' id='btnRemoveBallerinoDalCarello" + rowIdDelCarello + "' onclick=removeBallerinoDalCarello('" + rowIdDelCarello +   "'," + data.studentId + ") class='btn btn-sm ' ><i class='fas fa-times-circle'></i></button>";    
                 /*html += "</td><td><button type='button' id='btnRemoveBallerinoDalCarello" + rowIdDelCarello +  "' onclick=removeBallerinoDalCarello(" . $row->rowId .   "'," .$participant->{'id'}. ") class='btn btn-danger' ><i class='fas fa-times-circle'></i></button>";    */
                 html += "</td></tr>";
                 $('#dyn_participants_' + rowId).prepend(html);
+                if (data.check==0) {
+                  $('.option'+rowIdDelCarello).hide();
+                }
+
               }else{
-                alert('error : ' + data.message);
+                Swal.fire(
+                  'Oops!',
+                   data.message,
+                  'error'
+                  )
+                
               } 
             },
             error: function() {
-                alert('There has been an error, please alert us immediately');
+                Swal.fire(
+                  'Oops!',
+                   'Somethhing Wrong',
+                  'error'
+                  )
+               
             }
         });
 }
 
 
-function removeBallerinoDalCarello(rowIdDelCarello , id_ballerino){
+function removeBallerinoDalCarello(rowId , id_ballerino){
   /*alert('addBallerinoAlCarello rowId:' + rowIdDelCarello );*/
         $.ajaxSetup({
             headers: {
@@ -185,13 +288,16 @@ function removeBallerinoDalCarello(rowIdDelCarello , id_ballerino){
         $.ajax({
             url: "{{route('postRemoveBallerinoDalCarello', ['event_id' => $event->id])}}",
             type: 'post',
-            data:{item_row_id:rowIdDelCarello, idBallerino:id_ballerino},
+            data:{item_row_id:rowId, idBallerino:id_ballerino},
             success: function(data) {
               if (data.status == 'success'){
-                $('#ballerino_' +  rowIdDelCarello + '_' + id_ballerino).remove();
+                $('#ballerino_' +  rowId + '_' + id_ballerino).remove();
+                $('#participants_'+rowId).show()
+               
               }else{
                 alert('error : ' + data.message);
               } 
+               $('.option'+rowId).show()
             },
             error: function() {
                 alert('There has been an error, please alert us immediately');
