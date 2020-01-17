@@ -188,7 +188,7 @@
                   }
                   ?>
                   <select class="form-control option{{$row->rowId}}"  onchange="addBallerino('{{$row->rowId}}', '{{$row->id}}')"  name='participants_{{$row->id}}[]' id='participants_{{$row->id}}' @if($checkType==true) style="display: none" @endif>
-                    <option selected disabled>Seleziona scuola.....</option>
+                    <option selected disabled>Seleziona ballerino.....</option>
                   @foreach ($students as $iter)
                     <option value="{{ $iter->id }}">{{ $iter->name }} {{ $iter->surname }}</option>>
                   @endforeach
