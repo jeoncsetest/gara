@@ -3,8 +3,8 @@
    <div class="container">
 
      <ul class="breadcrumbs">
-       <li>Home</a></li>
-       <li>Gare</li>
+     <li><a href="{{ url('/') }}" style="text-decoration: none">Home</a></li>
+       <li><a href="{{ url('/eventList') }}" style="text-decoration: none">Gare</a></li>
        <li>{{ $event->title }}</li>
      </ul>
    </div>
