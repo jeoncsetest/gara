@@ -2,20 +2,11 @@
 
 @section('title')
     @parent
-    @if(!empty($organiser->account->organiser_type) && $organiser->account->organiser_type =='night')
-        @lang("Organiser.organiser_nights")
-    @else
-        @lang("Organiser.organiser_events")
-    @endif  
-    
+    @lang("Organiser.organiser_nights")
 @stop
 
 @section('page_title')
-    @if(!empty($organiser->account->organiser_type) && $organiser->account->organiser_type =='night')
-        @lang("Organiser.organiser_name_nights", ["name"=>$organiser->name])
-    @else
-        @lang("Organiser.organiser_name_events", ["name"=>$organiser->name])
-    @endif
+    @lang("Organiser.organiser_name_nights", ["name"=>$organiser->name])
 @stop
 
 @section('top_nav')
@@ -35,16 +26,12 @@
     <div class="col-md-9">
         <div class="btn-toolbar">
             <div class="btn-group btn-group-responsive">
-            @if(!empty($organiser->account->organiser_type) && $organiser->account->organiser_type =='night')
-            <a href="#" data-modal-id="CreateEvent" data-href="{{route('showCreateNight', ['organiser_id' => @$organiser->id])}}" class="btn btn-success loadModal"><i class="ico-plus"></i> @lang("Event.create_night")</a>
-            @else
-            <a href="#" data-modal-id="CreateEvent" data-href="{{route('showCreateEvent', ['organiser_id' => @$organiser->id])}}" class="btn btn-success loadModal"><i class="ico-plus"></i> @lang("Event.create_event")</a>
-            @endif
+                <a href="#" data-modal-id="CreateEvent" data-href="{{route('showCreateNight', ['organiser_id' => @$organiser->id])}}" class="btn btn-success loadModal"><i class="ico-plus"></i> @lang("Event.create_night")</a>
             </div>
         </div>
     </div>
     <div class="col-md-3">
-        {!! Form::open(array('url' => route('showOrganiserEvents', ['organiser_id'=>$organiser->id]), 'method' => 'get')) !!}
+        {!! Form::open(array('url' => route('showOrganiserNights', ['organiser_id'=>$organiser->id]), 'method' => 'get')) !!}
         <div class="input-group">
             <input name="q" value="{{$search['q'] or ''}}" placeholder="@lang('Organiser.search_placeholder')" type="text" class="form-control">
         <span class="input-group-btn">
@@ -63,7 +50,7 @@
             <div class="col-md-3 col-xs-6">
                 <div class="order_options">
                     <span class="event_count">
-                        @lang("Event.num_events", ["num" => $events->count()])
+                        @lang("Event.num_nights", ["num" => $events->count()])
                     </span>
                 </div>
             </div>

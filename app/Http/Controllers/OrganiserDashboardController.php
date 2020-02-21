@@ -17,7 +17,9 @@ class OrganiserDashboardController extends MyBaseController
     {
         $organiser = Organiser::scope()->findOrFail($organiser_id);
         $upcoming_events = $organiser->events()->where('end_date', '>=', Carbon::now())->get();
+        $upcoming_nights = $organiser->nights()->where('end_date', '>=', Carbon::now())->get();
         $calendar_events = [];
+        $calendar_nights = [];
 
         /* Prepare JSON array for events for use in the dashboard calendar */
         foreach ($organiser->events as $event) {
@@ -32,10 +34,25 @@ class OrganiserDashboardController extends MyBaseController
             ];
         }
 
+        /* Prepare JSON array for events for use in the dashboard calendar */
+        foreach ($organiser->nights as $night) {
+            $calendar_nights[] = [
+                'title' => $night->title,
+                'start' => $night->start_date->toIso8601String(),
+                'end'   => $night->end_date->toIso8601String(),
+                'url'   => route('showEventDashboard', [
+                    'event_id' => $night->id
+                ]),
+                'color' => '#4E558F'
+            ];
+        }
+
         $data = [
             'organiser'       => $organiser,
             'upcoming_events' => $upcoming_events,
+            'upcoming_nights' => $upcoming_nights,
             'calendar_events' => json_encode($calendar_events),
+            'calendar_nights' =>json_encode($calendar_nights),
         ];
 
         return view('ManageOrganiser.Dashboard', $data);

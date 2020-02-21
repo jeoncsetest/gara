@@ -9,18 +9,18 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h3 class="modal-title">
                     <i class="ico-calendar"></i>
-                    @lang("Event.create_event")</h3>
+                    @lang("Event.create_night")</h3>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            {!! Form::label('title', trans("Event.event_title"), array('class'=>'control-label required')) !!}
+                            {!! Form::label('title', trans("Event.night_title"), array('class'=>'control-label required')) !!}
                             {!!  Form::text('title', Input::old('title'),array('class'=>'form-control','placeholder'=>trans("Event.event_title_placeholder", ["name"=>Auth::user()->first_name]) ))  !!}
                         </div>
 
                         <div class="form-group custom-theme">
-                            {!! Form::label('description', trans("Event.event_description"), array('class'=>'control-label required')) !!}
+                            {!! Form::label('description', trans("Event.night_description"), array('class'=>'control-label required')) !!}
                             {!!  Form::textarea('description', Input::old('description'),
                                         array(
                                         'class'=>'form-control  editable',
@@ -30,7 +30,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    {!! Form::label('start_date', trans("Event.event_start_date"), array('class'=>'required control-label')) !!}
+                                    {!! Form::label('start_date', trans("Event.night_start_date"), array('class'=>'required control-label')) !!}
                                     {!!  Form::text('start_date', Input::old('start_date'),
                                                         [
                                                     'class'=>'form-control start hasDatepicker ',
@@ -45,7 +45,7 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    {!!  Form::label('end_date', trans("Event.event_end_date"),
+                                    {!!  Form::label('end_date', trans("Event.night_end_date"),
                                                 [
                                             'class'=>'required control-label '
                                         ])  !!}
@@ -81,7 +81,7 @@
 
                                     <!--These are populated with the Google places info-->
                             <div>
-                                {!! Form::hidden('isNight', 'N') !!}
+                                {!! Form::hidden('isNight', 'Y') !!}
                                 {!! Form::hidden('formatted_address', '', ['class' => 'location_field']) !!}
                                 {!! Form::hidden('street_number', '', ['class' => 'location_field']) !!}
                                 {!! Form::hidden('country', '', ['class' => 'location_field']) !!}

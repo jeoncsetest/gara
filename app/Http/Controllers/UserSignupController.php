@@ -64,10 +64,13 @@ class UserSignupController extends Controller
             'email'        => 'required|email|unique:users',
             'password'     => 'required|min:8|confirmed',
             'first_name'   => 'required',
+            'organiser_type'   => 'required',
             'terms_agreed' => $is_attendize ? 'required' : '',
         ]);
 
-        $account_data = $request->only(['email', 'first_name', 'last_name']);
+        $account_data = $request->only(['email', 'first_name', 'last_name','organiser_type']);
+        Log::debug('organiser type :' . $request->get('organiser_type'));
+        //$account_data['organiser_type'] = $request->get('organiser_type');
         $account_data['currency_id'] = config('attendize.default_currency');
         $account_data['timezone_id'] = config('attendize.default_timezone');
         $account_data['account_type']  = config('attendize.default_account_type');

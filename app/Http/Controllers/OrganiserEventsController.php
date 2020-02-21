@@ -26,8 +26,8 @@ class OrganiserEventsController extends MyBaseController
 
         $events = $searchQuery
             ? Event::scope()->where('title', 'like', '%' . $searchQuery . '%')->orderBy($sort_by,
-                'desc')->where('organiser_id', '=', $organiser_id)->paginate(12)
-            : Event::scope()->where('organiser_id', '=', $organiser_id)->orderBy($sort_by, 'desc')->paginate(12);
+                'desc')->where('organiser_id', '=', $organiser_id)->where('is_night', '!=', 'Y')->paginate(12)
+            : Event::scope()->where('organiser_id', '=', $organiser_id)->where('is_night', '!=', 'Y')->orderBy($sort_by, 'desc')->paginate(12);
 
         $data = [
             'events'    => $events,
@@ -40,5 +40,38 @@ class OrganiserEventsController extends MyBaseController
         ];
 
         return view('ManageOrganiser.Events', $data);
+    }
+       /**
+     * Show the organiser nights page
+     *
+     * @param Request $request
+     * @param $organiser_id
+     * @return mixed
+     */
+    public function showNights(Request $request, $organiser_id)
+    {
+        $organiser = Organiser::scope()->findOrfail($organiser_id);
+
+        $allowed_sorts = ['created_at', 'start_date', 'end_date', 'title'];
+
+        $searchQuery = $request->get('q');
+        $sort_by = (in_array($request->get('sort_by'), $allowed_sorts) ? $request->get('sort_by') : 'start_date');
+
+        $events = $searchQuery
+            ? Event::scope()->where('title', 'like', '%' . $searchQuery . '%')->orderBy($sort_by,
+                'desc')->where('organiser_id', '=', $organiser_id)->where('is_night', '=', 'Y')->paginate(12)
+            : Event::scope()->where('organiser_id', '=', $organiser_id)->where('is_night', '=', 'Y')->orderBy($sort_by, 'desc')->paginate(12);
+
+        $data = [
+            'events'    => $events,
+            'organiser' => $organiser,
+            'search'    => [
+                'q'        => $searchQuery ? $searchQuery : '',
+                'sort_by'  => $request->get('sort_by') ? $request->get('sort_by') : '',
+                'showPast' => $request->get('past'),
+            ],
+        ];
+
+        return view('ManageOrganiser.Nights', $data);
     }
 }

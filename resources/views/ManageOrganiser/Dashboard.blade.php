@@ -55,10 +55,18 @@
         <div class="col-sm-6">
             <div class="stat-box">
                 <h3>
+                @if(!empty($organiser->account->organiser_type) && $organiser->account->organiser_type =='night')
+                    {{$organiser->nights->count()}}
+                @else
                     {{$organiser->events->count()}}
+                @endif                    
                 </h3>
             <span>
-                @lang("Organiser.events")
+                @if(!empty($organiser->account->organiser_type) && $organiser->account->organiser_type =='night')
+                    @lang("Organiser.nights")
+                @else
+                    @lang("Organiser.events")
+                @endif  
             </span>
             </div>
         </div>
@@ -79,20 +87,34 @@
         <div class="col-md-8">
 
             <h4 style="margin-bottom: 25px;margin-top: 20px;">@lang("Organiser.event_calendar")</h4>
-            <div id="calendar"></div>
+            <!--<div id="calendar"></div>-->
 
 
             <h4 style="margin-bottom: 25px;margin-top: 20px;">@lang("Public_ViewOrganiser.upcoming_events")</h4>
-            @if($upcoming_events->count())
-                @foreach($upcoming_events as $event)
-                    @include('ManageOrganiser.Partials.EventPanel')
-                @endforeach
+            @if(!empty($organiser->account->organiser_type) && $organiser->account->organiser_type =='night')
+                @if($upcoming_nights->count())
+                    @foreach($upcoming_nights as $event)
+                        @include('ManageOrganiser.Partials.EventPanel')
+                    @endforeach
+                @else
+                    <div class="alert alert-success alert-lg">
+                        @lang("Organiser.no_upcoming_nights") <a href="#"
+                                                        data-href="{{route('showCreateNight', ['organiser_id' => $organiser->id])}}"
+                                                        class=" loadModal">@lang("Organiser.no_upcoming_nights_click")</a>
+                    </div>
+                @endif
             @else
-                <div class="alert alert-success alert-lg">
-                    @lang("Organiser.no_upcoming_events") <a href="#"
-                                                     data-href="{{route('showCreateEvent', ['organiser_id' => $organiser->id])}}"
-                                                     class=" loadModal">@lang("Organiser.no_upcoming_events_click")</a>
-                </div>
+                @if($upcoming_events->count())
+                    @foreach($upcoming_events as $event)
+                        @include('ManageOrganiser.Partials.EventPanel')
+                    @endforeach
+                @else
+                    <div class="alert alert-success alert-lg">
+                        @lang("Organiser.no_upcoming_events") <a href="#"
+                                                        data-href="{{route('showCreateEvent', ['organiser_id' => $organiser->id])}}"
+                                                        class=" loadModal">@lang("Organiser.no_upcoming_events_click")</a>
+                    </div>
+                @endif
             @endif
         </div>
         <div class="col-md-4">

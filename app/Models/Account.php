@@ -44,6 +44,7 @@ class Account extends MyBaseModel
     protected $fillable = [
         'first_name',
         'last_name',
+        'organiser_type',
         'email',
         'timezone_id',
         'date_format_id',

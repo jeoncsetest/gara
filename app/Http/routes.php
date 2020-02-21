@@ -419,6 +419,11 @@ Route::group(
                 'uses' => 'OrganiserEventsController@showEvents',
             ]);
 
+            Route::get('{organiser_id}/showNights', [
+                'as'   => 'showOrganiserNights',
+                'uses' => 'OrganiserEventsController@showNights',
+            ]);
+
             Route::get('{organiser_id}/customize', [
                 'as'   => 'showOrganiserCustomize',
                 'uses' => 'OrganiserCustomizeController@showCustomize',
@@ -474,6 +479,11 @@ Route::group(
                 'uses' => 'EventController@showCreateEvent',
             ]);
 
+            Route::get('/createNight', [
+                'as'   => 'showCreateNight',
+                'uses' => 'EventController@showCreateNight',
+            ]);
+
             Route::post('/create', [
                 'as'   => 'postCreateEvent',
                 'uses' => 'EventController@postCreateEvent',
@@ -482,6 +492,11 @@ Route::group(
             Route::get('/showEvents', [
                 'as'   => 'showEvents',
                 'uses' => 'EventController@showEvents',
+            ]);
+
+            Route::get('/showNights', [
+                'as'   => 'showNights',
+                'uses' => 'EventController@showNights',
             ]);
 
         });

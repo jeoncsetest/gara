@@ -9,7 +9,11 @@
                 </a>
             </li>
         </ul>
+        @if($event->is_night == 'Y')
+        <h5 class="heading">@lang('basic.night_menu')</h5>
+        @else
         <h5 class="heading">@lang('basic.event_menu')</h5>
+        @endif
         <ul id="nav_event" class="topmenu">
             <li class="{{ Request::is('*dashboard*') ? 'active' : '' }}">
                 <a href="{{route('showEventDashboard', array('event_id' => $event->id))}}">
@@ -35,6 +39,7 @@
                     <span class="text">@lang("basic.attendees")</span>
                 </a>
             </li>
+            @if($event->is_night != 'Y')
             <li class="{{ Request::is('*attendees*') ? 'active' : '' }}">
                 <a href="{{route('showIscritti', array('event_id' => $event->id))}}">
                     <span class="figure"><i class="ico-user"></i></span>
@@ -47,6 +52,7 @@
                     <span class="text">@lang("basic.competitions")</span>
                 </a>
             </li>
+            @endif
             <li class="{{ Request::is('*promote*') ? 'active' : '' }} hide">
                 <a href="{{route('showEventPromote', array('event_id' => $event->id))}}">
                     <span class="figure"><i class="ico-bullhorn"></i></span>

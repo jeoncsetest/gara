@@ -24,7 +24,11 @@
     <li class="nav-button">
         <a target="_blank" href="{{$event->event_url}}">
             <span>
-                <i class="ico-eye2"></i>&nbsp;@lang("ManageEvent.event_page")
+            @if($event->is_night == 'Y')
+             <i class="ico-eye2"></i>&nbsp;@lang("ManageEvent.night_page")
+            @else
+            <i class="ico-eye2"></i>&nbsp;@lang("ManageEvent.event_page") 
+            @endif
             </span>
         </a>
     </li>

@@ -33,6 +33,7 @@ return array (
   'end_sale_on' => 'Fine Vendita in corso',
   'event_not_live' => 'Questo evento non è visibile al pubblico.',
   'event_page' => 'Pagina Evento',
+  'night_page' => 'Pagina Serata',
   'event_tools' => 'Strumento Evento',
   'export' => 'Export',
   'go_to_attendee_name' => 'Vai al partecipante :name',
