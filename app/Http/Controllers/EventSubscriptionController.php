@@ -769,6 +769,7 @@ class EventSubscriptionController extends Controller
     {
         
         Log::debug('entered');
+        $data = null;
         $event_id = $request->get('event_id');
         $itemRowId = $request->get('item_row_id');
         Log::debug('event-ID:' .$event_id .' item_row_id:' . $itemRowId);

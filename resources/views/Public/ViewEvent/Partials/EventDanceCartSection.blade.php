@@ -1,9 +1,9 @@
 <div class="breadcrumbs-wrap no-title">
    <div class="container">
      <ul class="breadcrumbs">
-       <li>Home</a></li>
-       <li>Gare</li>
-       <li>{{ $event->title }}</li>
+       <li><a href="{{ url('/') }}" style="text-decoration: none">Home</a></li>
+       <li><a href="{{ url('/eventList') }}" style="text-decoration: none">Gare</a></li>
+       <li><a href="{{ url('/'.$event->id.'/showEventDescription') }}" style="text-decoration: none">{{ $event->title }}</a></li>
        <li>Riepilogo</li>
      </ul>
    </div>
@@ -109,7 +109,7 @@
 
 
                     <div class="modal-body"  >
-                     <input   type="file" name="mp3_file_{{ $row->rowId }}" id="mp3_file_1{{ $row->rowId }}">
+                     <input   type="file" accept=".mp3" name="mp3_file_{{ $row->rowId }}" id="mp3_file_1{{ $row->rowId }}">
                      <input type="hidden" name='item_row_id' value="{{  $row->rowId }}" id="item_row_id-{{ $row->rowId  }}">
 
                    </div>

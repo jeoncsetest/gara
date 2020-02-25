@@ -32,6 +32,23 @@ class EventController extends MyBaseController
         return view('ManageOrganiser.Modals.CreateEvent', $data);
     }
 
+      /**
+     * Show the 'Create Event' Modal
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
+    public function showCreateNight(Request $request)
+    {
+        $data = [
+            'modal_id'     => $request->get('modal_id'),
+            'organisers'   => Organiser::scope()->pluck('name', 'id'),
+            'organiser_id' => $request->get('organiser_id') ? $request->get('organiser_id') : false,
+        ];
+
+        return view('ManageOrganiser.Modals.CreateNight', $data);
+    }
+
     /**
      * Create an event
      *
@@ -52,7 +69,9 @@ class EventController extends MyBaseController
         $event->title = $request->get('title');
         $event->description = strip_tags($request->get('description'));
         $event->start_date = $request->get('start_date');
-
+        $isNight = $request->get('isNight');
+        $event->is_night = !empty($isNight) ? $isNight : 'N';
+        
         /*
          * Venue location info (Usually auto-filled from google maps)
          */

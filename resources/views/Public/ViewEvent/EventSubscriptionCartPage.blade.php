@@ -74,7 +74,7 @@ function showAddBallerino(rowId, id, message){
 }
 
 function uploadMp3(rowId){
-    removeMp3(rowId)
+    /*removeMp3(rowId)*/
  
       var form = $('#formUploadMp3'+rowId)[0];
         var formData = new FormData(form);
@@ -84,6 +84,7 @@ function uploadMp3(rowId){
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
         });
+        $("#wait").css("display", "block");
         $.ajax({
             url: $('#formUploadMp3'+rowId).attr('action'),
             type: 'post',
@@ -92,6 +93,7 @@ function uploadMp3(rowId){
             data: formData,
            /* async: false,*/
             success: function(data) {
+              $("#wait").css("display", "none");
               if (data.status == 'success'){
                 /*alert('success : ' + data.itemRowId);*/
                 $('#upload'+rowId).remove();
@@ -108,6 +110,7 @@ function uploadMp3(rowId){
               } 
             },
             error: function() {
+              $("#wait").css("display", "none");
                 alert('There has been an error, please alert us immediately');
             }
         });
@@ -124,6 +127,7 @@ function updateMp3(rowId){
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
         });
+        $("#wait").css("display", "block");
         $.ajax({
             url: $('#formUploadMp3'+rowId).attr('action'),
             type: 'post',
@@ -132,6 +136,7 @@ function updateMp3(rowId){
             data: formData,
            /* async: false,*/
             success: function(data) {
+              $("#wait").css("display", "none");
               if (data.status == 'success'){
                 /*alert('success : ' + data.itemRowId);*/
                 $('#btnUpdateMp3'+rowId).remove();
@@ -143,6 +148,7 @@ function updateMp3(rowId){
               } 
             },
             error: function() {
+              $("#wait").css("display", "none");
                 alert('There has been an error, please alert us immediately');
             }
         });
@@ -157,7 +163,7 @@ function AssignId(rowId) {
 }
 $('#updatemp3').submit(function(){
   event.preventDefault();
-  removeMp3(id);
+  /*removeMp3(id);*/
 
   var form = $('#updatemp3')[0];
         var formData = new FormData(form);

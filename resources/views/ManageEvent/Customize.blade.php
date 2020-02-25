@@ -3,7 +3,11 @@
 
 @section('title')
     @parent
+    @if($event->is_night == 'Y')
+    @lang("Event.customize_night")
+    @else
     @lang("Event.customize_event")
+    @endif
 @stop
 
 @section('top_nav')
@@ -16,7 +20,11 @@
 
 @section('page_title')
     <i class="ico-cog mr5"></i>
+    @if($event->is_night == 'Y')
+    @lang("Event.customize_night")
+    @else
     @lang("Event.customize_event")
+    @endif
 @stop
 
 @section('page_header')

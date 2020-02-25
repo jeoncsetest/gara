@@ -8,7 +8,7 @@
 
     <ul class="breadcrumbs">
 
-      <li>Home</li>
+      <li><a href="{{ url('/') }}" style="text-decoration: none">Home</a></li>
       <li>Gare</li>
 
     </ul>

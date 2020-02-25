@@ -12,7 +12,11 @@
 
 @section('page_title')
 <i class="ico-home2"></i>
-@lang("basic.event_dashboard")
+@if($event->is_night == 'Y')
+    @lang("basic.night_dashboard")
+@else
+    @lang("basic.event_dashboard")
+@endif
 @endsection
 
 @section('menu')

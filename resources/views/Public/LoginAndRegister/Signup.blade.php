@@ -48,6 +48,17 @@
                         <p class="help-block">{{ $errors->first('email') }}</p>
                     @endif
                 </div>
+                <div class="form-group {{ ($errors->has('email')) ? 'has-error' : '' }}">
+                {!! Form::label('organiser_type', trans("User.organiser_type"), ['class' => 'control-label required']) !!}
+                    <select class="form-control"  name='organiser_type' id='organiser_type'>
+                        <option selected disabled>Seleziona un tipo.....</option>
+                        <option value="event">eventi</option> 
+                        <option value="night">serate</option>              
+                    </select>
+                  @if($errors->has('organiser_type'))
+                        <p class="help-block">{{ $errors->first('organiser_type') }}</p>
+                    @endif
+                  </div>
                 <div class="form-group {{ ($errors->has('password')) ? 'has-error' : '' }}">
                     {!! Form::label('password', trans("User.password"), ['class' => 'control-label required']) !!}
                     {!! Form::password('password',  ['class' => 'form-control']) !!}

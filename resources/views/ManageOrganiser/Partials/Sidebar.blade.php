@@ -9,12 +9,22 @@
                     <span class="text">@lang("Organiser.dashboard")</span>
                 </a>
             </li>
+            @if(!empty($organiser->account->organiser_type) && $organiser->account->organiser_type=='event')
             <li class="{{ Request::is('*events*') ? 'active' : '' }}">
                 <a href="{{route('showOrganiserEvents', array('organiser_id' => $organiser->id))}}">
                     <span class="figure"><i class="ico-calendar"></i></span>
                     <span class="text">@lang("Organiser.event")</span>
                 </a>
             </li>
+            @endif
+            @if(!empty($organiser->account->organiser_type) && $organiser->account->organiser_type=='night')
+            <li class="{{ Request::is('*showNights*') ? 'active' : '' }}">
+                <a href="{{route('showOrganiserNights', array('organiser_id' => $organiser->id))}}">
+                    <span class="figure"><i class="ico-calendar"></i></span>
+                    <span class="text">@lang("Organiser.nights")</span>
+                </a>
+            </li>
+            @endif
             <!--
             <li class="{{ Request::is('*coupons*') ? 'active' : '' }}">
                 <a href="{{route('showOrganiserCoupons', array('organiser_id' => $organiser->id,'organiserId' => $organiser->id, 'sort_by' =>''))}}">

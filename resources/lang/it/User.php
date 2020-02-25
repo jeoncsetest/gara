@@ -8,6 +8,7 @@ return array (
   'dont_have_account_button' => 'Non hai un account? <a class="semibold" href=":url">Iscriviti </a>',
   'email' => 'Email',
   'first_name' => 'Nome',
+  'organiser_type' => 'Tipo organizzatore',
   'forgot_password' => 'Hai dimenticato la password',
   'forgot_password?' => 'Hai dimenticato la password?',
   'hide_change_password' => 'Nascondi cambio Password',

@@ -68,7 +68,17 @@ class Organiser extends MyBaseModel implements AuthenticatableContract
      */
     public function events()
     {
-        return $this->hasMany(\App\Models\Event::class);
+        return $this->hasMany(\App\Models\Event::class)->where('is_night', 'N');
+    }
+
+      /**
+     * The events associated with the organizer.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function nights()
+    {
+        return $this->hasMany(\App\Models\Event::class)->where('is_night', 'Y');
     }
 
     /**
