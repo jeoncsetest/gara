@@ -28,8 +28,9 @@
         </div>
 
         <div class="info-box" data-bg="{{ asset('/bootstrap/4.3.1/images/480x338_bg2.jpg') }}">
-
-           <h3 class="box-title">Serate</h3>
+           <h3 class="box-title"><a href="{{ route('showNightListPage') }}">Serate</a></h3>
+          <p> <span> &nbsp; &nbsp;</span>  </p>
+          <a href="{{ route('showNightListPage') }}" class="btn btn-style-2">Visualizza</a>
 
         </div>
 
