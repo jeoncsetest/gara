@@ -31,7 +31,12 @@
    <div class="container">
      <ul class="breadcrumbs">
        <li>Home</a></li>
-       <li>Gare</li>
+       @if(!empty($event->is_night) && $event->is_night == 'Y')
+            <li>Serate</li>
+       @else
+            <li>Gare</li>
+       @endif
+       
        <li>{{ $event->title }}</li>
        <li>Biglietto</li>
      </ul>

@@ -108,6 +108,11 @@ Route::group(
             'uses' => 'EventViewController@showEventListHome',
         ]);
 
+        Route::get('/nightList', [
+            'as'   => 'showNightListPage',
+            'uses' => 'EventViewController@showNightListHome',
+        ]);
+
         Route::get('/showStudentsPage', [
             'as'   => 'showStudentsPage',
             'uses' => 'SchoolManagementController@showStudentsPage',
@@ -274,6 +279,11 @@ Route::group(
     Route::get('/{event_desc_id}/showEventDescription', [
         'as'   => 'showEventDescription',
         'uses' => 'EventViewController@showEventDescription',
+    ]);
+
+    Route::get('/{event_desc_id}/showNightDescription', [
+        'as'   => 'showNightDescription',
+        'uses' => 'EventViewController@showNightDescription',
     ]);
 
 

@@ -110,6 +110,27 @@ class EventViewController extends Controller
         return view('Public.ViewEvent.EventDescriptionGara', $data);
     }
 
+
+      
+     /**
+     * Show the homepage for an event
+     *
+     * @param Request $request
+     * @param $event_id
+     * @param string $slug
+     * @param bool $preview
+     * @return mixed
+     */
+    public function showNightDescription(Request $request, $event_id, $slug = '', $preview = false)
+    {
+        $event = Event::findOrFail($event_id);
+        $data = [
+            'event' => $event,
+            'is_embedded' => 0,
+        ];
+        return view('Public.ViewEvent.NightDescription', $data);
+    }
+
    
     /**
      * Show preview of event homepage / used for backend previewing
@@ -240,6 +261,7 @@ class EventViewController extends Controller
         $events = DB::table('events')
                 ->whereDate('end_date', '>=', $mytime)
                 ->Where('is_live', '=', 1)
+                ->Where('is_night', '=', 'N')
                 ->get();
 
         $eventsList =[];
@@ -260,6 +282,47 @@ class EventViewController extends Controller
         /*echo $datetime->format('D');*/
         /*Log::debug('mi porta evet view controller su EventDancePage');*/
         return view('Public.ViewEvent.EventDancePage', $data);
+    }
+
+    
+    /**
+     * Show the homepage
+     *
+     * @param Request $request
+     * @param $event_id
+     * @param string $slug
+     * @param bool $preview
+     * @return mixed
+     */
+    public function showNightListHome(Request $request)
+    {
+        $mytime = Carbon::now();
+        $eventDay = '';
+        $mytime2 = $mytime->toDateTimeString('Y-m-d H:i:s');
+        $events = DB::table('events')
+                ->whereDate('end_date', '>=', $mytime)
+                ->Where('is_live', '=', 1)
+                ->Where('is_night', '=', 'Y')
+                ->get();
+
+        $eventsList =[];
+        foreach ($events as $e1) {
+            $event = Event::findOrFail($e1->id);
+            $eventsList[] = $event;
+            /*
+            echo $e1->title;
+            echo $e1->start_date;*/
+            $mytime2 = Carbon::createFromFormat('Y-m-d H:i:s', $e1->start_date);
+            /*echo $mytime2->format('l');*/
+        }
+        $data = [
+            'events' => collect($eventsList)
+        ];
+
+        $datetime = DateTime::createFromFormat('YmdHi', '201308131830');
+        /*echo $datetime->format('D');*/
+        /*Log::debug('mi porta evet view controller su EventDancePage');*/
+        return view('Public.ViewEvent.NightDancePage', $data);
     }
 
         /**
