@@ -67,7 +67,7 @@
                                         <li><p >
                                       <div class="align-rigth">
                                     <!--    {{route('showEventDescription', array('event_desc_id'=>$event->id))}} -->
-                                                 <a href="{{route('showEventPage', array('event_id'=>$event->id))}}" class="btn btn-big btn-style-4"><i class="fas fa-users"></i>PUBBLICO</a>
+                                                 <a href="{{route('showEventPage', array('event_id'=>$event->id))}}" class="btn btn-big btn-style-4"><i class="fas fa-users"></i>TICKET</a>
                                                </div>
                                                </p>
                                              </li>

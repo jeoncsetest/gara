@@ -189,10 +189,10 @@ class UserLoginController extends Controller
             return response()->json([
                 'status'      => 'success',
                 'message'      => 'suc',
-                'redirectUrl' => route('showEventListPage'),
+                'redirectUrl' => route('homepage'),
             ]);
         }else{
-            return new RedirectResponse(route('showEventListPage'));
+            return new RedirectResponse(route('homepage'));
         }        
     }
 
