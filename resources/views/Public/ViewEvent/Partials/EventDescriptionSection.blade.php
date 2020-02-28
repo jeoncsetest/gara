@@ -73,7 +73,11 @@
                                              </li>
                                                <li><p >
                                                <div class="align-rigth">
+                                                  @if(Session::has('school'))
                                                   <a onclick="showPopupIscrizione()" href="#" class="btn btn-big btn-style-6">ISCRIZIONE <i class="fas fa-medal"></i></a>                                                        
+                                                  @else
+                                                  <a href = "{{route('showSubscriptionPage', array('event_id'=>$event->id))}}" class="btn btn-big">ISCRIZIONE <i class="fas fa-medal"></i></a>  
+                                                  @endif
                                                 </div>
                                                         
           <div id="popup-iscrizione" class="popup var3">
